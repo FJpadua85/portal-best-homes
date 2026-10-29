@@ -1,4 +1,5 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Simulador de financiamento imobiliário da Best Homes com as taxas dos principais bancos, avaliação de imóveis, notícias do mercado e contato direto com nossos corretores em Jundiaí/SP."><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
 <title>Portal Best Homes</title>
 <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#141517"><meta name="apple-mobile-web-app-title" content="Best Homes"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +68,9 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 .banks tr.best td:first-child::after{content:"menor taxa";display:block;margin-left:0!important;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--good);margin-left:8px}
 .banks tr[data-sel=true] td{background:var(--gold-soft)}
 .tablewrap{overflow-x:auto}
+.oficial{margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--mute)}
+.oficial div{display:flex;flex-wrap:wrap;gap:8px}
+.oficial .btn{font-size:13px;padding:8px 14px;border-radius:999px;text-decoration:none}
 .cta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .btn{font:600 15px var(--body);padding:13px 20px;border-radius:6px;border:1px solid var(--band);background:var(--band);color:var(--band-fg);cursor:pointer;text-decoration:none}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
@@ -101,6 +105,12 @@ header .intro-h{display:flex;flex-direction:column;gap:14px;padding-bottom:26px}
 .tabs{display:flex;gap:6px;overflow-x:auto;border-top:1px solid var(--head-line);margin-inline:-4px;scrollbar-width:none}
 .tabs a{color:var(--head-mute);padding:14px 12px 12px;font:500 15px var(--body);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
 .tabs a:hover{color:var(--head-fg)}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.site-btn{display:inline-flex;align-items:center;gap:8px;background:#CDAE72;color:#141517;font:700 15px var(--body);text-decoration:none;padding:12px 22px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 14px rgba(205,174,114,.25);transition:background .15s,transform .15s}
+.site-btn:hover{background:#D9BE86;transform:translateY(-1px)}
+.site-btn:focus-visible{outline:2px solid #F5F2EC;outline-offset:3px}
+@media (max-width:520px){header .logo img{height:38px}.site-btn{padding:10px 16px;font-size:14px}}
+@media (prefers-reduced-motion:reduce){.site-btn{transition:none}.site-btn:hover{transform:none}}
 .tabs a.ext{margin-left:auto;color:#CDAE72}
 .tabs a.ext:hover{color:var(--head-fg)}
 .tabs a.ext span{font-size:13px}
@@ -262,7 +272,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 .av-wrap{padding-block:32px 56px;display:flex;flex-direction:column;gap:24px}
 .av-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 16px}
 @media (max-width:900px){.av-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.av-form .cta{margin-top:6px}
+
 .av-wide{grid-column:span 2}
 .av-full{grid-column:1/-1}
 .av-pinrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px}
@@ -309,6 +319,12 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 .av-tab td small{display:block;color:var(--mute);font-size:12px}
 .av-fin{margin:0;font-size:14px;color:var(--mute);border-left:3px solid var(--gold);padding-left:12px}
 .av-fin b{color:var(--fg)}
+.av-ext{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:620px){.av-ext{grid-template-columns:1fr}}
+.av-ext>div{border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;flex-direction:column;gap:4px;background:var(--bg)}
+.av-ext span{font:700 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.av-ext b{font:700 24px/1.15 var(--display);font-variant-numeric:tabular-nums}
+.av-ext small{font-size:13px;color:var(--mute)}.av-ext a{color:var(--fg)}
+.av-rent{max-width:520px;margin:0}.av-rent input{max-width:160px}
 .av-tab tfoot tr.sub td{background:var(--head);color:var(--head-fg);font-weight:600;font-size:13px;padding:9px 10px}
 .av-tab tfoot tr:not(.sub) td{background:var(--gold-soft);color:var(--fg);font-weight:700;padding:10px}
 .av-tab td a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
@@ -350,6 +366,106 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   .rd{padding:calc(16px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px))}
   .rd .top{position:sticky;top:0;background:var(--surface);z-index:1;padding-top:6px}
 }
+
+/* Aba Instalar no celular */
+.app-wrap{padding-block:32px 56px;display:flex;flex-direction:column;gap:24px}
+.app-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:820px){.app-top{grid-template-columns:minmax(0,1fr)}}
+.panel h2.app-h{font:700 clamp(24px,3.2vw,34px)/1.15 var(--display);margin:8px 0 8px;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
+.app-link{background:var(--gold-soft);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.app-link code{font:600 14px/1.4 ui-monospace,Menlo,monospace;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;overflow-wrap:anywhere}
+.app-link .row{display:flex;flex-wrap:wrap;gap:8px}
+.app-link .btn{border-radius:999px;padding:11px 18px;font-size:14px}
+.app-so{display:inline-flex;align-self:flex-start;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--surface)}
+.app-so button{font:600 15px var(--body);border:0;background:none;color:var(--mute);padding:10px 22px;border-radius:999px;cursor:pointer}
+.app-so button[aria-selected=true]{background:var(--head);color:var(--head-fg)}
+.app-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:16px;counter-reset:p}
+@media (min-width:1060px){.app-steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.app-steps li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.app-steps .ph{background:var(--bg);border-radius:10px;display:grid;place-items:center;padding:14px 0}
+.app-steps svg{width:min(100%,150px);height:auto;display:block}
+.app-steps h3{margin:0;font:700 16px/1.3 var(--display);display:flex;gap:10px;align-items:flex-start}
+.app-steps h3::before{content:counter(p);flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#141517;display:grid;place-items:center;font:700 13px var(--body);margin-top:-2px}
+.app-steps p{margin:0;font-size:14px;color:var(--mute);line-height:1.5}
+.app-steps p b{color:var(--fg)}
+.app-dicas ul{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--mute)}
+.app-dicas b{color:var(--fg)}
+.tap{transform-box:fill-box;transform-origin:center;animation:tap 1.6s ease-in-out infinite}
+.pisca{animation:pisca 1.4s ease-in-out infinite}@keyframes pisca{50%{opacity:.25}}
+@keyframes tap{0%,100%{opacity:.9;transform:scale(1)}50%{opacity:.35;transform:scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.tap,.pisca{animation:none}}
+@media (max-width:620px){.app-steps li{border-radius:0;border-left:0;border-right:0;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));padding-inline:max(16px, env(safe-area-inset-left, 0px))}}
+
+/* Avaliador em etapas (fluxo inspirado no QPreço, no visual Best Homes) */
+.wz{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(35,39,44,.04),0 8px 24px rgba(35,39,44,.05)}
+@media (max-width:860px){.wz{grid-template-columns:minmax(0,1fr)}.wz-art{display:none!important}}
+.wz-card{display:flex;flex-direction:column;min-width:0;padding:32px 36px 0}
+@media (max-width:620px){.wz{border-radius:0;border-left:0;border-right:0;box-shadow:none;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)))}.wz-card{padding:24px max(16px, env(safe-area-inset-left, 0px)) 0}}
+.wz-brand{display:flex;align-items:center;gap:10px;font:600 17px var(--display);letter-spacing:-.01em;margin-bottom:20px}
+.wz-brand em{font-style:normal;color:var(--gold)}
+.wz-logo{width:34px;height:34px;border-radius:8px;background:var(--head);color:#CDAE72;display:grid;place-items:center;font:700 13px var(--display);letter-spacing:.04em}
+.wz-h{font:700 clamp(32px,4.6vw,48px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 10px;text-wrap:balance;color:var(--fg)}
+.wz-lead{margin:0 0 24px;color:var(--mute);max-width:46ch}
+.wz-step{animation:wzIn .35s ease}
+@keyframes wzIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wz-step{animation:none}}
+.wz-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wz-row-cid{grid-template-columns:minmax(0,1fr) 110px}
+@media (max-width:520px){.wz-row{grid-template-columns:minmax(0,1fr)}.wz-row-cid{grid-template-columns:minmax(0,1fr) 96px}}
+.wz-narrow{max-width:340px}
+.wz-lab{font-weight:500;font-size:15px}
+.wz-pills{display:flex;flex-wrap:wrap;gap:10px}
+.wz-pills button{font:500 15px var(--body);padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;transition:border-color .15s,background .15s}
+.wz-pills button:hover{border-color:var(--gold)}
+.wz-pills button[aria-checked=true]{background:var(--head);border-color:var(--head);color:var(--head-fg)}
+.wz-sr{position:absolute!important;width:1px!important;height:1px!important;opacity:0;pointer-events:none;overflow:hidden}
+.wz-unit{position:relative}.wz-unit input{padding-right:48px}
+.wz-unit span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--mute)}
+.wz-cnt{flex-direction:row;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;max-width:460px}
+.wz-cnt>div:first-child{display:flex;flex-direction:column;gap:2px}
+.wz-stp{display:flex;align-items:center;gap:6px;flex:none}
+.wz-stp button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 20px/1 var(--body);cursor:pointer;display:grid;place-items:center}
+.wz-stp button:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.wz-stp button:disabled{opacity:.35;cursor:default}
+.wz-stp input{width:52px;text-align:center;padding:8px 4px;background:transparent;border:0;font-weight:700;font-size:19px;-moz-appearance:textfield}
+.wz-stp input::-webkit-inner-spin-button,.wz-stp input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.wz-more{margin:4px 0 18px;border:1px dashed var(--line);border-radius:10px;padding:12px 14px}
+.wz-more summary{cursor:pointer;font-weight:500;font-size:15px}
+.wz-more[open] summary{margin-bottom:12px}
+.wz-foot{margin-top:auto;position:sticky;bottom:0;background:var(--surface);margin-inline:-36px;padding:0 36px max(18px, env(safe-area-inset-bottom, 0px))}
+@media (max-width:620px){.wz-foot{margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));padding-inline:max(16px, env(safe-area-inset-left, 0px))}}
+.wz-bar{height:4px;background:var(--line);margin:0 -36px 16px}
+@media (max-width:620px){.wz-bar{margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)))}}
+.wz-bar i{display:block;height:100%;width:25%;background:var(--gold);transition:width .35s ease}
+.wz-nav{display:flex;align-items:center;gap:12px}
+.wz-nav .btn{border-radius:999px;padding:12px 26px}
+.wz-nav #wzNext,.wz-nav #wzFim{margin-left:auto}
+.wz-nav .btn.ghost:disabled{visibility:hidden}
+.wz-cont{font-size:13px;color:var(--mute)}
+.wz-art{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:36px;border-left:1px solid var(--line)}
+.wz-svg{width:min(100%,380px);height:auto}
+.wz-steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;width:min(100%,300px)}
+.wz-steps li{counter-increment:s;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--mute)}
+.wz-steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font:600 13px var(--body);background:var(--surface);flex:none}
+.wz-steps li.on{color:var(--fg);font-weight:600}.wz-steps li.on::before{background:var(--gold);border-color:var(--gold);color:#141517}
+.wz-steps li.ok::before{content:"✓";background:var(--head);border-color:var(--head);color:#CDAE72}
+.wz-art p{margin:0;font-size:13px;color:var(--mute);max-width:34ch;text-align:center}
+.wz-resumo{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-weight:500}
+.wz-resumo .btn{border-radius:999px}
+.wz-resumo{position:sticky;top:8px;z-index:3;box-shadow:0 6px 18px rgba(35,39,44,.08)}
+.wz-racts{display:flex;gap:8px;flex-wrap:wrap}
+.wz-reset{font:500 14px var(--body);background:none;border:0;color:var(--mute);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
+.wz-reset:hover{color:var(--fg)}
+.wz-raio button{padding:9px 15px;font-size:14px}
+.av-raio{display:flex;flex-direction:column;gap:10px;padding:16px 18px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.av-raio .wz-pills button:disabled{opacity:.4;cursor:default}
+@media (max-width:520px){.wz-nav{flex-wrap:wrap}.wz-cont{order:3;width:100%;text-align:center}}
+.wz .vozbar{margin:-6px 0 20px;padding:8px 10px;gap:6px 12px;background:var(--bg)}.wz .vozbar .btn{padding:8px 14px;font-size:14px;border-radius:999px}.wz .vozbar .st{font-size:13px;color:var(--mute)}.wz .vozbar .st small{display:none}
+.mic-ajuda{margin-top:10px;padding:12px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--line);color:var(--fg);font-size:14px;line-height:1.5}
+.mic-ajuda ol{margin:8px 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.mic-ajuda .row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.mic-ajuda .btn{padding:8px 16px;font-size:14px;border-radius:999px}
+.vozbar .st:has(.mic-ajuda){flex-basis:100%}
 </style>
 
 <style>
@@ -410,10 +526,11 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 </style>
 
 </head><body><header><div class="wrap">
-  <a class="logo" href="https://besthomesimoveis.com.br" target="_blank" rel="noopener" aria-label="Best Homes: abrir o site da imobiliária"><img class="lg-l" src="data:image/webp;base64,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" alt="Best Homes" width="454" height="120"></a>
+  <div class="hdr-top"><a class="logo" href="https://besthomesimoveis.com.br" target="_blank" rel="noopener" aria-label="Best Homes: abrir o site da imobiliária"><img class="lg-l" src="data:image/webp;base64,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" alt="Best Homes" width="454" height="120"></a>
+  <a class="site-btn" href="https://www.besthomesimoveis.com.br/" target="_blank" rel="noopener">Acesse nosso site <span aria-hidden="true">↗</span></a></div>
   <div class="intro-h"><h1 id="hH">Quanto fica a <em>sua parcela?</em></h1>
   <p id="hP">Simule o financiamento do seu imóvel com as taxas de referência dos principais bancos. É uma estimativa: a simulação oficial é feita pelo nosso correspondente bancário.</p></div>
-  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#avaliar">Avaliar imóvel</a><a href="#corretores">Escolha seu corretor</a><a href="#noticias">Notícias</a><a href="#semana">Notícias da semana</a><a href="#videos">Vídeos</a><a href="#construcao">Arquitetura e Construção</a><a href="#academia">Para corretores</a><a class="ext" href="https://www.besthomesimoveis.com.br/" target="_blank" rel="noopener">Acesse nosso site <span aria-hidden="true">↗</span></a></nav>
+  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#avaliar">Avaliar imóvel</a><a href="#app">Instalar no celular</a><a href="#corretores">Escolha seu corretor</a><a href="#noticias">Notícias</a><a href="#semana">Notícias da semana</a><a href="#videos">Vídeos</a><a href="#construcao">Arquitetura e Construção</a><a href="#academia">Para corretores</a></nav>
 </div></header>
 
 <main id="tab-simulador"><div class="wrap">
@@ -500,6 +617,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   <p class="intro">Mesma simulação nos principais bancos, ordenada pelo CET. Compare a parcela e leia as <b>entrelinhas</b> de cada um: a menor taxa nem sempre é o menor custo.</p>
   <div class="cards" id="cards"></div>
   <div class="cap" style="margin-top:14px">Taxas mínimas de balcão (SBPE) + TR, atualizadas em <b id="upd"></b>. Fonte: <span id="fonte"></span>. Toque em um banco para ver a simulação completa dele no topo.</div>
+  <div class="oficial"><span>A taxa final depende do seu perfil e do relacionamento com o banco. Confira no simulador oficial:</span><div id="oficial"></div></div>
   <div class="entre">
     <h3>O que a taxa não mostra</h3>
     <ul>
@@ -514,33 +632,102 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 <div class="wrap"><p class="note">Estimativa para fins informativos. Inclui seguros MIP (por idade, sobre o saldo devedor) e DFI (0,01337% ao mês sobre o valor do imóvel) com taxas médias de mercado e tarifa de administração de R$ 25 por mês. Não inclui TR, tarifa de avaliação, cartório e ITBI. Não é proposta de crédito nem recomendação financeira. Best Homes Consultoria Imobiliária · Jundiaí/SP · WhatsApp (11) 96352-7212</p></div>
 </main>
 <section id="tab-avaliar" hidden aria-label="Avaliar imóvel"><div class="wrap av-wrap">
-  <form class="panel av-form" id="avForm" novalidate>
-    <h2>Dados do imóvel</h2>
-    <div class="av-grid">
-      <div class="field av-wide"><label for="avNome">Seu nome <span class="hint">(solicitante)</span></label><input id="avNome" type="text" autocomplete="name" placeholder="ex.: Douglas Silva"></div>
-      <div class="field"><label for="avCep">CEP</label><input id="avCep" type="text" inputmode="numeric" placeholder="13200-000" maxlength="9" autocomplete="postal-code"><span class="hint" id="avCepMsg"></span></div>
-      <div class="field"><label for="avNum">Número</label><input id="avNum" type="text" inputmode="numeric" placeholder="ex.: 1200" autocomplete="off"></div>
-      <div class="field"><label for="avCompl">Complemento</label><input id="avCompl" type="text" placeholder="ex.: casa 12, apto 51" autocomplete="address-line2"></div>
-      <div class="field av-wide"><label for="avCond">Condomínio <span class="hint">(se houver)</span></label><input id="avCond" type="text" list="avCondList" placeholder="Escolha na lista ou escreva o nome"><datalist id="avCondList"></datalist></div>
-      <div class="field av-full av-pin"><label for="avPin">Localização no mapa <span class="hint">(opcional, deixa o estudo mais preciso)</span></label>
-        <div class="av-pinrow"><input id="avPin" type="text" placeholder="Cole aqui as coordenadas do pino ou o link do Google Maps" autocomplete="off">
-        <select id="avRaio" aria-label="Raio de busca"><option value="0.5">Raio de 500 m</option><option value="1">Raio de 1 km</option><option value="2" selected>Raio de 2 km</option><option value="3">Raio de 3 km</option><option value="5">Raio de 5 km</option></select>
-        <a class="btn ghost" id="avMapa" href="https://www.google.com/maps" target="_blank" rel="noopener">Abrir Google Maps ↗</a></div>
-        <span class="hint">No Google Maps, toque e segure (ou clique com o botão direito) no local do imóvel até aparecer o pino. Copie os números que aparecem, por exemplo <b>-23.1848, -46.9109</b>, e cole aqui.</span>
-        <span class="hint" id="avPinMsg"></span></div>
-      <div class="field av-wide"><label for="avRua">Rua ou avenida</label><input id="avRua" type="text" placeholder="ex.: Avenida Nove de Julho" autocomplete="address-line1"></div>
-      <div class="field"><label for="avBairro">Bairro</label><input id="avBairro" type="text" list="avBairroList" placeholder="ex.: Jardim Colônia" autocomplete="address-level3"><datalist id="avBairroList"></datalist></div>
-      <div class="field"><label for="avCid">Cidade</label><input id="avCid" type="text" list="avCidList" value="Jundiaí" autocomplete="address-level2"><datalist id="avCidList"></datalist></div>
-      <div class="field"><label for="avUf">Estado</label>
-        <select id="avUf"><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option selected>SP</option><option>TO</option></select></div>
-      <div class="field"><label for="avTipo">Tipo</label>
-        <select id="avTipo"><option value="casa_cond">Casa em condomínio</option><option value="casa">Casa de rua</option><option value="apto">Apartamento</option></select></div>
-      <div class="field"><label for="avArea">Área construída (m²)</label><input id="avArea" type="number" inputmode="numeric" min="20" max="5000" value="130"></div>
-      <div class="field"><label for="avQ">Quartos</label><input id="avQ" type="number" inputmode="numeric" min="1" max="10" value="3"></div>
-      <div class="field"><label for="avV">Vagas</label><input id="avV" type="number" inputmode="numeric" min="0" max="20" value="2"></div>
+  <form class="wz" id="avForm" novalidate>
+  <div class="wz-card">
+    <div class="wz-brand"><span class="wz-logo" aria-hidden="true">BH</span><span>Avaliador <em>Best Homes</em></span></div>
+
+    <div class="wz-step" data-step="1">
+      <h2 class="wz-h">Onde fica o imóvel?</h2>
+      <p class="wz-lead">Comece pelo CEP: a gente completa a rua, o bairro e a cidade.</p>
+      <div class="wz-row">
+        <div class="field"><label for="avCep">CEP</label><input id="avCep" type="text" inputmode="numeric" placeholder="13200-000" maxlength="9" autocomplete="postal-code"><span class="hint" id="avCepMsg"></span></div>
+        <div class="field"><label for="avNum">Número</label><input id="avNum" type="text" inputmode="numeric" placeholder="ex.: 1200" autocomplete="off"></div>
+      </div>
+      <div class="field"><label for="avRua">Rua ou avenida</label><input id="avRua" type="text" placeholder="ex.: Avenida Nove de Julho" autocomplete="address-line1"></div>
+      <div class="wz-row">
+        <div class="field"><label for="avBairro">Bairro</label><input id="avBairro" type="text" list="avBairroList" placeholder="ex.: Jardim Colônia" autocomplete="address-level3"><datalist id="avBairroList"></datalist></div>
+        <div class="field"><label for="avCompl">Complemento</label><input id="avCompl" type="text" placeholder="Apto, bloco, casa…" autocomplete="address-line2"></div>
+      </div>
+      <div class="wz-row wz-row-cid">
+        <div class="field"><label for="avCid">Cidade</label><input id="avCid" type="text" list="avCidList" value="Jundiaí" autocomplete="address-level2"><datalist id="avCidList"></datalist><span class="err" id="wzErr1"></span></div>
+        <div class="field"><label for="avUf">Estado</label><select id="avUf"><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option selected>SP</option><option>TO</option></select></div>
+      </div>
+      <div class="field"><label for="avCond">Condomínio <span class="hint">(se houver)</span></label><input id="avCond" type="text" list="avCondList" placeholder="Escolha na lista ou escreva o nome"><datalist id="avCondList"></datalist></div>
+      <div class="field"><span class="wz-lab" id="lRaio">Onde buscar imóveis parecidos?</span>
+        <div class="wz-pills wz-raio" role="radiogroup" aria-labelledby="lRaio" data-for="avRaio"><button type="button" role="radio" data-v="0">No mesmo bairro</button><button type="button" role="radio" data-v="0.5">500 m</button><button type="button" role="radio" data-v="1">1 km</button><button type="button" role="radio" data-v="2">2 km</button><button type="button" role="radio" data-v="3">3 km</button><button type="button" role="radio" data-v="5">5 km</button></div>
+        <select id="avRaio" class="wz-sr" tabindex="-1" aria-hidden="true"><option value="0" selected>No mesmo bairro</option><option value="0.5">500 m</option><option value="1">1 km</option><option value="2">2 km</option><option value="3">3 km</option><option value="5">5 km</option></select>
+        <span class="hint" id="avRaioMsg">O raio é medido a partir do pino no mapa ou, sem pino, do centro do bairro. Se informar o condomínio, usamos só imóveis do próprio condomínio.</span></div>
+      <details class="wz-more"><summary>Marcar o local exato no mapa <span class="hint">(opcional, deixa o estudo mais preciso)</span></summary>
+        <div class="field av-pin"><label for="avPin">Coordenadas do pino</label>
+          <div class="av-pinrow"><input id="avPin" type="text" placeholder="Cole as coordenadas ou o link do Google Maps" autocomplete="off">
+          <a class="btn ghost" id="avMapa" href="https://www.google.com/maps" target="_blank" rel="noopener">Abrir Google Maps ↗</a></div>
+          <span class="hint">No Google Maps, toque e segure (ou clique com o botão direito) no local do imóvel até aparecer o pino. Copie os números, por exemplo <b>-23.1848, -46.9109</b>, e cole aqui.</span>
+          <span class="hint" id="avPinMsg"></span></div>
+      </details>
     </div>
-    <div class="cta"><button class="btn" type="submit">Avaliar imóvel</button><span class="hint">Usa só anúncios com até 18 meses.</span></div>
-  </form>
+
+    <div class="wz-step" data-step="2" hidden>
+      <h2 class="wz-h">Nos conte mais sobre esse imóvel</h2>
+      <p class="wz-lead">É rápido! E quanto mais informação, mais confiável será a estimativa.</p>
+      <div class="field"><span class="wz-lab" id="lTipo">Qual o tipo do imóvel?</span>
+        <div class="wz-pills" role="radiogroup" aria-labelledby="lTipo" data-for="avTipo"><button type="button" role="radio" data-v="apto">Apartamento</button><button type="button" role="radio" data-v="casa">Casa de rua</button><button type="button" role="radio" data-v="casa_cond">Casa em condomínio</button></div>
+        <select id="avTipo" class="wz-sr" tabindex="-1" aria-hidden="true"><option value="casa_cond">Casa em condomínio</option><option value="casa">Casa de rua</option><option value="apto">Apartamento</option></select></div>
+      <div class="field wz-narrow"><label for="avArea">Qual a área construída?</label><span class="hint">Se não souber a área exata, coloque um valor aproximado.</span>
+        <div class="wz-unit"><input id="avArea" type="number" inputmode="numeric" min="20" max="5000" value="130"><span>m²</span></div><span class="err" id="wzErr2"></span></div>
+      <div class="field"><span class="wz-lab" id="lCons">Como está a conservação?</span>
+        <div class="wz-pills" role="radiogroup" aria-labelledby="lCons" data-for="avCons"><button type="button" role="radio" data-v="1.05">Reformado ou novo</button><button type="button" role="radio" data-v="1">Bom</button><button type="button" role="radio" data-v="0.93">Precisa de reforma</button></div>
+        <select id="avCons" class="wz-sr" tabindex="-1" aria-hidden="true"><option value="1.05">Reformado ou novo</option><option value="1" selected>Bom</option><option value="0.93">Precisa de reforma</option></select></div>
+      <div class="field wz-narrow"><label for="avNome">Seu nome <span class="hint">(opcional)</span></label><input id="avNome" type="text" autocomplete="name" placeholder="ex.: Douglas Silva"></div>
+    </div>
+
+    <div class="wz-step" data-step="3" hidden>
+      <h2 class="wz-h">Detalhes do imóvel</h2>
+      <p class="wz-lead">Use os botões de menos e mais.</p>
+      <div class="field wz-cnt"><div><label for="avQ">Quartos</label><span class="hint">Incluindo suítes</span></div>
+          <div class="wz-stp"><button type="button" data-d="-1" aria-label="Menos">−</button><input id="avQ" type="number" inputmode="numeric" min="1" max="10" value="3"><button type="button" data-d="1" aria-label="Mais">+</button></div></div>
+      <div class="field wz-cnt"><div><label for="avS">Suítes</label><span class="hint">Destes, quantos são suítes?</span></div>
+          <div class="wz-stp"><button type="button" data-d="-1" aria-label="Menos">−</button><input id="avS" type="number" inputmode="numeric" min="0" max="10" value="1"><button type="button" data-d="1" aria-label="Mais">+</button></div></div>
+      <div class="field wz-cnt"><div><label for="avV">Vagas de garagem</label></div>
+          <div class="wz-stp"><button type="button" data-d="-1" aria-label="Menos">−</button><input id="avV" type="number" inputmode="numeric" min="0" max="20" value="2"><button type="button" data-d="1" aria-label="Mais">+</button></div></div>
+    </div>
+
+    <div class="wz-step" data-step="4" hidden>
+      <h2 class="wz-h">Custos do imóvel</h2>
+      <p class="wz-lead">Servem para mostrar quanto o inquilino vai pagar no total por mês.</p>
+      <div class="field wz-narrow"><label for="avCondV">Valor mensal do condomínio</label><span class="hint">Não inclua despesas pontuais, como aluguel do salão de festas.</span>
+        <div class="money"><span>R$</span><input id="avCondV" type="text" inputmode="numeric" placeholder="0"></div></div>
+      <div class="field"><span class="wz-lab" id="lIptu">Você paga IPTU?</span>
+        <div class="wz-pills" role="radiogroup" aria-labelledby="lIptu" id="wzIptuSN"><button type="button" role="radio" data-v="1" aria-checked="true">Sim</button><button type="button" role="radio" data-v="0" aria-checked="false">Não</button></div></div>
+      <div class="field wz-narrow" id="wzIptuF"><label for="avIptu">Valor total anual do IPTU</label><span class="hint">Some garagem e depósito, se forem cobrados à parte.</span>
+        <div class="money"><span>R$</span><input id="avIptu" type="text" inputmode="numeric" placeholder="0"></div></div>
+    </div>
+
+    <div class="wz-foot">
+      <div class="wz-bar" aria-hidden="true"><i id="wzBar"></i></div>
+      <div class="wz-nav"><button type="button" class="btn ghost" id="wzVoltar">Voltar</button><span class="wz-cont" id="wzCont">Etapa 1 de 4</span><button type="button" class="wz-reset" id="wzReset">Recomeçar</button><button type="button" class="btn" id="wzNext">Continuar</button><button type="submit" class="btn" id="wzFim" hidden>Ver avaliação</button></div>
+    </div>
+  </div>
+  <aside class="wz-art" aria-hidden="true"><svg class="wz-svg" viewBox="0 0 400 360" role="img" aria-label="Ilustração de uma casa">
+  <circle cx="210" cy="170" r="150" fill="var(--gold-soft)"/>
+  <path d="M40 300 Q200 262 370 300 L370 330 L40 330 Z" fill="#DCCFB4"/>
+  <rect x="70" y="150" width="150" height="140" fill="#F7F4EE" stroke="#23272C" stroke-width="3"/>
+  <rect x="220" y="110" width="120" height="180" fill="#23272C"/>
+  <path d="M58 150 L232 150 L232 136 L58 136 Z" fill="#23272C"/>
+  <path d="M208 110 L352 92 L352 106 L208 124 Z" fill="#CDAE72"/>
+  <rect x="88" y="176" width="58" height="62" fill="#CDAE72" opacity=".85"/>
+  <path d="M117 176 V238 M88 207 H146" stroke="#F7F4EE" stroke-width="3"/>
+  <rect x="164" y="214" width="38" height="76" fill="#9E7C42"/>
+  <circle cx="195" cy="254" r="3" fill="#F7F4EE"/>
+  <g fill="#CDAE72" opacity=".9"><rect x="238" y="134" width="84" height="44"/><rect x="238" y="196" width="84" height="44"/></g>
+  <path d="M238 156 H322 M280 134 V178 M238 218 H322 M280 196 V240" stroke="#23272C" stroke-width="3"/>
+  <rect x="226" y="262" width="108" height="6" fill="#CDAE72"/>
+  <g stroke="#3D7653" stroke-width="3" fill="#5E8F6C"><circle cx="356" cy="262" r="20"/><path d="M356 282 V300" fill="none"/><circle cx="48" cy="270" r="16"/><path d="M48 286 V300" fill="none"/></g>
+  <g transform="translate(300 40) rotate(18)"><circle r="34" fill="none" stroke="#23272C" stroke-width="7"/><circle r="27" fill="#FFFFFF" opacity=".55"/><rect x="26" y="22" width="12" height="52" rx="5" transform="rotate(-42 26 22)" fill="#9E7C42"/></g>
+</svg>
+    <ol class="wz-steps"><li>Endereço</li><li>Tipo e área</li><li>Cômodos e vagas</li><li>Custos</li></ol>
+    <p>Comparamos com até 10 imóveis parecidos anunciados na mesma região nos últimos 18 meses.</p></aside>
+</form>
+<div class="wz-resumo" id="wzResumo" hidden><span id="wzResTxt"></span><span class="wz-racts"><button type="button" class="btn ghost" id="wzEditar">Editar dados</button><button type="button" class="btn" id="wzNova">Nova avaliação</button></span></div>
 
   <div id="avOut" aria-live="polite"></div>
   <section class="panel av-reg" aria-labelledby="regH">
@@ -552,6 +739,24 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   </section>
 </div></section>
 
+<section id="tab-app" hidden aria-label="Instalar no celular"><div class="wrap app-wrap">
+  <div class="app-top panel">
+    <div><span class="av-eyebrow">Acesso rápido</span>
+      <h2 class="app-h">Deixe o portal Best Homes na tela do seu celular</h2>
+      <p class="av-sub">Fica com ícone próprio, igual a um aplicativo. Um toque e você abre o simulador, o avaliador e as notícias. Não ocupa espaço e não precisa baixar nada da loja.</p></div>
+    <div class="app-link"><span class="hint">Abra este link no celular:</span>
+      <code id="appUrl">https://claude.ai/artifact/6PYoAPFLnn2b2mT2M9s6Jd</code>
+      <div class="row"><button type="button" class="btn" id="appCopia">Copiar link</button><a class="btn ghost" id="appWa" target="_blank" rel="noopener">Enviar pelo WhatsApp</a></div>
+      <span class="hint" id="appMsg" role="status" aria-live="polite"></span></div>
+  </div>
+  <div class="app-so" role="tablist" aria-label="Escolha o celular">
+    <button type="button" role="tab" id="soIos" aria-selected="true" aria-controls="appIos">iPhone</button>
+    <button type="button" role="tab" id="soAnd" aria-selected="false" aria-controls="appAnd">Android</button>
+  </div>
+  <ol class="app-steps" id="appIos" role="tabpanel" aria-labelledby="soIos"></ol>
+  <ol class="app-steps" id="appAnd" role="tabpanel" aria-labelledby="soAnd" hidden></ol>
+  <div class="app-dicas panel"><h3 class="av-h3">Não encontrou a opção?</h3><ul id="appDicas"></ul></div>
+</div></section>
 <section id="tab-noticias" hidden aria-label="Notícias do mercado imobiliário"><div class="wrap news">
   <div class="dl"><span class="ed">Mercado imobiliário · Crédito e juros</span><span class="dt" id="hoje"></span></div>
   <div class="ngrid">
@@ -616,8 +821,9 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 
 <script>
 /* TAXAS-INICIO (atualizado diariamente pela tarefa agendada) */
-const ATUALIZADO="29/10/2026";
-const FONTE="MySide, Radar de taxas (atualizado em 28/10/2026); Bradesco: InfoMoney, Exame e TN Sul (27 e 28/10/2026); demais bancos sem reajuste até 29/10 (NC News)";
+const ATUALIZADO="29/10/2026 às 16h";
+const FONTE="sites dos bancos e MySide, Radar de taxas (28/10/2026); Bradesco: InfoMoney, Exame e TN Sul (27 e 28/10/2026); demais bancos sem reajuste até 29/10 (NC News)";
+const OFICIAL={"Caixa":"https://www8.caixa.gov.br/siopiinternet-web/simulaOperacaoInternet.do?method=inicializarCasoUso","Bradesco":"https://banco.bradesco/","Banco do Brasil":"https://www.bb.com.br/site/pra-voce/financiamentos/financiamento-imobiliario/","Santander":"https://www.santander.com.br/","Itaú":"https://www.itau.com.br/emprestimos-financiamentos/credito-imobiliario"};
 const BANKS=[
   {n:"Caixa",t:10.26},{n:"Bradesco",t:15.00},{n:"Banco do Brasil",t:11.60},
   {n:"Santander",t:11.69},{n:"Itaú",t:11.99},{n:"Outra taxa",t:null}
@@ -732,6 +938,7 @@ $("copiar").addEventListener("click",()=>{const t=resumo();const msg=$("copyMsg"
   navigator.clipboard.writeText(t).then(()=>{msg.textContent="Resumo copiado. É só colar no WhatsApp."},()=>{msg.textContent="Não deu para copiar automaticamente.";const ta=document.createElement("textarea");ta.value=t;ta.rows=10;ta.style.width="100%";ta.style.marginTop="10px";ta.style.font="14px var(--body)";msg.after(ta);ta.select()})});
 
 $("upd").textContent=ATUALIZADO;$("fonte").textContent=FONTE;
+$("oficial").innerHTML=BANKS.filter(b=>b.t&&OFICIAL[b.n]).map(b=>`<a class="btn ghost" href="${OFICIAL[b.n]}" target="_blank" rel="noopener">${b.n} ↗</a>`).join("");
 update();
 </script>
 <script>
@@ -1526,7 +1733,11 @@ wa.addEventListener("click",e=>{
 /* Avaliador por comparação de anúncios */
 {
 const N=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/\s+/g," ").trim();
-const MAX_COMP=10,DESC_NEG=.05,DESC_RAP=.08;const LIM=new Date();LIM.setMonth(LIM.getMonth()-18);
+const MAX_COMP=10,DESC_NEG=.05,DESC_RAP=.08;
+/* Homogeneização (ACM, NBR 14653-2): ajusta o R$/m² de cada amostra para as características do imóvel avaliado.
+   Área: (área da amostra ÷ área do imóvel)^(1/8). Quartos 2%, suítes 3% e vagas 3% por unidade de diferença (quando a amostra informa).
+   Fator total limitado entre 0,80 e 1,20. RENT_MES: rentabilidade mensal usada para sugerir o aluguel a partir do valor de venda. */
+const F_Q=.02,F_S=.03,F_V=.03,F_MIN=.8,F_MAX=1.2;let RENT_MES=.005;const LIM=new Date();LIM.setMonth(LIM.getMonth()-18);
 const ativos=()=>COMPARAVEIS.filter(c=>c.a>0&&c.p>0&&new Date(c.d+"T12:00:00")>=LIM);
 const med=a=>{const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
 const avg=a=>a.reduce((x,y)=>x+y,0)/(a.length||1);
@@ -1641,6 +1852,7 @@ function comparaveis(f){
         if(f.ponto)sel.forEach(c=>{const xy=coordBairro(c.cid,c.b);if(xy){c.xy=xy;c.dist=km(f.ponto,xy)}});return{l:sel,nivel}}}
     return{l:[],nivel:"",semCond:true}}
   const tent=[
+    ...(f.raioPrior?[[doRaio.filter(c=>perto(c,.4)),`${rtxt}, área parecida`],[doRaio,rtxt]]:[]),
     [doBairro.filter(c=>perto(c,.4)),`mesmo bairro, área parecida`],
     [doRaio.filter(c=>perto(c,.4)),`${rtxt}, área parecida`],
     [doBairro,`mesmo bairro`],
@@ -1659,9 +1871,9 @@ function semOutliers(l){if(l.length<6)return l;const r=l.map(c=>c.p/c.a),a=q(r,.
 
 let ultimoAval=null;
 function grafico(l,medR){
-  const rows=[...l].sort((a,b)=>a.p/a.a-b.p/b.a),top=Math.max(...rows.map(c=>c.p/c.a))*1.12,pc=v=>(v/top*100).toFixed(2)+"%";
+  const u=c=>c.vh||c.p/c.a,rows=[...l].sort((a,b)=>u(a)-u(b)),top=Math.max(...rows.map(u),medR)*1.12,pc=v=>(v/top*100).toFixed(2)+"%";
   const varios=new Set(rows.map(c=>c.b)).size>1;
-  return `<div class="bars" role="img" aria-label="Valor do metro quadrado de cada amostra; média ${m2(medR)} por m²">${rows.map(c=>{const v=c.p/c.a;
+  return `<div class="bars" role="img" aria-label="Valor do metro quadrado ajustado de cada amostra; média ${m2(medR)} por m²">${rows.map(c=>{const v=u(c);
     return `<div class="br"><span class="bl">${varios?esc(c.b.split(" (")[0])+" · ":(c.q?c.q+" quartos · ":"")}${c.a} m²</span>
     <span class="bt"><i class="${v<medR?"lo":"hi"}" style="width:${pc(v)}"></i><b style="left:${pc(v)}">${m2(v)}</b><em style="left:${pc(medR)}"></em></span></div>`}).join("")}</div>`;
 }
@@ -1669,12 +1881,23 @@ function avaliar(f){
   const {l:bruto,nivel,semCond}=comparaveis(f);const out=$("avOut");
   if(!bruto.length){ultimoAval={f,sem:true};
     out.innerHTML=`<div class="panel av-empty"><h2>${semCond?"Ainda sem amostras suficientes deste condomínio":"Ainda sem amostras suficientes nesta região"}</h2>${semCond?`<p>Ainda não temos pelo menos 3 imóveis à venda no condomínio ${esc(f.cond)} na nossa base. Não usamos casas de outros condomínios nem do bairro, porque o valor do m² muda muito de um condomínio para outro. Um corretor da Best Homes faz o estudo com os anúncios do próprio condomínio.</p>`:"<p>"}${semCond?"<!--":""}Para ${esc(TIPO[f.t])} ${f.cond?"no condomínio "+esc(f.cond):f.bairro?"no bairro "+esc(f.bairro):"neste endereço"} (${esc(f.cid)}/${esc(f.uf)}) ainda não temos pelo menos 3 imóveis à venda no mesmo condomínio, no mesmo bairro ou nos bairros vizinhos. Não usamos imóveis de outras regiões da cidade, porque eles distorcem o valor. Um corretor da Best Homes faz o estudo com anúncios da sua região.</p>${semCond?"-->":""}${linksRegiao(f)}
-    </div>${capta()}`;ligarWa();out.scrollIntoView({behavior:"smooth",block:"start"});return}
+    ${!f.cond&&f.ponto?`<p class="cta">${[["1","1 km"],["2","2 km"],["3","3 km"],["5","5 km"]].map(([v,t])=>`<button type="button" class="btn ghost" data-raio="${v}">Tentar raio de ${t}</button>`).join("")}</p>`:""}
+    </div>${capta()}`;out.querySelectorAll("[data-raio]").forEach(b=>b.onclick=()=>{$("avRaio").value=b.dataset.raio;$("avRaio").dispatchEvent(new Event("change"));avaliar(Object.assign({},f,{raio:+b.dataset.raio,raioPrior:true}))});
+    ligarWa();out.scrollIntoView({behavior:"smooth",block:"start"});return}
   /* Método da Best Homes (ACM): valor do m² = média simples do R$/m² das amostras; valor de venda = área × valor do m²;
      valor negociado = -5%; venda rápida = -8% */
   const l=semOutliers(bruto),rs=l.map(c=>c.p/c.a),ps=l.map(c=>c.p);
-  const totM2=rs.reduce((a,b)=>a+b,0),vM2=totM2/rs.length,venda=vM2*f.area,neg=venda*(1-DESC_NEG),rap=venda*(1-DESC_RAP);
-  ultimoAval={f,venda,neg,rap,vM2,n:l.length};
+  l.forEach(c=>{const fa=Math.pow(c.a/f.area,1/8),fq=c.q?1+F_Q*(f.q-c.q):1,fs=c.s!=null&&f.s!=null?1+F_S*(f.s-c.s):1,fv=c.v!=null?1+F_V*(f.v-c.v):1;
+    c.fat=Math.min(F_MAX,Math.max(F_MIN,fa*fq*fs*fv));c.vh=c.p/c.a*c.fat;
+    c.w=1/(.1+Math.abs(c.a-f.area)/f.area+(c.q?Math.abs(c.q-f.q)*.08:.12))});
+  const rh=l.map(c=>c.vh),sw=l.reduce((a,c)=>a+c.w,0);
+  const vM2=l.reduce((a,c)=>a+c.vh*c.w,0)/sw*f.cons,venda=vM2*f.area,neg=venda*(1-DESC_NEG),rap=venda*(1-DESC_RAP);
+  const totM2=rs.reduce((a,b)=>a+b,0),vM2s=totM2/rs.length;
+  const vMin=Math.min(venda,q(rh,.25)*f.cons*f.area),vMax=Math.max(venda,q(rh,.75)*f.cons*f.area);
+  const cv=Math.sqrt(rh.reduce((a,x)=>a+(x-avg(rh))**2,0)/rh.length)/avg(rh);
+  const conf=l.length>=8&&cv<.15?"Alta":l.length>=5&&cv<.25?"Média":"Baixa";
+  const encargos=(f.condV||0)+(f.iptu||0)/12;
+  ultimoAval={f,venda,neg,rap,vM2,n:l.length,vMin,vMax,conf,pMin:Math.min(...ps),pMax:Math.max(...ps)};
   const fontes=[...new Set(l.map(c=>c.f))];
   const dmin=l.map(c=>c.d).sort()[0],dmax=l.map(c=>c.d).sort().pop();
   const hoje=new Date().toLocaleDateString("pt-BR",{timeZone:"America/Sao_Paulo"});
@@ -1683,50 +1906,71 @@ function avaliar(f){
   <section class="panel av-res">
     <span class="av-eyebrow">Análise Comparativa de Mercado (ACM) · ${esc(f.cond||f.bairro||f.cid)} · ${esc(f.cid)}/${esc(f.uf)}</span>
     <h2 class="av-h">Quanto vale o seu imóvel</h2>
-    <p class="av-fin"><b>Finalidade do estudo:</b> aferir o valor para venda do imóvel utilizando o método comparativo de dados de mercado.${f.nome?` <b>Solicitante:</b> ${esc(f.nome)}.`:""} <b>Data:</b> ${hoje}.</p>
-    <p class="av-sub">${esc(TIPO[f.t][0].toUpperCase()+TIPO[f.t].slice(1))} de ${f.area} m², ${f.q} quarto${f.q>1?"s":""} e ${f.v} vaga${f.v===1?"":"s"}. Comparação com ${l.length} amostra${l.length>1?"s":""} (${nivel}).</p>
+    <p class="av-fin"><b>Finalidade do estudo:</b> aferir o valor de venda e sugerir o valor de aluguel do imóvel, pelo método comparativo de dados de mercado.${f.nome?` <b>Solicitante:</b> ${esc(f.nome)}.`:""} <b>Data:</b> ${hoje}.</p>
+    <p class="av-sub">${esc(TIPO[f.t][0].toUpperCase()+TIPO[f.t].slice(1))} de ${f.area} m², ${f.q} quarto${f.q>1?"s":""}${f.s?`, ${f.s} suíte${f.s>1?"s":""}`:""} e ${f.v} vaga${f.v===1?"":"s"}. Comparação com ${l.length} amostra${l.length>1?"s":""} (${nivel}).</p>
+    ${f.cond?"":`<div class="av-raio"><span class="wz-lab">Raio da pesquisa</span><div class="wz-pills wz-raio" role="radiogroup" aria-label="Raio da pesquisa">${[["0","No mesmo bairro"],["0.5","500 m"],["1","1 km"],["2","2 km"],["3","3 km"],["5","5 km"]].map(([v,t])=>`<button type="button" role="radio" data-raio="${v}" aria-checked="${(f.raioPrior?String(f.raio):"0")===v}"${+v&&!f.ponto?" disabled":""}>${t}</button>`).join("")}</div>${f.ponto?"":`<span class="hint">Para pesquisar por raio, informe um bairro conhecido ou marque o pino no mapa.</span>`}</div>`}
     <div class="av-cen">
-      <div class="on"><span>Valor de venda</span><b>${mi(venda)}</b><small><strong>${m2(vM2)}/m²</strong> × ${f.area} m²</small></div>
+      <div class="on"><span>Valor de venda</span><b>${mi(venda)}</b><small><strong>${m2(vM2)}/m²</strong> × ${f.area} m²<br>Faixa de mercado: ${mi(vMin)} a ${mi(vMax)}</small></div>
       <div><span>Valor negociado</span><b>${mi(neg)}</b><small>com ${pct(DESC_NEG)} de negociação</small></div>
       <div><span>Valor de venda rápida</span><b>${mi(rap)}</b><small>com ${pct(DESC_RAP)} de desconto</small></div>
     </div>
+    ${(()=>{const lo=l.reduce((a,c)=>c.p<a.p?c:a),hi=l.reduce((a,c)=>c.p>a.p?c:a),
+      card=(t,c)=>`<div><span>${t}</span><b>${mi(c.p)}</b><small>${c.u?`<a href="${esc(c.u)}" target="_blank" rel="noopener">${esc(c.b)} ↗</a>`:esc(c.b)}<br>${c.a.toLocaleString("pt-BR")} m²${c.q?` · ${c.q} quartos`:""} · ${m2(c.p/c.a)}/m²</small></div>`;
+      return `<div class="av-ext">${card("Menor valor encontrado",lo)}${card("Maior valor encontrado",hi)}</div>`})()}
+    <p class="av-fin"><b>Confiança da estimativa: ${conf}.</b> ${l.length} amostra${l.length>1?"s":""}, com variação de ${Math.round(cv*100)}% no valor do m² depois dos ajustes. ${conf==="Alta"?"As amostras são parecidas entre si.":conf==="Média"?"Vale confirmar com a visita do corretor.":"Poucas amostras ou preços muito diferentes. Use como ponto de partida."}</p>
+    <h3 class="av-h3">Quanto cobrar de aluguel</h3>
+    <div class="av-cen" id="avAlug"></div>
+    <div class="field av-rent"><label for="avRent">Rentabilidade usada <span class="hint">(% do valor de venda por mês)</span></label>
+      <input id="avRent" type="number" inputmode="decimal" step="0.05" min="0.2" max="1.2" value="${(RENT_MES*100).toFixed(2)}">
+      <span class="hint">Referência nacional do FipeZap: perto de 6% ao ano (0,5% ao mês). Casas de alto padrão costumam render menos. Ajuste com o que você vê na região.</span></div>
     <div class="av-kpi">
-      <div><b>${m2(vM2)}</b><span>Valor médio do m²</span><small>média das amostras</small></div>
+      <div><b>${m2(vM2)}</b><span>Valor do m² ajustado</span><small>média simples sem ajuste ${m2(vM2s)}</small></div>
       <div><b>${m2(Math.min(...rs))}</b><span>Menor valor do m²</span><small>maior ${m2(Math.max(...rs))}</small></div>
       <div><b>${mi(Math.min(...ps))} – ${mi(Math.max(...ps))}</b><span>Faixa dos anúncios</span><small>mediana ${mi(med(ps))}</small></div>
       <div><b>${l.length}</b><span>Quantidade de imóveis</span><small>${bruto.length-l.length?`${bruto.length-l.length} fora da curva removido${bruto.length-l.length>1?"s":""}`:"anúncios de até 18 meses"}</small></div>
     </div>
     <h3 class="av-h3">Análise Comparativa de Mercado</h3>
-    <div class="tablewrap"><table class="av-tab"><thead><tr><th>Amostra</th><th>Bairro / condomínio</th><th>Metro m²</th><th>Quartos</th><th>Valor</th><th>Valor m²</th>${f.ponto?"<th>Distância</th>":""}<th>Fonte</th><th>Coleta</th></tr></thead>
-    <tbody>${l.map((c,i)=>`<tr><td>${i+1}</td><td>${c.u?`<a href="${esc(c.u)}" target="_blank" rel="noopener">${esc(c.b)} ↗</a>`:esc(c.b)}${c.obs?`<small>${esc(c.obs)}</small>`:""}</td><td>${c.a.toLocaleString("pt-BR")}${c.ter?`<small>terreno ${c.ter.toLocaleString("pt-BR")} m²</small>`:""}</td><td>${c.q||"n/i"}${c.s?`<small>${c.s} suíte${c.s>1?"s":""}</small>`:""}${c.v?`<small>${c.v} vaga${c.v>1?"s":""}</small>`:""}</td><td><b>${brl(c.p)}</b></td><td>${brl2(c.p/c.a)}</td>${f.ponto?`<td>${c.dist!=null?(c.dist<1?Math.round(c.dist*1000)+" m":c.dist.toLocaleString("pt-BR",{maximumFractionDigits:1})+" km"):"n/i"}</td>`:""}<td>${esc(c.f)}</td><td>${dBR(c.d)}</td></tr>`).join("")}</tbody>
+    <div class="tablewrap"><table class="av-tab"><thead><tr><th>Amostra</th><th>Bairro / condomínio</th><th>Metro m²</th><th>Quartos</th><th>Valor</th><th>Valor m²</th><th>Fator</th><th>m² ajustado</th>${f.ponto?"<th>Distância</th>":""}<th>Fonte</th><th>Coleta</th></tr></thead>
+    <tbody>${l.map((c,i)=>`<tr><td>${i+1}</td><td>${c.u?`<a href="${esc(c.u)}" target="_blank" rel="noopener">${esc(c.b)} ↗</a>`:esc(c.b)}${c.obs?`<small>${esc(c.obs)}</small>`:""}</td><td>${c.a.toLocaleString("pt-BR")}${c.ter?`<small>terreno ${c.ter.toLocaleString("pt-BR")} m²</small>`:""}</td><td>${c.q||"n/i"}${c.s?`<small>${c.s} suíte${c.s>1?"s":""}</small>`:""}${c.v?`<small>${c.v} vaga${c.v>1?"s":""}</small>`:""}</td><td><b>${brl(c.p)}</b></td><td>${brl2(c.p/c.a)}</td><td>${c.fat.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})}</td><td>${brl2(c.vh)}</td>${f.ponto?`<td>${c.dist!=null?(c.dist<1?Math.round(c.dist*1000)+" m":c.dist.toLocaleString("pt-BR",{maximumFractionDigits:1})+" km"):"n/i"}</td>`:""}<td>${esc(c.f)}</td><td>${dBR(c.d)}</td></tr>`).join("")}</tbody>
     <tfoot>
-      <tr class="sub"><td colspan="2">Total por m²</td><td colspan="2">Quantidade de imóveis</td><td colspan="${f.ponto?5:4}">Valor do m²</td></tr>
-      <tr><td colspan="2">${brl2(totM2)}</td><td colspan="2">${l.length}</td><td colspan="${f.ponto?5:4}">${brl2(vM2)}</td></tr>
-      <tr class="sub"><td colspan="2">M² do imóvel</td><td colspan="2">Valor do m²</td><td colspan="${f.ponto?5:4}">Valor de venda</td></tr>
-      <tr><td colspan="2">${f.area}</td><td colspan="2">${brl2(vM2)}</td><td colspan="${f.ponto?5:4}">${brl2(venda)}</td></tr>
-      <tr class="sub"><td colspan="2">Negociação</td><td colspan="2">Desconto</td><td colspan="${f.ponto?5:4}">Valor negociado</td></tr>
-      <tr><td colspan="2">${pct(DESC_NEG)}</td><td colspan="2">${brl2(venda*DESC_NEG)}</td><td colspan="${f.ponto?5:4}">${brl2(neg)}</td></tr>
-      <tr class="sub"><td colspan="2">Venda rápida</td><td colspan="2">Desconto</td><td colspan="${f.ponto?5:4}">Valor de venda rápida</td></tr>
-      <tr><td colspan="2">${pct(DESC_RAP)}</td><td colspan="2">${brl2(venda*DESC_RAP)}</td><td colspan="${f.ponto?5:4}">${brl2(rap)}</td></tr>
+      <tr class="sub"><td colspan="2">Média simples do m²</td><td colspan="2">Quantidade de imóveis</td><td colspan="${f.ponto?7:6}">Valor do m² ajustado${f.cons!==1?" (com conservação)":""}</td></tr>
+      <tr><td colspan="2">${brl2(vM2s)}</td><td colspan="2">${l.length}</td><td colspan="${f.ponto?7:6}">${brl2(vM2)}</td></tr>
+      <tr class="sub"><td colspan="2">M² do imóvel</td><td colspan="2">Valor do m²</td><td colspan="${f.ponto?7:6}">Valor de venda</td></tr>
+      <tr><td colspan="2">${f.area}</td><td colspan="2">${brl2(vM2)}</td><td colspan="${f.ponto?7:6}">${brl2(venda)}</td></tr>
+      <tr class="sub"><td colspan="2">Negociação</td><td colspan="2">Desconto</td><td colspan="${f.ponto?7:6}">Valor negociado</td></tr>
+      <tr><td colspan="2">${pct(DESC_NEG)}</td><td colspan="2">${brl2(venda*DESC_NEG)}</td><td colspan="${f.ponto?7:6}">${brl2(neg)}</td></tr>
+      <tr class="sub"><td colspan="2">Venda rápida</td><td colspan="2">Desconto</td><td colspan="${f.ponto?7:6}">Valor de venda rápida</td></tr>
+      <tr><td colspan="2">${pct(DESC_RAP)}</td><td colspan="2">${brl2(venda*DESC_RAP)}</td><td colspan="${f.ponto?7:6}">${brl2(rap)}</td></tr>
     </tfoot></table></div>
     ${f.ponto&&l.some(c=>c.xy)?`<h3 class="av-h3">Onde estão as amostras</h3>${mapa(f.ponto,f.raio,l)}`:""}
-    <h3 class="av-h3">Valor do m² por amostra</h3>
+    <h3 class="av-h3">Valor do m² ajustado por amostra</h3>
     <p class="av-leg"><i style="background:var(--gold)"></i>abaixo da média <i style="background:var(--head)"></i>acima da média <i class="ln"></i>valor médio ${m2(vM2)}/m²</p>
     <div class="av-chart">${grafico(l,vM2)}</div>
     <div class="av-met">
       <div><h3 class="av-h3">Como calculamos</h3><ol>
         <li>Selecionamos até 10 anúncios de ${esc(TIPO[f.t])} da mesma região: primeiro o mesmo condomínio, depois os imóveis dentro do raio escolhido a partir do pino (ou do centro do bairro), depois o mesmo bairro e os bairros vizinhos pelo CEP. Imóveis de outras regiões da cidade não entram.</li>
         <li>Usamos só anúncios coletados nos últimos 18 meses (de ${dBR(dmin)} a ${dBR(dmax)}).</li>
-        <li>Calculamos o valor do m² de cada amostra (valor ÷ metragem) e a média entre elas.</li>
-        <li>Valor de venda = metragem do imóvel × valor médio do m². Aplicamos ${pct(DESC_NEG)} de negociação e ${pct(DESC_RAP)} para venda rápida.</li></ol></div>
+        <li>Calculamos o valor do m² de cada amostra (valor ÷ metragem) e ajustamos para as características do seu imóvel: área, quartos, suítes e vagas. Cada amostra recebe um fator (coluna Fator).</li>
+        <li>Fazemos a média do m² ajustado, com peso maior para as amostras mais parecidas com o seu imóvel, e aplicamos o estado de conservação.</li>
+        <li>Valor de venda = metragem × valor do m² ajustado. A faixa de mercado vai do 1º ao 3º quartil das amostras. Aplicamos ${pct(DESC_NEG)} de negociação e ${pct(DESC_RAP)} para venda rápida.</li>
+        <li>Aluguel sugerido = valor de venda × rentabilidade mensal. Somamos condomínio e IPTU para mostrar o custo total do inquilino.</li></ol></div>
       <div class="av-lim"><h3 class="av-h3">Premissas e limites</h3><ul>
         <li>Os valores das amostras são <b>preços de oferta</b>, não de venda fechada.</li>
+        <li>O aluguel é estimado pela rentabilidade, não por anúncios de aluguel. Confira com imóveis parecidos para alugar na região.</li>
         <li>Padrão de acabamento, conservação, terreno e localização exata mudam o valor. A visita do corretor confirma o preço.</li>
         <li>Fontes: ${esc(fontes.join(", "))}.</li>
         <li>Este estudo é uma estimativa baseada em anúncios públicos e não substitui o Parecer Técnico de Avaliação Mercadológica (PTAM).</li></ul></div>
     </div>
     ${linksRegiao(f)}
   </section>${capta()}`;
+  const alug=()=>{const r=RENT_MES,a=venda*r,amin=vMin*r,amax=vMax*r;Object.assign(ultimoAval,{alug:a,aMin:amin,aMax:amax,pacote:a+encargos});
+    $("avAlug").innerHTML=`<div class="on"><span>Aluguel sugerido</span><b>${brl(Math.round(a/10)*10)}</b><small>por mês · faixa de ${brl(Math.round(amin/10)*10)} a ${brl(Math.round(amax/10)*10)}</small></div>
+      <div><span>Para alugar mais rápido</span><b>${brl(Math.round(amin/10)*10)}</b><small>início da faixa: atrai mais interessados</small></div>
+      <div><span>Custo total do inquilino</span><b>${brl(Math.round((a+encargos)/10)*10)}</b><small>${encargos?`aluguel + condomínio ${brl(f.condV||0)} + IPTU ${brl(Math.round((f.iptu||0)/12))} por mês`:"informe condomínio e IPTU para somar aqui"}</small></div>`};
+  out.querySelectorAll("[data-raio]").forEach(b=>b.onclick=()=>{const v=+b.dataset.raio;$("avRaio").value=b.dataset.raio;$("avRaio").dispatchEvent(new Event("change"));
+    $("wzResTxt").textContent=$("wzResTxt").textContent.replace(/ · raio de .*$/,"")+(v?` · raio de ${v<1?v*1000+" m":v+" km"}`:"");
+    avaliar(Object.assign({},f,{raio:v||2,raioPrior:v>0}))});
+  alug();$("avRent").addEventListener("input",e=>{const v=parseFloat(String(e.target.value).replace(",","."));if(v>=.1&&v<=2){RENT_MES=v/100;alug()}});
   ligarWa();out.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function linksRegiao(f){const onde=[f.cond&&("condomínio "+f.cond),f.bairro,f.cid].filter(Boolean).join(" ");
@@ -1735,25 +1979,78 @@ function linksRegiao(f){const onde=[f.cond&&("condomínio "+f.cond),f.bairro,f.c
   return `<div class="cta av-links"><span class="hint">Ver anúncios ${f.cond?"deste condomínio":"deste bairro"} nos portais:</span>
     <a class="btn ghost" href="${g("zapimoveis.com.br")}" target="_blank" rel="noopener">ZAP ↗</a>
     <a class="btn ghost" href="${g("vivareal.com.br")}" target="_blank" rel="noopener">VivaReal ↗</a>
-    <a class="btn ghost" href="${g("olx.com.br")}" target="_blank" rel="noopener">OLX ↗</a></div>`}
+    <a class="btn ghost" href="${g("olx.com.br")}" target="_blank" rel="noopener">OLX ↗</a>
+    <a class="btn ghost" href="${g("imovelweb.com.br")}" target="_blank" rel="noopener">Imovelweb ↗</a>
+    <a class="btn ghost" href="${g("chavesnamao.com.br")}" target="_blank" rel="noopener">Chaves na Mão ↗</a>
+    <a class="btn ghost" href="${g("quintoandar.com.br")}" target="_blank" rel="noopener">QuintoAndar ↗</a></div>`}
 function capta(){return `<section class="av-capta"><div><span class="av-eyebrow">Quer vender?</span><h2>Anuncie seu imóvel com a Best Homes</h2>
   <p>Um corretor confirma o valor com uma visita, prepara fotos e vídeo profissionais e divulga o imóvel nos principais portais e no nosso canal.</p></div>
   <a class="btn av-cbtn" id="avWa" href="#" target="_blank" rel="noopener">Quero vender meu imóvel</a></section>`}
 function ligarWa(){const a=$("avWa");if(!a)return;a.addEventListener("click",e=>{const a2=e.currentTarget;
   const k=csel>=0?csel:daVez();const c=CORRETORES[k],x=ultimoAval,f=x.f;
   const end=[f.rua&&(f.rua+(f.num?", "+f.num:"")),f.compl,f.cond&&("Condomínio "+f.cond.replace(/^(Condom[ií]nio)\s+/i,"")),f.bairro,`${f.cid}/${f.uf}`,f.cep&&("CEP "+f.cep)].filter(Boolean).join(" · ");
-  let t=`Olá, ${c.n.split(" ")[0]}! ${f.nome?"Sou "+f.nome+". ":""}Vim pelo Avaliador do Portal Best Homes e quero colocar meu imóvel à venda.\n\n• Tipo: ${TIPO[f.t]}\n• Endereço: ${end}\n• Área: ${f.area} m² · ${f.q} quartos · ${f.v} vagas\n`;
-  if(!x.sem)t+=`• Estudo do site (ACM, ${x.n} amostras): valor de venda ${mi(x.venda)} · negociado ${mi(x.neg)} · venda rápida ${mi(x.rap)} (${m2(x.vM2)}/m²)\n`;
+  let t=`Olá, ${c.n.split(" ")[0]}! ${f.nome?"Sou "+f.nome+". ":""}Vim pelo Avaliador do Portal Best Homes e quero conversar sobre vender ou alugar meu imóvel.\n\n• Tipo: ${TIPO[f.t]}\n• Endereço: ${end}\n• Área: ${f.area} m² · ${f.q} quartos${f.s!=null?" · "+f.s+" suítes":""} · ${f.v} vagas\n`;
+  if(!x.sem)t+=`• Estudo do site (ACM, ${x.n} amostras, confiança ${x.conf.toLowerCase()}): valor de venda ${mi(x.venda)} (faixa ${mi(x.vMin)} a ${mi(x.vMax)}; anúncios de ${mi(x.pMin)} a ${mi(x.pMax)}) · negociado ${mi(x.neg)} · venda rápida ${mi(x.rap)} (${m2(x.vM2)}/m²)\n`;
+  if(!x.sem&&x.alug)t+=`• Aluguel sugerido: ${brl(Math.round(x.alug/10)*10)} por mês (faixa ${brl(Math.round(x.aMin/10)*10)} a ${brl(Math.round(x.aMax/10)*10)})\n`;
   t+=`\nPodemos agendar uma visita para avaliação?`;a2.href="https://wa.me/"+c.w+"?text="+encodeURIComponent(t)})}
+["avCondV","avIptu"].forEach(id=>$(id).addEventListener("input",e=>fmtIn(e.target)));
 $("avForm").addEventListener("submit",e=>{e.preventDefault();
   const f={nome:$("avNome").value.trim(),uf:$("avUf").value,cid:$("avCid").value.trim(),cep:$("avCep").value.trim(),bairro:$("avBairro").value.trim(),rua:$("avRua").value.trim(),num:$("avNum").value.trim(),compl:$("avCompl").value.trim(),cond:$("avCond").value.trim(),t:$("avTipo").value,
-    area:Math.max(20,parseInt($("avArea").value,10)||0),q:Math.max(1,parseInt($("avQ").value,10)||1),v:Math.max(0,parseInt($("avV").value,10)||0)};
+    area:Math.max(20,parseInt($("avArea").value,10)||0),q:Math.max(1,parseInt($("avQ").value,10)||1),v:Math.max(0,parseInt($("avV").value,10)||0),
+    s:$("avS").value===""?null:Math.max(0,parseInt($("avS").value,10)||0),condV:num($("avCondV").value),iptu:num($("avIptu").value),cons:parseFloat($("avCons").value)||1};
   if(!f.cid){$("avCid").focus();return}
-  f.raio=parseFloat($("avRaio").value)||2;
+  const rv=parseFloat($("avRaio").value)||0;f.raio=rv||2;f.raioPrior=rv>0;
   const pin=lerPino($("avPin").value);
   if(Array.isArray(pin)){f.ponto=pin;f.pontoDe="pino"}
   else{const xy=coordBairro(f.cid,f.bairro);if(xy){f.ponto=xy;f.pontoDe="bairro"}}
   avaliar(f)});
+
+/* Avaliador em etapas: mostra uma etapa por vez, como o QPreço */
+const wz={n:1,max:4,form:$("avForm")};
+const wzStep=k=>wz.form.querySelector(`.wz-step[data-step="${k}"]`);
+function wzVai(k){wz.n=Math.min(wz.max,Math.max(1,k));
+  wz.form.querySelectorAll(".wz-step").forEach(el=>el.hidden=+el.dataset.step!==wz.n);
+  $("wzBar").style.width=(wz.n/wz.max*100)+"%";$("wzCont").textContent=`Etapa ${wz.n} de ${wz.max}`;
+  $("wzVoltar").disabled=wz.n===1;$("wzNext").hidden=wz.n===wz.max;$("wzFim").hidden=wz.n!==wz.max;
+  document.querySelectorAll(".wz-steps li").forEach((li,i)=>{li.classList.toggle("on",i+1===wz.n);li.classList.toggle("ok",i+1<wz.n)})}
+function wzValida(){
+  if(wz.n===1&&!$("avCid").value.trim()){$("wzErr1").textContent="Informe a cidade.";$("avCid").focus();return false}
+  if(wz.n===2&&!(parseInt($("avArea").value,10)>=20)){$("wzErr2").textContent="Informe a área em m² (mínimo 20).";$("avArea").focus();return false}
+  $("wzErr1").textContent=$("wzErr2").textContent="";return true}
+$("wzNext").onclick=()=>{if(!wzValida())return;wzVai(wz.n+1);wz.form.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"})};
+$("wzVoltar").onclick=()=>wzVai(wz.n-1);
+wz.form.addEventListener("keydown",e=>{if(e.key!=="Enter"||e.target.tagName==="BUTTON"||e.target.tagName==="TEXTAREA")return;
+  if(wz.n<wz.max){e.preventDefault();if(!e.target.list)$("wzNext").click()}});
+/* botões em pílula sincronizados com o select escondido (o ditado por voz continua preenchendo o select) */
+wz.form.querySelectorAll(".wz-pills[data-for]").forEach(g=>{const sel=$(g.dataset.for);
+  const pinta=()=>g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-checked",b.dataset.v===sel.value));
+  g.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;sel.value=b.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));pinta()});
+  sel.addEventListener("change",pinta);sel.addEventListener("input",pinta);pinta()});
+$("wzIptuSN").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  $("wzIptuSN").querySelectorAll("button").forEach(x=>x.setAttribute("aria-checked",x===b));
+  const sim=b.dataset.v==="1";$("wzIptuF").hidden=!sim;if(!sim)$("avIptu").value=""});
+/* contadores de menos e mais */
+wz.form.querySelectorAll(".wz-stp").forEach(w=>{const inp=w.querySelector("input"),[m,p]=w.querySelectorAll("button");
+  const lim=()=>{const v=+inp.value||0;m.disabled=v<=+inp.min;p.disabled=v>=+inp.max};
+  w.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    inp.value=Math.min(+inp.max,Math.max(+inp.min,(+inp.value||0)+ +b.dataset.d));inp.dispatchEvent(new Event("input",{bubbles:true}));lim()});
+  inp.addEventListener("input",lim);lim()});
+/* suítes nunca passam do número de quartos */
+$("avQ").addEventListener("input",()=>{const q=+$("avQ").value||1;$("avS").max=q;if(+$("avS").value>q){$("avS").value=q}$("avS").dispatchEvent(new Event("input"))});
+/* depois de avaliar, o formulário dá lugar a um resumo, como na página de resultado do QPreço */
+wz.form.addEventListener("submit",()=>{if(!$("avCid").value.trim())return;
+  const t=$("avTipo").selectedOptions[0].textContent,onde=$("avCond").value.trim()||$("avBairro").value.trim()||$("avCid").value.trim();
+  const rv=+$("avRaio").value;$("wzResTxt").textContent=`${t} · ${$("avArea").value} m² · ${$("avQ").value} quartos · ${onde}${rv&&!$("avCond").value.trim()?` · raio de ${rv<1?rv*1000+" m":rv+" km"}`:""}`;
+  wz.form.hidden=true;$("wzResumo").hidden=false});
+function wzReinicia(){wz.form.reset();$("avOut").innerHTML="";ultimoAval=null;
+  ["avCepMsg","avPinMsg","wzErr1","wzErr2"].forEach(id=>$(id).textContent="");
+  ["avTipo","avCons","avRaio"].forEach(id=>$(id).dispatchEvent(new Event("change")));
+  wz.form.querySelectorAll(".wz-stp input").forEach(i=>i.dispatchEvent(new Event("input",{bubbles:true})));
+  $("wzIptuSN").querySelector('[data-v="1"]').click();wz.form.querySelector(".wz-more").open=false;fillBairros();fillConds();
+  wz.form.hidden=false;$("wzResumo").hidden=true;wzVai(1);wz.form.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"})}
+$("wzReset").onclick=wzReinicia;$("wzNova").onclick=wzReinicia;
+$("wzEditar").onclick=()=>{wz.form.hidden=false;$("wzResumo").hidden=true;$("avOut").innerHTML="";wzVai(1);wz.form.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"})};
+wzVai(1);
 
 /* Valor do m² por região */
 {const grupos=()=>{const g=new Map();
@@ -1777,7 +2074,7 @@ $("avForm").addEventListener("submit",e=>{e.preventDefault();
 /* Abas */
 const HEAD={
   simulador:['Quanto fica a <em>sua parcela?</em>','Simule o financiamento do seu imóvel com as taxas de referência dos principais bancos. É uma estimativa: a simulação oficial é feita pelo nosso correspondente bancário.'],
-  avaliar:['Quanto vale o <em>seu imóvel?</em>','Estudo de mercado por comparação: buscamos até 10 imóveis parecidos anunciados na mesma região nos últimos 18 meses e calculamos o valor pelo preço do metro quadrado.'],
+  avaliar:['Saiba quanto vale e quanto cobrar de aluguel do <em>seu imóvel</em>','Responda 4 etapas rápidas. Comparamos com imóveis parecidos anunciados na mesma região e mostramos o valor de venda, a faixa de mercado e o aluguel sugerido.'],
   noticias:['Mercado <em>imobiliário</em>','Crédito, juros e bancos: as notícias que mexem no preço do seu financiamento, apuradas pela Redação Best Homes.'],
   videos:['Tours em <em>vídeo</em>','Conheça por dentro os imóveis de alto padrão da Best Homes em Jundiaí e região.'],
   corretores:['Escolha seu <em>corretor</em>','Fale direto com um corretor da Best Homes. Ele recebe sua mensagem já sabendo que você veio pelo simulador.']};
@@ -1790,6 +2087,69 @@ function listaArt(arr,id){const p=d=>d.split("/").reverse().join("");
   $(id).addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)})}
 listaArt(CONSTRUCAO,"listaConstrucao");listaArt(ACADEMIA,"listaAcademia");
 HEAD.construcao=['Arquitetura e <em>Construção</em>','Tendências de arquitetura, paisagismo, tecnologia e construção que mudam o jeito de morar e o valor dos imóveis.'];
+
+/* Instalar no celular: passo a passo ilustrado para iPhone e Android */
+{
+const G="#CDAE72",D="#23272C",L="#E9E3D8",S="#F7F4EE",M="#A9A49B";
+/* moldura de celular 150×300 com a tela desenhada dentro */
+const cel=(tela)=>`<svg viewBox="0 0 150 300" aria-hidden="true"><rect x="3" y="3" width="144" height="294" rx="24" fill="${D}"/><rect x="10" y="12" width="130" height="276" rx="17" fill="${S}"/><rect x="58" y="16" width="34" height="8" rx="4" fill="${D}"/>${tela}</svg>`;
+const real=(x,y,w,h)=>`<rect class="pisca" x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="none" stroke="${G}" stroke-width="3"/>`;
+const toque=(x,y)=>`<circle class="tap" cx="${x}" cy="${y}" r="13" fill="none" stroke="${G}" stroke-width="4"/><circle cx="${x}" cy="${y}" r="5" fill="${G}"/>`;
+const site=`<rect x="10" y="30" width="130" height="34" fill="${D}"/><text x="22" y="52" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="${G}">BEST HOMES</text>
+  <rect x="20" y="76" width="96" height="10" rx="3" fill="${D}"/><rect x="20" y="92" width="74" height="10" rx="3" fill="${D}"/><rect x="20" y="112" width="110" height="5" rx="2" fill="${L}"/><rect x="20" y="122" width="96" height="5" rx="2" fill="${L}"/>
+  <rect x="20" y="140" width="110" height="64" rx="8" fill="#fff" stroke="${L}"/><rect x="30" y="152" width="50" height="6" rx="3" fill="${M}"/><rect x="30" y="166" width="80" height="12" rx="3" fill="${D}"/><rect x="30" y="186" width="60" height="6" rx="3" fill="${L}"/>`;
+const barraSafari=(dest)=>`<rect x="10" y="246" width="130" height="42" fill="#fff"/><rect x="20" y="252" width="110" height="14" rx="7" fill="${L}"/><text x="75" y="262" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">claude.ai</text>
+  <g stroke="${D}" stroke-width="2" fill="none" stroke-linecap="round"><path d="M28 277 l-4 4 4 4"/><path d="M46 277 l4 4 -4 4"/><path d="M70 284 h10 v-7 M75 272 v9 M71 276 l4 -4 4 4"/><rect x="96" y="275" width="10" height="9" rx="2"/><path d="M119 280 h10"/></g>${dest?toque(75,279):""}`;
+const barraChrome=(dest)=>`<rect x="10" y="30" width="130" height="24" fill="#fff"/><rect x="18" y="35" width="98" height="14" rx="7" fill="${L}"/><text x="60" y="45" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">claude.ai</text>
+  <g fill="${D}"><circle cx="129" cy="37" r="1.8"/><circle cx="129" cy="42" r="1.8"/><circle cx="129" cy="47" r="1.8"/></g>${dest?toque(129,42):""}`;
+const siteC=site.replace(/y="30" width="130" height="34"/,'y="54" width="130" height="30"').replace('y="52" font-family','y="73" font-family');
+const folha=(itens,i)=>`<rect x="10" y="12" width="130" height="276" rx="17" fill="#000" opacity=".28"/><rect x="10" y="120" width="130" height="168" rx="14" fill="#fff"/>
+  ${itens.map((t,k)=>`<rect x="18" y="${132+k*28}" width="114" height="24" rx="6" fill="${k===i?"#F5EFE3":"#F4F2EE"}" ${k===i?`stroke="${G}" stroke-width="2"`:""}/><text x="28" y="${148+k*28}" font-family="Manrope,sans-serif" font-size="7.5" font-weight="${k===i?700:500}" fill="${D}">${t}</text>`).join("")}${real(15,129+i*28,120,30)}`;
+const menu=(itens,i)=>`<rect x="56" y="54" width="82" height="${14+itens.length*22}" rx="8" fill="#fff" stroke="${L}"/>
+  ${itens.map((t,k)=>`<rect x="60" y="${60+k*22}" width="74" height="18" rx="4" fill="${k===i?"#F5EFE3":"#fff"}" ${k===i?`stroke="${G}" stroke-width="2"`:""}/><text x="65" y="${72+k*22}" font-family="Manrope,sans-serif" font-size="7" font-weight="${k===i?700:500}" fill="${D}">${t}</text>`).join("")}${real(57,57+i*22,80,24)}`;
+const confirma=(titulo,botao,bx)=>`<rect x="10" y="12" width="130" height="276" rx="17" fill="#fff"/><rect x="10" y="30" width="130" height="24" fill="#F4F2EE"/>
+  <text x="18" y="46" font-family="sans-serif" font-size="8" fill="${M}">Cancelar</text><text x="${bx}" y="46" text-anchor="end" font-family="Manrope,sans-serif" font-size="8" font-weight="700" fill="#2F6FD6">${botao}</text>
+  <rect x="20" y="66" width="34" height="34" rx="8" fill="${D}"/><text x="37" y="88" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="${G}">BH</text>
+  <rect x="62" y="70" width="68" height="14" rx="3" fill="#F4F2EE" stroke="${G}"/><text x="66" y="80" font-family="Manrope,sans-serif" font-size="8" font-weight="600" fill="${D}">Best Homes</text><rect x="62" y="90" width="50" height="5" rx="2" fill="${L}"/>${real(bx-40,34,44,16)}`;
+const confirmaAnd=`<rect x="10" y="12" width="130" height="276" rx="17" fill="#000" opacity=".28"/><rect x="20" y="104" width="110" height="92" rx="12" fill="#fff"/>
+  <text x="30" y="124" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="${D}">Adicionar à tela inicial</text>
+  <rect x="30" y="134" width="22" height="22" rx="6" fill="${D}"/><text x="41" y="149" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" font-weight="700" fill="${G}">BH</text>
+  <rect x="58" y="138" width="62" height="14" rx="3" fill="#F4F2EE" stroke="${G}"/><text x="62" y="148" font-family="Manrope,sans-serif" font-size="8" font-weight="600" fill="${D}">Best Homes</text>
+  <text x="40" y="182" font-family="sans-serif" font-size="8" fill="${M}">Cancelar</text><text x="120" y="182" text-anchor="end" font-family="Manrope,sans-serif" font-size="8" font-weight="700" fill="#2F6FD6">Adicionar</text>${real(80,171,44,16)}`;
+const home=`<rect x="10" y="12" width="130" height="276" rx="17" fill="#3B4B5E"/><rect x="10" y="12" width="130" height="276" rx="17" fill="url(#gHome)" opacity=".6"/>
+  <defs><linearGradient id="gHome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9E7C42"/><stop offset="1" stop-color="#23272C"/></linearGradient></defs>
+  ${[0,1,2,3].map(r=>[0,1,2,3].map(c=>r===2&&c===1?"":`<rect x="${22+c*29}" y="${48+r*40}" width="22" height="22" rx="6" fill="#fff" opacity=".35"/>`).join("")).join("")}
+  <rect x="51" y="128" width="22" height="22" rx="6" fill="${D}" stroke="${G}" stroke-width="1.5"/><text x="62" y="143" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" font-weight="700" fill="${G}">BH</text>
+  <text x="62" y="160" text-anchor="middle" font-family="sans-serif" font-size="5.5" fill="#fff">Best Homes</text>${toque(62,139)}
+  <rect x="18" y="246" width="114" height="34" rx="12" fill="#fff" opacity=".25"/>`;
+const PASSOS_APP={
+  ios:[
+    [cel(site+barraSafari(false)),"Abra o link no Safari","Use o <b>Safari</b>, o navegador da bússola azul. Copie o link acima ou toque nele pelo WhatsApp."],
+    [cel(site+barraSafari(true)),"Toque em Compartilhar","É o <b>quadrado com a seta para cima</b>, na barra de baixo. Se não aparecer, toque em <b>⋯</b> e depois em <b>Compartilhar</b>."],
+    [cel(site+barraSafari(false)+folha(["Copiar","Adicionar aos Favoritos","Adicionar à Tela de Início","Buscar na Página"],2)),"Adicionar à Tela de Início","Role a lista para cima e toque em <b>Adicionar à Tela de Início</b>."],
+    [cel(confirma("Adicionar à Tela","Adicionar",132)),"Toque em Adicionar","Deixe o nome <b>Best Homes</b> (ou escreva outro) e toque em <b>Adicionar</b>, no canto de cima."],
+    [cel(home),"Pronto!","O ícone da Best Homes aparece na tela inicial. Toque nele para abrir o portal como um app."]],
+  and:[
+    [cel(barraChrome(false)+siteC),"Abra o link no Chrome","Use o <b>Chrome</b>, o navegador colorido do Google. Copie o link acima ou toque nele pelo WhatsApp."],
+    [cel(barraChrome(true)+siteC),"Toque nos três pontinhos","O botão <b>⋮</b> fica no canto de cima, à direita do endereço."],
+    [cel(barraChrome(false)+siteC+menu(["Nova guia","Favoritos","Compartilhar…","Adicionar à tela inicial","Configurações"],3)),"Adicionar à tela inicial","Toque em <b>Adicionar à tela inicial</b>. Em alguns celulares aparece <b>Instalar app</b>: pode tocar nele."],
+    [cel(barraChrome(false)+siteC+confirmaAnd),"Toque em Adicionar","Confira o nome <b>Best Homes</b> e toque em <b>Adicionar</b>. Se o celular perguntar, toque em <b>Adicionar automaticamente</b>."],
+    [cel(home),"Pronto!","O ícone da Best Homes aparece na tela inicial. Toque nele para abrir o portal como um app."]]};
+const pinta=(id,l)=>{$(id).innerHTML=l.map(([svg,t,x])=>`<li><div class="ph">${svg}</div><h3>${t}</h3><p>${x}</p></li>`).join("")};
+pinta("appIos",PASSOS_APP.ios);pinta("appAnd",PASSOS_APP.and);
+const DICAS={ios:["No <b>Chrome do iPhone</b>: toque no botão de compartilhar, ao lado do endereço, e depois em <b>Adicionar à Tela de Início</b>.","Se a opção não estiver na lista, role até o fim e toque em <b>Editar Ações</b> para mostrá-la.","Se o link abriu dentro do WhatsApp ou do Instagram, toque em <b>⋯</b> e escolha <b>Abrir no Safari</b> antes de começar."],
+  and:["No <b>Samsung Internet</b>: toque no menu <b>☰</b> embaixo, depois em <b>Adicionar página a</b> › <b>Tela inicial</b>.","Se o link abriu dentro do WhatsApp ou do Instagram, toque nos <b>três pontinhos</b> e escolha <b>Abrir no Chrome</b> antes de começar.","Se o ícone não apareceu, procure na última página da tela inicial ou na lista de apps."]};
+const so=k=>{const ios=k==="ios";$("soIos").setAttribute("aria-selected",ios);$("soAnd").setAttribute("aria-selected",!ios);$("appIos").hidden=!ios;$("appAnd").hidden=ios;
+  $("appDicas").innerHTML=DICAS[k].map(x=>`<li>${x}</li>`).join("")};
+$("soIos").onclick=()=>so("ios");$("soAnd").onclick=()=>so("and");
+so(/Android/i.test(navigator.userAgent)?"and":"ios");
+const url=$("appUrl").textContent.trim();
+$("appWa").href="https://wa.me/?text="+encodeURIComponent("Portal Best Homes: simulador de financiamento, avaliador de imóveis e notícias do mercado. Abra e adicione à tela inicial: "+url);
+$("appCopia").onclick=async()=>{let ok=false;try{await navigator.clipboard.writeText(url);ok=true}catch(_){}
+  if(!ok){const r=document.createRange();r.selectNodeContents($("appUrl"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);try{ok=document.execCommand("copy")}catch(_){}}
+  $("appMsg").textContent=ok?"Link copiado. Cole no Safari ou no Chrome do celular.":"Selecionei o link: toque e segure para copiar."};
+HEAD.app=['Instale o portal no <em>seu celular</em>','Passo a passo ilustrado para deixar a Best Homes na tela inicial do iPhone ou do Android, com ícone próprio, como um aplicativo.'];
+}
 HEAD.academia=['Para <em>corretores</em>','Conhecimento para crescer na profissão: legislação, avaliação, mercado e argumentos para o atendimento.'];
 function rota(){let h=location.hash.slice(1);if(!HEAD[h])h="simulador";
   Object.keys(HEAD).forEach(k=>$("tab-"+k).hidden=k!==h);
@@ -1925,6 +2285,25 @@ const msgErro=c=>c==="not-allowed"||c==="service-not-allowed"?"O microfone não 
   :c==="audio-capture"?"Não encontramos um microfone ligado a este aparelho."
   :c==="network"?"O ditado precisa de internet. Confira a conexão e tente de novo.":"Não foi possível usar o microfone agora. Tente de novo.";
 
+/* Caminho para liberar o microfone, conforme o aparelho e o navegador de quem está usando */
+function caminhoMic(){const ua=navigator.userAgent,ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),
+  and=/Android/.test(ua),ff=/Firefox|FxiOS/.test(ua),crIos=/CriOS/.test(ua),edge=/Edg\//.test(ua),
+  saf=/Safari/.test(ua)&&!/Chrome|Chromium|CriOS|FxiOS|Edg/.test(ua),mac=/Macintosh/.test(ua)&&!ios,win=/Windows/.test(ua);
+  if(ios&&crIos)return{onde:"Chrome no iPhone",p:["Abra os <b>Ajustes</b> do iPhone.","Role até <b>Chrome</b> e toque nele.","Ative a chave <b>Microfone</b>.","Volte para esta página e toque em <b>Recarregar</b>."]};
+  if(ios)return{onde:"Safari no iPhone",p:["Toque em <b>aA</b> (ou no ícone de ajustes) à esquerda do endereço, lá em cima ou embaixo da tela.","Toque em <b>Ajustes do Site</b>.","Em <b>Microfone</b>, escolha <b>Permitir</b>.","Se não aparecer: abra os <b>Ajustes</b> do iPhone › <b>Safari</b> › <b>Microfone</b> › <b>Permitir</b>.","Toque em <b>Recarregar</b> abaixo."]};
+  if(and&&ff)return{onde:"Firefox no Android",p:["Toque no <b>cadeado</b> à esquerda do endereço.","Em <b>Microfone</b>, toque em <b>Bloqueado</b> para liberar.","Toque em <b>Recarregar</b> abaixo."]};
+  if(and)return{onde:"Chrome no Android",p:["Toque no ícone à esquerda do endereço (<b>cadeado</b> ou <b>ajustes</b>).","Toque em <b>Permissões</b> › <b>Microfone</b> › <b>Permitir</b>.","Se a opção estiver cinza: <b>Configurações</b> do celular › <b>Apps</b> › <b>Chrome</b> › <b>Permissões</b> › <b>Microfone</b> › <b>Permitir ao usar o app</b>.","Toque em <b>Recarregar</b> abaixo."]};
+  if(mac&&saf)return{onde:"Safari no Mac",p:["No menu <b>Safari</b>, clique em <b>Ajustes</b> (ou <b>Preferências</b>).","Abra a aba <b>Sites</b> e escolha <b>Microfone</b> na lista da esquerda.","Ao lado deste site, escolha <b>Permitir</b>.","Se continuar bloqueado: menu Apple › <b>Ajustes do Sistema</b> › <b>Privacidade e Segurança</b> › <b>Microfone</b> › ative o <b>Safari</b>.","Clique em <b>Recarregar</b> abaixo."]};
+  if(ff)return{onde:"Firefox",p:["Clique no ícone de <b>microfone riscado</b> (ou no cadeado) à esquerda do endereço.","Clique no <b>X</b> ao lado de <b>Bloqueado temporariamente</b> ou <b>Usar o microfone</b> para tirar o bloqueio.","Clique em <b>Recarregar</b> abaixo e permita quando o navegador perguntar."]};
+  const nav=edge?"Edge":"Chrome";
+  return{onde:nav+(mac?" no Mac":win?" no Windows":""),p:[`Clique no ícone à esquerda do endereço (<b>cadeado</b> ou <b>ajustes</b>), no alto da janela do ${nav}.`,"Ao lado de <b>Microfone</b>, escolha <b>Permitir</b>. Se não aparecer, clique em <b>Configurações do site</b> e mude <b>Microfone</b> para <b>Permitir</b>.",
+    mac?"Se continuar bloqueado: menu Apple › <b>Ajustes do Sistema</b> › <b>Privacidade e Segurança</b> › <b>Microfone</b> › ative o "+nav+".":win?"Se continuar bloqueado: <b>Configurações</b> do Windows › <b>Privacidade e segurança</b> › <b>Microfone</b> › ative <b>Permitir que aplicativos acessem o microfone</b>.":"Confira também se o microfone do aparelho está liberado nas configurações do sistema.",
+    "Clique em <b>Recarregar</b> abaixo."]}}
+function ajudaMic(alvo){const c=caminhoMic();
+  alvo.insertAdjacentHTML("beforeend",`<div class="mic-ajuda"><b>Como liberar o microfone no ${c.onde}:</b><ol>${c.p.map(x=>`<li>${x}</li>`).join("")}</ol>
+    <div class="row"><button type="button" class="btn ghost" data-recarregar>Recarregar</button><span class="hint">Ou use o microfone do teclado do celular em cada campo.</span></div></div>`);
+  alvo.querySelector("[data-recarregar]").onclick=()=>location.reload()}
+
 /* Números falados em português */
 const NUMW={zero:0,um:1,uma:1,dois:2,duas:2,tres:3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9,dez:10,onze:11,doze:12,treze:13,quatorze:14,catorze:14,quinze:15,dezesseis:16,dezessete:17,dezoito:18,dezenove:19,vinte:20,trinta:30,quarenta:40,cinquenta:50,sessenta:60,setenta:70,oitenta:80,noventa:90,cem:100,cento:100,duzentos:200,duzentas:200,trezentos:300,trezentas:300,quatrocentos:400,quinhentos:500,seiscentos:600,setecentos:700,oitocentos:800,novecentos:900};
 function numFalado(t){const s=N(t);const d=s.match(/\d[\d.]*(,\d+)?/);
@@ -1936,62 +2315,7 @@ const digitos=t=>{const s=N(t);let d=s.replace(/\D/g,"");if(d.length>=5)return d
   return s.split(/[\s-]+/).map(w=>/^\d+$/.test(w)?w:(map[w]||"")).join("")};
 const dispara=el=>{el.dispatchEvent(new Event("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}))};
 
-/* 2. Preencher a avaliação por voz */
-const form=$("avForm");
-form.querySelector("h2").insertAdjacentHTML("afterend",`<div class="vozbar" id="vozbar">
-  <button type="button" class="btn" id="vozIni"><span class="mic" aria-hidden="true"></span><span>Preencher por voz</span></button>
-  <span class="st" id="vozSt" role="status" aria-live="polite">Responda em voz alta: a página pergunta e preenche os campos para você.<small>Funciona no celular e no computador. Com o celular ligado ao carro, a voz sai no som do carro.</small></span></div>`);
-const st=(t,sub)=>{$("vozSt").innerHTML=esc(t)+(sub?`<small>${esc(sub)}</small>`:"")};
-const PASSOS=[
-  {id:"avNome",q:"Qual é o seu nome?",set:t=>t.trim().replace(/^(meu nome e|meu nome é|eu sou|sou o|sou a|e o|é o|e a|é a)\s+/i,"").toLowerCase().replace(/(^|\s)(\p{L})/gu,(m,a,c)=>a+c.toUpperCase()).replace(/ (D[aeo]s?|E) /g,m=>m.toLowerCase())},
-  {id:"avCep",q:"Qual é o CEP do imóvel? Se não souber, diga pular.",set:t=>{const d=digitos(t);return d.length===8?d:null},erro:"Não entendi o CEP. Fale os oito números."},
-  {id:"avBairro",q:"Qual é o bairro?",so:()=>!$("avBairro").value.trim(),set:t=>t.trim()},
-  {id:"avNum",q:"Qual é o número do imóvel?",set:t=>{const n=numFalado(t);return n==null?null:String(n)}},
-  {id:"avCond",q:"Qual é o nome do condomínio? Se não for em condomínio, diga não tem.",set:t=>{
-    if(/\b(nao tem|nenhum|nao e|sem condominio|nao)\b/.test(N(t)))return "";
-    const alvo=N(t).replace(/^(condominio|residencial|o|no|cond)\s+/,"");
-    const ops=[...$("avCondList").options].map(o=>o.value);
-    return ops.find(o=>N(o)===alvo)||ops.find(o=>N(o).includes(alvo)&&alvo.length>3)||ops.find(o=>alvo.includes(N(o))&&N(o).length>3)||t.trim()}},
-  {id:"avTipo",q:"É casa em condomínio, casa de rua ou apartamento?",set:t=>{const s=N(t);
-    return /apart|apto/.test(s)?"apto":/condomin/.test(s)?"casa_cond":/rua|casa/.test(s)?"casa":null},erro:"Diga casa em condomínio, casa de rua ou apartamento."},
-  {id:"avArea",q:"Qual é a área construída, em metros quadrados?",set:t=>{const n=numFalado(t);return n&&n>=20&&n<=5000?String(n):null},erro:"Fale só o número de metros quadrados construídos."},
-  {id:"avQ",q:"Quantos quartos?",set:t=>{const n=numFalado(t);return n&&n<=10?String(n):null}},
-  {id:"avV",q:"Quantas vagas de garagem?",set:t=>{const n=numFalado(t);return n!=null&&n<=20?String(n):null}}];
-let vozOn=false;
-function vozPara(msg){vozOn=false;try{ouvirUmaVez.atual&&ouvirUmaVez.atual.abort()}catch(_){}parar();
-  document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
-  const b=$("vozIni");b.classList.remove("rec");b.lastElementChild.textContent="Preencher por voz";if(msg)st(msg)}
-async function pergunta(texto){st(texto,"Fale depois da pergunta. Comandos: pular, voltar, parar.");if(TTS)try{await falar(texto)}catch(_){}if(!vozOn)throw"parou";
-  st(texto,"Ouvindo… pode falar.");ouvirUmaVez.eco=x=>{if(x)st(texto,"Ouvi: “"+x+"”")};await espera(250);if(!vozOn)throw"parou";
-  const t=await ouvirUmaVez();ouvirUmaVez.eco=null;return t}
-async function vozGuia(){
-  if(!SR){st(msgErro("sem-suporte"));return}
-  vozOn=true;const b=$("vozIni");b.classList.add("rec");b.lastElementChild.textContent="Parar";
-  try{
-    let i=0;while(i<PASSOS.length&&vozOn){const p=PASSOS[i];if(p.so&&!p.so()){i++;continue}
-      const el=$(p.id);const fld=el.closest(".field");document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
-      fld.classList.add("ativo");fld.scrollIntoView({block:"center",behavior:RM?"auto":"smooth"});
-      let t=await pergunta(p.q);const s=N(t);
-      if(!t){t=await pergunta("Não ouvi. "+p.q);if(!t){vozPara("Não ouvi nada. Toque em Preencher por voz para continuar.");return}}
-      if(/^(parar|parar tudo|cancelar|sair)$/.test(N(t))){vozPara("Ditado encerrado. Os campos preenchidos continuam na tela.");return}
-      if(/^(voltar|volta|anterior)$/.test(N(t))){i=Math.max(0,i-1);continue}
-      if(/^(pular|pula|proximo|nao sei)$/.test(N(t))){i++;continue}
-      const v=p.set(t);
-      if(v==null){if(TTS)await falar(p.erro||"Não entendi.");continue}
-      el.value=v;dispara(el);i++}
-    if(!vozOn)return;
-    document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
-    const tipo=$("avTipo").selectedOptions[0].textContent.toLowerCase();
-    const r=await pergunta(`Pronto. ${tipo}, ${$("avArea").value} metros quadrados, ${$("avQ").value} quartos e ${$("avV").value} vagas. Diga avaliar para ver o resultado, ou parar para conferir na tela.`);
-    if(/avali|sim|pode|ok|confirm/.test(N(r))){vozPara("Avaliando…");form.requestSubmit?form.requestSubmit():form.querySelector("[type=submit]").click();
-      setTimeout(()=>{const o=$("avOut");o.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
-        const h=o.querySelector(".av-cen .on b");if(h&&TTS)falar("O valor estimado é de "+h.textContent+". Os detalhes estão na tela.")},400)}
-    else vozPara("Confira os campos e toque em Avaliar imóvel.")
-  }catch(e){if(e!=="parou")vozPara(msgErro(e));}
-}
-$("vozIni").onclick=()=>vozOn?vozPara("Ditado encerrado. Os campos preenchidos continuam na tela."):vozGuia();
-if(!SR)st("Preencher por voz",msgErro("sem-suporte"));
-addEventListener("hashchange",()=>{if(vozOn)vozPara("Ditado encerrado.")});
+/* 2. (o preenchimento da avaliação por voz foi retirado) */
 
 /* 3. Guia do mercado (respostas automáticas com os dados do dia) */
 const fmtP=x=>x.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%";
@@ -2070,7 +2394,7 @@ $("gLog").addEventListener("click",e=>{const a=e.target.closest("a[data-n]");if(
 if(SR)$("gMic").onclick=async()=>{const b=$("gMic");if(b.classList.contains("rec")){try{ouvirUmaVez.atual.abort()}catch(_){}return}
   parar();b.classList.add("rec");b.lastElementChild.textContent="Ouvindo…";
   try{const t=await ouvirUmaVez();if(t){$("gIn").value=t;responde(t,chaveDe(t),true);$("gIn").value=""}}
-  catch(err){$("gLog").insertAdjacentHTML("beforeend",`<div class="ga"><p>${esc(msgErro(err))}</p></div>`)}
+  catch(err){$("gLog").insertAdjacentHTML("beforeend",`<div class="ga"><p>${esc(msgErro(err))}</p></div>`);if(err==="not-allowed"||err==="service-not-allowed")ajudaMic($("gLog").lastElementChild)}
   finally{b.classList.remove("rec");b.lastElementChild.textContent="Falar"}};
 /* 4. Aba Semana: notícias guardadas, de segunda a domingo, para ler ou ouvir de novo */
 {
