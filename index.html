@@ -1853,12 +1853,21 @@ if(TTS||temAud){
 }
 
 /* Reconhecimento de voz */
+/* Ouve uma resposta. Alguns navegadores (iPhone, por exemplo) só entregam o texto parcial e nunca avisam que a
+   pessoa terminou de falar; por isso a resposta é dada por encerrada depois de 1,5 s de silêncio ou 12 s no total. */
 function ouvirUmaVez(){return new Promise((res,rej)=>{if(!SR){rej("sem-suporte");return}
-  const r=new SR();r.lang="pt-BR";r.interimResults=false;r.maxAlternatives=3;r.continuous=false;let ok=false;
-  r.onresult=e=>{ok=true;res(e.results[0][0].transcript||"")};
-  r.onerror=e=>{ok=true;e.error==="no-speech"?res(""):rej(e.error)};
-  r.onend=()=>{if(!ok)res("")};
-  ouvirUmaVez.atual=r;try{r.start()}catch(err){rej("ocupado")}})}
+  const r=new SR();r.lang="pt-BR";r.interimResults=true;r.maxAlternatives=1;r.continuous=false;
+  let fim=false,txt="",tSil=null,tMax=null;
+  const acaba=v=>{if(fim)return;fim=true;clearTimeout(tSil);clearTimeout(tMax);try{r.stop()}catch(_){}res(v)};
+  tMax=setTimeout(()=>acaba(txt.trim()),12000);
+  r.onresult=e=>{let fin="",tmp="";for(let k=0;k<e.results.length;k++){const x=e.results[k][0].transcript||"";if(e.results[k].isFinal)fin+=x;else tmp+=x}
+    txt=fin+tmp;if(ouvirUmaVez.eco)try{ouvirUmaVez.eco(txt.trim())}catch(_){}
+    if(fin.trim()){acaba(fin.trim());return}
+    clearTimeout(tSil);tSil=setTimeout(()=>acaba(txt.trim()),1500)};
+  r.onerror=e=>{if(fim)return;if(e.error==="no-speech"||e.error==="aborted"){acaba(txt.trim());return}
+    fim=true;clearTimeout(tSil);clearTimeout(tMax);rej(e.error)};
+  r.onend=()=>acaba(txt.trim());
+  ouvirUmaVez.atual=r;try{r.start()}catch(err){fim=true;clearTimeout(tMax);rej("ocupado")}})}
 const msgErro=c=>c==="not-allowed"||c==="service-not-allowed"?"O microfone não foi liberado nesta página. Libere o microfone nas permissões do navegador ou use o microfone do teclado do celular em cada campo."
   :c==="sem-suporte"?"Este navegador não faz ditado aqui. Use o microfone do teclado do celular em cada campo (no iPhone e no Android ele aparece ao lado da barra de espaço)."
   :c==="audio-capture"?"Não encontramos um microfone ligado a este aparelho."
@@ -1882,7 +1891,7 @@ form.querySelector("h2").insertAdjacentHTML("afterend",`<div class="vozbar" id="
   <span class="st" id="vozSt" role="status" aria-live="polite">Responda em voz alta: a página pergunta e preenche os campos para você.<small>Funciona no celular e no computador. Com o celular ligado ao carro, a voz sai no som do carro.</small></span></div>`);
 const st=(t,sub)=>{$("vozSt").innerHTML=esc(t)+(sub?`<small>${esc(sub)}</small>`:"")};
 const PASSOS=[
-  {id:"avNome",q:"Qual é o seu nome?",set:t=>t.replace(/^(meu nome e|meu nome é|eu sou|sou o|sou a|e o|é o|e a|é a)\s+/i,"").replace(/\b\p{L}/gu,c=>c.toUpperCase())},
+  {id:"avNome",q:"Qual é o seu nome?",set:t=>t.trim().replace(/^(meu nome e|meu nome é|eu sou|sou o|sou a|e o|é o|e a|é a)\s+/i,"").toLowerCase().replace(/(^|\s)(\p{L})/gu,(m,a,c)=>a+c.toUpperCase()).replace(/ (D[aeo]s?|E) /g,m=>m.toLowerCase())},
   {id:"avCep",q:"Qual é o CEP do imóvel? Se não souber, diga pular.",set:t=>{const d=digitos(t);return d.length===8?d:null},erro:"Não entendi o CEP. Fale os oito números."},
   {id:"avBairro",q:"Qual é o bairro?",so:()=>!$("avBairro").value.trim(),set:t=>t.trim()},
   {id:"avNum",q:"Qual é o número do imóvel?",set:t=>{const n=numFalado(t);return n==null?null:String(n)}},
@@ -1900,8 +1909,9 @@ let vozOn=false;
 function vozPara(msg){vozOn=false;try{ouvirUmaVez.atual&&ouvirUmaVez.atual.abort()}catch(_){}parar();
   document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
   const b=$("vozIni");b.classList.remove("rec");b.lastElementChild.textContent="Preencher por voz";if(msg)st(msg)}
-async function pergunta(texto){st(texto,"Fale depois da pergunta. Comandos: pular, voltar, parar.");if(TTS)await falar(texto);if(!vozOn)throw"parou";
-  st(texto,"Ouvindo…");return ouvirUmaVez()}
+async function pergunta(texto){st(texto,"Fale depois da pergunta. Comandos: pular, voltar, parar.");if(TTS)try{await falar(texto)}catch(_){}if(!vozOn)throw"parou";
+  st(texto,"Ouvindo… pode falar.");ouvirUmaVez.eco=x=>{if(x)st(texto,"Ouvi: “"+x+"”")};await espera(250);if(!vozOn)throw"parou";
+  const t=await ouvirUmaVez();ouvirUmaVez.eco=null;return t}
 async function vozGuia(){
   if(!SR){st(msgErro("sem-suporte"));return}
   vozOn=true;const b=$("vozIni");b.classList.add("rec");b.lastElementChild.textContent="Parar";
