@@ -346,11 +346,68 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 }
 </style>
 
+<style>
+/* Áudio, ditado e guia do mercado */
+.ouvir{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;white-space:nowrap}
+.ouvir:hover{border-color:var(--fg)}
+.ouvir[aria-pressed=true]{background:var(--band);color:var(--band-fg);border-color:var(--band)}
+.ouvir .ic{display:inline-block;width:0;height:0;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}
+.ouvir[aria-pressed=true] .ic{width:9px;height:9px;border:0;background:currentColor;border-radius:1px}
+.dl .ouvir{margin-left:auto}
+.rd .top .acts{display:flex;gap:8px;align-items:center}
+.vozbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 16px;margin:-4px 0 18px;border-radius:8px;background:var(--gold-soft)}
+.vozbar .btn{display:inline-flex;align-items:center;gap:8px}
+.vozbar .st{font-size:14px;color:var(--fg);flex:1 1 220px;min-width:0}
+.vozbar .st small{display:block;color:var(--mute);font-size:13px}
+.mic{display:inline-block;width:10px;height:15px;border:2px solid currentColor;border-radius:6px;position:relative;margin-right:2px}
+.mic::after{content:"";position:absolute;left:50%;bottom:-6px;width:2px;height:4px;background:currentColor;transform:translateX(-50%)}
+.btn.rec{background:#C8102E;border-color:#C8102E;color:#fff}
+.btn.rec .mic{animation:pulse 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.btn.rec .mic{animation:none}}
+.field.ativo input,.field.ativo select{outline:2px solid var(--gold);outline-offset:2px}
+.guia h2{font:700 clamp(22px,2.8vw,28px)/1.2 var(--display);margin:0 0 6px;text-transform:none;letter-spacing:-.02em;color:var(--fg)}
+.guia .av-sub{margin:0 0 16px}
+.gchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.gchips button{font:500 14px var(--body);padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;text-align:left}
+.gchips button:hover{border-color:var(--gold)}
+.gask{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px}
+@media (max-width:520px){.gask{grid-template-columns:minmax(0,1fr) auto}.gask .btn:last-child{grid-column:1/-1}}
+.gask .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.glog{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.glog:empty{display:none}
+.gq{align-self:flex-end;max-width:85%;background:var(--band);color:var(--band-fg);padding:10px 14px;border-radius:14px 14px 4px 14px;font-size:15px}
+.ga{align-self:flex-start;max-width:100%;background:var(--bg);border:1px solid var(--line);padding:14px 16px;border-radius:14px 14px 14px 4px;font-size:15px;display:flex;flex-direction:column;gap:10px}
+.ga p{margin:0}
+.ga ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.ga .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ga a{color:var(--fg)}
+.gnote{font-size:12px;color:var(--mute);margin:14px 0 0}
+.semnav{display:flex;align-items:center;gap:10px}
+.semnav span{font:600 14px var(--body);min-width:16ch;text-align:center}
+.semnav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 16px var(--body);cursor:pointer}
+.semnav button:disabled{opacity:.35;cursor:default}
+.sdia{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 24px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media (max-width:700px){.sdia{grid-template-columns:1fr}}
+.sdia h3{margin:0;font:700 15px/1.3 var(--display)}
+.sdia h3 small{display:block;font:500 13px var(--body);color:var(--mute);margin-top:2px}
+.sdia h3.hoje{color:var(--gold)}
+.slist{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.sitem .k{font:700 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.sitem .h{font:600 17px/1.32 var(--display);letter-spacing:-.01em}
+.sitem .l{font-size:14px;color:var(--mute);line-height:1.5}
+.sitem .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.sitem .ler{font:600 14px var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.sitem .ler:hover{border-color:var(--fg)}
+.svazio{color:var(--mute);font-size:14px;margin:0;padding-top:2px}
+@media (max-width:620px){.sitem{border-radius:0;border-left:0;border-right:0;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));padding-inline:max(16px, env(safe-area-inset-left, 0px))}}
+</style>
+
 </head><body><header><div class="wrap">
   <a class="logo" href="https://besthomesimoveis.com.br" target="_blank" rel="noopener" aria-label="Best Homes: abrir o site da imobiliária"><img class="lg-l" src="data:image/webp;base64,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" alt="Best Homes" width="454" height="120"></a>
   <div class="intro-h"><h1 id="hH">Quanto fica a <em>sua parcela?</em></h1>
   <p id="hP">Simule o financiamento do seu imóvel com as taxas de referência dos principais bancos. É uma estimativa: a simulação oficial é feita pelo nosso correspondente bancário.</p></div>
-  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#noticias">Notícias</a><a href="#videos">Vídeos</a><a href="#avaliar">Avaliar imóvel</a><a href="#corretores">Escolha seu corretor</a><a class="ext" href="https://www.besthomesimoveis.com.br/" target="_blank" rel="noopener">Acesse nosso site <span aria-hidden="true">↗</span></a></nav>
+  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#noticias">Notícias</a><a href="#semana">Semana</a><a href="#videos">Vídeos</a><a href="#avaliar">Avaliar imóvel</a><a href="#construcao">Arquitetura e Construção</a><a href="#academia">Para corretores</a><a href="#corretores">Escolha seu corretor</a><a class="ext" href="https://www.besthomesimoveis.com.br/" target="_blank" rel="noopener">Acesse nosso site <span aria-hidden="true">↗</span></a></nav>
 </div></header>
 
 <main id="tab-simulador"><div class="wrap">
@@ -513,6 +570,11 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   <p class="disc">Matérias produzidas pela Redação Best Homes a partir das fontes citadas em cada texto. Conteúdo informativo; não é recomendação financeira.</p>
 </div></section>
 
+<section id="tab-semana" hidden aria-label="Notícias da semana"><div class="wrap news sem">
+  <div class="dl"><span class="ed">Arquivo da semana</span><div class="semnav" role="group" aria-label="Escolher a semana"><button type="button" id="semAnt" aria-label="Semana anterior">‹</button><span id="semTit" aria-live="polite"></span><button type="button" id="semProx" aria-label="Semana seguinte">›</button></div></div>
+  <div id="semDias"></div>
+  <p class="disc">As notícias ficam guardadas por 30 dias. Toque em ouvir para escutar com a voz da Redação Best Homes, ou em ler para abrir a matéria completa.</p>
+</div></section>
 <section id="tab-videos" hidden aria-label="Vídeos"><div class="wrap vids">
   <div class="vhead"><h2 class="ftit">Tours completos</h2><a class="btn ghost" href="https://www.youtube.com/@Besthomesimoveis?sub_confirmation=1" target="_blank" rel="noopener">Inscreva-se no canal ↗</a></div>
   <div class="tours" id="tours"></div>
@@ -524,6 +586,17 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 <section id="tab-corretores" hidden aria-label="Escolha seu corretor"><div class="wrap corr">
   <p class="intro" style="margin:0">Escolha um corretor e chame pelo WhatsApp. A mensagem já vai pronta, identificada como contato do Simulador Best Homes e com o resumo da sua simulação, para o atendimento começar de onde você parou.</p>
   <div class="ccards" id="ccards"></div>
+</div></section>
+
+<section id="tab-construcao" hidden aria-label="Arquitetura e Construção"><div class="wrap news">
+  <div class="dl"><span class="ed">Arquitetura · Tecnologia · Paisagismo · Tendências</span></div>
+  <ol class="flist" id="listaConstrucao"></ol>
+  <p class="disc">Matérias produzidas pela Redação Best Homes a partir das fontes citadas em cada texto. Conteúdo informativo; valores e custos variam conforme o projeto.</p>
+</div></section>
+<section id="tab-academia" hidden aria-label="Para corretores"><div class="wrap news">
+  <div class="dl"><span class="ed">Conhecimento para corretores · Best Homes</span></div>
+  <ol class="flist" id="listaAcademia"></ol>
+  <p class="disc">Conteúdo de apoio à equipe, produzido pela Redação Best Homes a partir das fontes citadas. Não substitui orientação jurídica, contábil ou do Creci.</p>
 </div></section>
 
 <dialog id="reader" aria-labelledby="rdH"><article class="rd">
@@ -1248,6 +1321,22 @@ const NOTICIAS=[
   f:[["Portas, com dados da Abecip","https://portas.com.br/mercado-imobiliario/poupanca-sbpe-saida-setembro/"],["Já é Notícia","https://www.jaenoticia.com.br/noticias/2026/10/20/152465-credito-imobiliario-cresce-375-especialista-explica-como-aluguel-e-valorizacao-podem-ampliar-retorno-de-investidores"]]}
 ];
 /* NOTICIAS-FIM */
+/* CONSTRUCAO-INICIO (aba Arquitetura e Construção; mesmo formato de NOTICIAS) */
+const CONSTRUCAO=[
+ {"id": "arq-tendencias-2026", "k": "Arquitetura", "d": "29/10/2026", "num": "Biofilia", "cap": "natureza dentro de casa é a tendência mais citada para 2026", "h": "Natureza, integração e tecnologia discreta: as tendências da casa em 2026", "l": "Escritórios e incorporadoras apontam a mesma direção: menos minimalismo frio, mais verde, luz natural e ambientes que se abrem para fora.", "b": ["A biofilia, que é trazer a natureza para dentro do projeto, aparece como a tendência mais citada por escritórios de arquitetura e incorporadoras para 2026. Na prática, são jardins internos, paredes verdes, ventilação cruzada e uso de madeira e pedra.", "Outra marca forte é a casa integrada. Pisos contínuos e esquadrias que abrem por inteiro diluem o limite entre sala e varanda, e ambientes multiuso ganham espaço para quem trabalha em casa.", "A tecnologia continua presente, mas de forma discreta: automação, iluminação embutida na arquitetura e vidros que controlam o calor. No acabamento, o minimalismo frio perde espaço para materiais naturais, texturas e releituras do tijolo aparente.", "No alto padrão, ganham destaque áreas de bem-estar, como spa doméstico, espaços de relaxamento e cuidado com a acústica.", "Na prática: imóveis com boa luz natural, integração com a área externa e espaço flexível para home office tendem a chamar mais atenção na visita. Ao anunciar, vale mostrar esses pontos em fotos e no texto do anúncio."], "f": [["Auxiliadora Predial", "https://www.auxiliadorapredial.com.br/blog/arquitetura-sustentavel-tendencias-2026/"], ["Conviver Urbanismo", "https://www.conviverurbanismo.com.br/dicas/tendencias-de-arquitetura-para-2026/"], ["Diário do Centro do Mundo", "https://www.diariodocentrodomundo.com.br/essencial/as-tendencias-da-arquitetura-e-design-de-interiores-em-2026-segundo-especialistas/"]]},
+ {"id": "paisagismo-areas-externas", "k": "Paisagismo", "d": "29/10/2026", "num": "+23%", "cap": "alta nos pedidos de projetos com plantas nativas, segundo a Yardzen", "h": "Jardins com plantas nativas e menos gramado ganham espaço nas áreas externas", "l": "Forbes lista as tendências de áreas externas para 2026; projetos pedem espécies adaptadas ao clima e menos manutenção.", "b": ["A procura por jardins com plantas nativas, espécies que atraem polinizadores e vegetação adaptada ao clima cresceu 23% em um ano na Yardzen, empresa de projetos de paisagismo citada pela Forbes ao listar as tendências de áreas externas para 2026.", "O gramado perfeito, que exige muita água e manutenção, perde espaço para jardins em camadas, com mais texturas e aparência natural.", "Em condomínios, cresce o xeropaisagismo, que usa plantas de baixo consumo de água, e a irrigação automática com sensores. Também aparecem mini-florestas e a preservação da vegetação que já existia no terreno.", "O jardim passa a ser pensado como espaço de bem-estar, com plantas aromáticas, iluminação suave e cantos para descanso.", "Na prática: em Jundiaí, perto da Serra do Japi, jardins com espécies nativas e baixa manutenção combinam com o perfil dos condomínios da região. Na captação, vale destacar quando o jardim é fácil de manter: é custo mensal a menos para o comprador."], "f": [["Forbes Brasil", "https://forbes.com.br/forbes-money/forbes-real-estate/2026/07/tendencias-paisagismo-areas-externas/"], ["A Tarde", "https://atarde.com.br/imobiliario/paisagismo-cria-refugios-verdes-em-meio-as-grandes-cidades-1380432"], ["Jardineiro.net", "https://www.jardineiro.net/o-jardim-que-respira-12-tendencias-de-paisagismo-para-2026.html"]]},
+ {"id": "steel-frame-custo", "k": "Tecnologia", "d": "29/10/2026", "num": "R$ 4.544", "cap": "custo médio do m² em steel frame, padrão médio, no Sudeste (abril/2026)", "h": "Steel frame ganha espaço com falta de mão de obra; veja quanto custa o m²", "l": "Índice Arquitecasa de abril aponta de R$ 3 mil a R$ 6,2 mil por m² no Sudeste, conforme o padrão da obra.", "b": ["O steel frame, sistema de construção a seco com estrutura de perfis de aço, vem ganhando espaço no Brasil. A falta de mão de obra qualificada nos canteiros é um dos motivos citados pelo setor para a busca por métodos industrializados, mais rápidos e com menos desperdício.", "Segundo o Índice Arquitecasa Steel Frame de abril de 2026, o custo médio no Sudeste é de cerca de R$ 3.042 por m² no padrão popular, R$ 4.544 no padrão médio e R$ 6.200 no alto padrão.", "A construção modular e industrializada também tem evento próprio: a Expo Construção OffSite 2026 aconteceu em São Paulo, de 16 a 19 de junho. O déficit habitacional brasileiro, estimado em mais de 5,8 milhões de moradias, é apontado como motor dessa demanda.", "Os números de custo variam bastante entre fornecedores, por isso vale sempre pedir orçamento detalhado.", "Na prática: compradores de terreno em condomínio costumam perguntar sobre prazo e custo da obra. Saber explicar que o steel frame tende a ser mais rápido, e que o custo depende do padrão, ajuda na venda de lotes. Em imóvel pronto, confirme com o banco a aceitação do sistema construtivo no financiamento."], "f": [["Berkahn, Índice Arquitecasa", "https://www.berkahn.com.br/atualidades/custo-steel-frame-m2-2026"], ["U.S. Commercial Service", "https://www.trade.gov/market-intelligence/brazil-engineering-and-modular-construction"], ["Core Haus", "https://www.corehaussteelframe.com.br/blog/post/analise-de-mercado-demanda-por-construcao-de-casas-em-steel-frame-no-brasil-2026"]]},
+ {"id": "solar-residencial-2026", "k": "Sustentabilidade", "d": "29/10/2026", "num": "42 GW", "cap": "potência instalada em geração distribuída no Brasil, segundo a ABSOLAR", "h": "Energia solar em casa: setor ultrapassa 42 GW, mas instalações devem cair em 2026", "l": "Tarifas em alta mantêm o interesse, mas a ABSOLAR projeta a primeira queda anual de instalações. O efeito no valor do imóvel é real, porém menor do que se anuncia.", "b": ["O Brasil chegou a 60 GW de capacidade solar instalada em julho de 2026, dos quais 42 GW em geração distribuída, que inclui telhados de casas e empresas, segundo dados da ABSOLAR citados pelo setor.", "Mesmo assim, a entidade projeta queda de 7% nas novas instalações em 2026, a primeira da história. Um dos motivos é a cobrança gradual do chamado Fio B, a parte da tarifa de distribuição que passou a incidir sobre a energia injetada na rede e que aumenta o tempo de retorno do investimento.", "Sobre a valorização do imóvel, a referência mais citada é de cerca de 10%, atribuída à ABSOLAR. Um estudo da FGV de 2024 aponta faixa menor, de 3% a 8%, e o ganho depende da região, da tarifa local e da qualidade da instalação.", "Na prática: placas solares são um diferencial a mostrar, com a conta de luz dos últimos meses em mãos. Evite prometer valorização fixa; o argumento mais forte é a economia mensal comprovada."], "f": [["Banco BV", "https://www.bv.com.br/blog/energia-solar-residencial-vale-pena"], ["Canal Solar", "https://canalsolar.com.br/imoveis-energia-solar-mais-valorizados-economicos/"], ["Banco BV", "https://www.bv.com.br/blog/sistema-fotovoltaico-valorizacao-imovel"]]},
+];
+/* CONSTRUCAO-FIM */
+/* ACADEMIA-INICIO (aba Para corretores; mesmo formato de NOTICIAS) */
+const ACADEMIA=[
+ {"id": "reforma-tributaria-imoveis", "k": "Legislação", "d": "29/10/2026", "num": "50%", "cap": "redução da alíquota de IBS e CBS na venda de imóveis", "h": "Reforma tributária e imóveis: o que o corretor precisa saber já", "l": "2026 é ano de teste, sem cobrança. A partir de 2027, a CBS começa a valer nas vendas feitas por empresas, com redutores que diminuem o imposto.", "b": ["A reforma tributária substitui aos poucos PIS, Cofins, ICMS e ISS pela CBS (federal) e pelo IBS (estadual e municipal). Em 2026, o sistema está em fase de teste: não há cobrança, mas empresas já têm obrigações de informação.", "Na venda de imóveis, a lei prevê alíquota 50% menor que a padrão; na locação, a redução é de 70%. As regras da CBS para imóveis foram regulamentadas pelo Decreto 12.955/2026.", "Há dois redutores. O redutor de ajuste permite descontar da base o valor de aquisição do imóvel, corrigido pelo IPCA. O redutor social desconta R$ 100 mil por imóvel residencial novo e R$ 30 mil por lote residencial.", "A pessoa física que vende o próprio imóvel, em regra, fica fora. Ela só passa a ser contribuinte em situações específicas, como vender muitos imóveis em pouco tempo ou vender imóvel que construiu recentemente. As fontes ainda divergem nos detalhes, por isso o caso concreto deve ser visto com contador.", "Como usar no atendimento: incorporadoras e investidores vão perguntar. Explique o essencial (2026 sem cobrança, redução de 50% na venda, redutores) e encaminhe o cálculo ao contador. Para imobiliárias que atuam como empresa, vale planejar já o impacto sobre a comissão."], "f": [["Conjur", "https://conjur.com.br/2026-jul-13/compra-e-venda-de-bens-imoveis-na-reforma-tributaria-2/"], ["Portas", "https://portas.com.br/reforma-tributaria/a-reforma-tributaria-na-compra-e-venda-de-imoveis-do-ano-teste-de-2026-ao-sistema-definitivo-em-2033/"], ["Contábeis", "https://www.contabeis.com.br/artigos/76371/reforma-tributaria-impactos-no-mercado-imobiliario-e-novas-regras"]]},
+ {"id": "ptam-avaliacao", "k": "Carreira", "d": "29/10/2026", "num": "PTAM", "cap": "parecer técnico de avaliação mercadológica, feito pelo corretor", "h": "PTAM: como o corretor pode emitir avaliação de imóvel com respaldo do Cofeci", "l": "Qualquer corretor inscrito no Creci pode elaborar o parecer. O cadastro no CNAI é opcional, mas exige formação específica.", "b": ["O Parecer Técnico de Avaliação Mercadológica (PTAM) é o documento em que o corretor indica o valor de mercado de um imóvel, com base em critérios técnicos e comparação com imóveis semelhantes. Ele está previsto na Resolução Cofeci 1.066/2007, apoiada na Lei 6.530/1978, que dá ao corretor competência para opinar sobre a comercialização de imóveis.", "Qualquer corretor pessoa física regularmente inscrito no Creci pode elaborar o PTAM. A imobiliária pode patrocinar o trabalho, desde que o parecer seja assinado por um corretor.", "O Cadastro Nacional de Avaliadores Imobiliários (CNAI) é opcional. Para entrar, o corretor precisa de formação específica, como curso de avaliação reconhecido pelo Cofeci ou graduação em gestão imobiliária, e o registro vale por três anos.", "A aceitação do PTAM pode variar: em alguns processos judiciais e bancos, pede-se laudo de engenheiro com ART.", "Como usar no atendimento: a aba Avaliar imóvel do portal faz um estudo por comparação, o mesmo método do PTAM. Use o estudo como ponto de partida na captação e, quando o proprietário precisar de documento formal, ofereça o PTAM assinado."], "f": [["Normas Brasil, Resolução Cofeci 1.066/2007", "https://www.normasbrasil.com.br/norma/resolucao-1066-2007_105572.html"], ["Portas", "https://portas.com.br/para-corretores/ptam/"], ["Creci-ES", "https://crecies.gov.br/avaliacao-de-imoveis-deve-ser-feita-por-corretor-de-imoveis"]]},
+ {"id": "cofeci-mapeamento", "k": "Profissão", "d": "29/10/2026", "num": "Grátis", "cap": "cadastro de área de atuação no Sistema Cofeci-Creci", "h": "Cofeci convida corretores a cadastrar a área de atuação para receber oportunidades", "l": "Mapeamento nacional começou em julho. Também vale ficar atento às anuidades de 2026, fixadas pela Resolução 1.556/2025.", "b": ["O Sistema Cofeci-Creci lançou uma campanha nacional para mapear a área de atuação de corretores e avaliadores. Desde 21 de julho, os profissionais recebem por e-mail e pelos canais oficiais o convite para criar o próprio perfil. O cadastro é gratuito.", "Segundo o Cofeci, a ideia é aproximar os profissionais de oportunidades de negócio, de acordo com a região e a especialidade de cada um.", "As anuidades e taxas do sistema para 2026 foram fixadas pela Resolução Cofeci 1.556/2025, com possibilidade de parcelamento.", "Uma pesquisa anterior do Cofeci-Creci, de 2024, com mais de 9 mil corretores, mostrou que 96% têm orgulho da profissão e 83% estão satisfeitos com a carreira.", "Como usar no atendimento: mantenha o cadastro no Creci em dia e preencha o perfil com as regiões em que você atua, como Jundiaí, Itupeva e Louveira, e as especialidades, como condomínios fechados e alto padrão."], "f": [["Creci-AL", "https://creci-al.gov.br/portal/cofeci-lanca-pesquisa-nacional-para-mapear-a-area-de-atuacao-dos-corretores-de-imoveis-e-gerar-novas-oportunidades-de-negocio"], ["Cofeci, Resolução 1.556/2025", "https://intranet.cofeci.gov.br/arquivos/legislacao/resolucao_1556_2025.pdf"], ["Papo Imobiliário", "https://www.papoimobiliario.com/pesquisa-do-cofeci-creci-revela-perfil-dos-corretores-de-imoveis-no-brasil/"]]},
+ {"id": "argumento-aluguel-parcela", "k": "Atendimento", "d": "29/10/2026", "num": "9,13%", "cap": "alta do aluguel em 12 meses, contra 5,51% do preço de venda (FipeZap)", "h": "Aluguel subindo mais que o imóvel: como usar o dado na conversa com o cliente", "l": "O FipeZap mostra o aluguel subindo quase o dobro da inflação. É um argumento forte para o inquilino que pensa em comprar, se usado com cuidado.", "b": ["Nos 12 meses até setembro, o aluguel residencial subiu 9,13%, segundo o Índice FipeZap. No mesmo período, o preço de venda subiu 5,51% e o IPCA ficou em 4,58%.", "Para o inquilino, isso significa reajustes pesados na renovação do contrato. Para quem pensa em comprar, a diferença entre o aluguel e a parcela do financiamento ficou menor.", "Um roteiro simples: pergunte quanto o cliente paga de aluguel e qual foi o último reajuste; simule no portal a parcela de um imóvel na faixa dele; e mostre lado a lado o aluguel, a parcela e o valor da entrada necessária.", "Cuidado com promessas: juros estão altos e a parcela inicial do sistema SAC costuma ser maior que o aluguel. O argumento honesto é que a parcela cai ao longo do tempo, enquanto o aluguel sobe.", "Como usar no atendimento: use sempre o Simulador do portal na frente do cliente e envie o resumo pelo WhatsApp. Se a renda permitir, apresente também a Faixa 4 do Minha Casa, Minha Vida, com renda de até R$ 13 mil e juros menores."], "f": [["InfoMoney", "https://www.infomoney.com.br/minhas-financas/aluguel-desacelera-mas-continua-acima-da-inflacao-em-12-meses-aponta-fipezap/"], ["Fipe, Índice FipeZap", "https://downloads.fipe.org.br/indices/fipezap/fipezap-202609-residencial-venda-publico.pdf"], ["InfoMoney", "https://www.infomoney.com.br/politica/renda-de-r-13-mil-e-imoveis-de-r-600-mil-as-novas-regras-do-minha-casa-minha-vida/"]]},
+];
+/* ACADEMIA-FIM */
 /* CORRETORES-INICIO */
 const CORRETORES=[
  {n:"Fábio Pádua",f:"data:image/webp;base64,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",creci:"CRECI 218064-F",w:"5511963527212",tel:"(11) 96352-7212",p:"https://www.besthomesimoveis.com.br/equipe/fbio-padua"},
@@ -1278,7 +1367,7 @@ const hojeBR=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Sao_P
 const quando=d=>{const [dd,mm,aa]=d.split("/").map(Number);const n=Math.round((hojeBR-new Date(aa,mm-1,dd))/864e5);
   return n<=0?"Hoje":n===1?"Ontem":n<7?`Há ${n} dias`:d};
 const ord=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("");return p(b.d).localeCompare(p(a.d))});
-$("lista").innerHTML=ord.map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
+$("lista").innerHTML=ord.slice(0,12).map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
   <span class="th" aria-hidden="true"><b>${esc(n.num)}</b><span>${esc(n.cap)}</span></span>
   <span class="tx"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span><span class="d">${quando(n.d)} · ${n.d}</span></span></button></li>`).join("");
 $("lista").addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)});
@@ -1308,7 +1397,7 @@ function restart(){cRun()}
 
 
 const rd=$("reader");
-function abrir(id){const n=NOTICIAS.find(x=>x.id===id);if(!n)return;
+function abrir(id){const n=ARTIGOS().find(x=>x.id===id);if(!n)return;
   $("rdK").textContent=n.k;$("rdH").textContent=n.h;$("rdD").textContent=n.l;
   $("rdM").innerHTML=`Por <b>Redação Best Homes</b> · ${n.d}`;
   $("rdB").innerHTML=n.b.map(p=>`<p>${esc(p)}</p>`).join("");
@@ -1640,6 +1729,16 @@ const HEAD={
   noticias:['Mercado <em>imobiliário</em>','Crédito, juros e bancos: as notícias que mexem no preço do seu financiamento, apuradas pela Redação Best Homes.'],
   videos:['Tours em <em>vídeo</em>','Conheça por dentro os imóveis de alto padrão da Best Homes em Jundiaí e região.'],
   corretores:['Escolha seu <em>corretor</em>','Fale direto com um corretor da Best Homes. Ele recebe sua mensagem já sabendo que você veio pelo simulador.']};
+/* Arquitetura e Construção e Para corretores: mesmos cartões das notícias, abrem no leitor */
+const ARTIGOS=()=>[...NOTICIAS,...CONSTRUCAO,...ACADEMIA];
+function listaArt(arr,id){const p=d=>d.split("/").reverse().join("");
+  $(id).innerHTML=[...arr].sort((a,b)=>p(b.d).localeCompare(p(a.d))).map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
+  <span class="th" aria-hidden="true"><b>${esc(n.num)}</b><span>${esc(n.cap)}</span></span>
+  <span class="tx"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span><span class="d">${quando(n.d)}</span></span></button></li>`).join("");
+  $(id).addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)})}
+listaArt(CONSTRUCAO,"listaConstrucao");listaArt(ACADEMIA,"listaAcademia");
+HEAD.construcao=['Arquitetura e <em>Construção</em>','Tendências de arquitetura, paisagismo, tecnologia e construção que mudam o jeito de morar e o valor dos imóveis.'];
+HEAD.academia=['Para <em>corretores</em>','Conhecimento para crescer na profissão: legislação, avaliação, mercado e argumentos para o atendimento.'];
 function rota(){let h=location.hash.slice(1);if(!HEAD[h])h="simulador";
   Object.keys(HEAD).forEach(k=>$("tab-"+k).hidden=k!==h);
   document.querySelectorAll(".tabs a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+h?"page":"false"));
@@ -1647,5 +1746,303 @@ function rota(){let h=location.hash.slice(1);if(!HEAD[h])h="simulador";
 addEventListener("hashchange",()=>{rota();scrollTo({top:0})});
 /* letreiro: abre a matéria direto, sem trocar de aba */
 rota();
+</script>
+<script>
+/* AUDIOS-INICIO (locução pronta, voz Dora/Kokoro; boletimIds = notícias cobertas pelo boletim, na ordem) */
+const AUDIOS={"voz": "Dora", "boletim": "audio/boletim-1eac77c334.mp3", "boletimIds": ["mcmv-faixa4", "balancos-3t26", "outros-bancos", "copom-nov", "incc-out", "eleicao-juros", "bradesco-15", "fipezap-set", "poupanca-set", "abecip-ago"], "n": {"eleicao-juros": "audio/eleicao-juros-625405457c.mp3", "incc-out": "audio/incc-out-f107d4ea27.mp3", "fipezap-set": "audio/fipezap-set-0ee0f886af.mp3", "mcmv-faixa4": "audio/mcmv-faixa4-648d16c564.mp3", "balancos-3t26": "audio/balancos-3t26-ed89221ff4.mp3", "bradesco-15": "audio/bradesco-15-954da730a5.mp3", "outros-bancos": "audio/outros-bancos-92d38e266e.mp3", "copom-nov": "audio/copom-nov-685708c50b.mp3", "poupanca-set": "audio/poupanca-set-97c009220f.mp3", "abecip-ago": "audio/abecip-ago-a8626b41f5.mp3"}};
+/* AUDIOS-FIM */
+/* ÁUDIO-INICIO: ouvir notícias, preencher a avaliação por voz e guia do mercado (sem IA, montado com os dados do dia) */
+(()=>{
+const TTS="speechSynthesis" in window&&"SpeechSynthesisUtterance" in window;
+const N=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s+/g," ").trim();
+const LIM=new Date();LIM.setMonth(LIM.getMonth()-18);
+const ativos=()=>COMPARAVEIS.filter(c=>c.a>0&&c.p>0&&new Date(c.d+"T12:00:00")>=LIM);
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let vozes=[];const pegaVozes=()=>{try{vozes=speechSynthesis.getVoices()}catch(_){}};
+if(TTS){pegaVozes();try{speechSynthesis.addEventListener("voiceschanged",pegaVozes)}catch(_){}}
+const notaVoz=v=>{const n=v.name;let p=0;if(/Natural|Online|Neural/i.test(n))p+=50;if(/Premium|Enhanced|Aprimorad|Melhorad/i.test(n))p+=40;
+  if(/^Google/i.test(n))p+=30;if(/Francisca|Thalita|Luciana|Fernanda|Leila|Brenda|Manuela/i.test(n))p+=10;if(!v.localService)p+=5;if(/Compact|eSpeak|Daniel|Maria/i.test(n))p-=20;return p};
+const vozBR=()=>{const br=vozes.filter(v=>/pt[-_]BR/i.test(v.lang));const l=br.length?br:vozes.filter(v=>/^pt/i.test(v.lang));return l.sort((a,b)=>notaVoz(b)-notaVoz(a))[0]||null};
+/* Valores em reais por extenso, no padrão de leitura da Best Homes */
+const EXT_U=["zero","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],
+  EXT_D=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],
+  EXT_C=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
+const ate999=n=>{if(n===100)return "cem";const c=Math.floor(n/100),r=n%100,p=[];if(c)p.push(EXT_C[c]);
+  if(r){if(r<20)p.push(EXT_U[r]);else{const d=Math.floor(r/10),u=r%10;p.push(u?EXT_D[d]+" e "+EXT_U[u]:EXT_D[d])}}return p.join(" e ")};
+function porExtenso(n){if(n===0)return "zero";
+  const gs=[[Math.floor(n/1e9)%1000,"bilhão","bilhões"],[Math.floor(n/1e6)%1000,"milhão","milhões"],[Math.floor(n/1e3)%1000,"mil","mil"],[n%1000,"",""]];
+  const vivos=gs.map((g,i)=>[...g,i]).filter(g=>g[0]>0);let out="";
+  vivos.forEach(([v,s1,sp,i],k)=>{const w=i===2?(v===1?"mil":ate999(v)+" mil"):i===3?ate999(v):(v===1?"um "+s1:ate999(v)+" "+sp);
+    if(k===0){out=w;return}
+    const ultimo=k===vivos.length-1,redondo=v<100||v%100===0;
+    out+=ultimo&&redondo?" e "+w:(k===1&&vivos[0][3]===2&&vivos[0][0]===1)?" "+w:", "+w});
+  return out}
+function falaReais(inteiro,cent){const p=[];
+  if(inteiro>0){const so=inteiro%1e6===0;p.push(porExtenso(inteiro)+(inteiro===1?" real":so?" de reais":" reais"))}
+  if(cent>0)p.push(porExtenso(cent)+(cent===1?" centavo":" centavos"));
+  return p.length?p.join(" e "):"zero real"}
+const MULT={mil:1e3,"milhão":1e6,"milhões":1e6,milhao:1e6,milhoes:1e6,mi:1e6,"bilhão":1e9,"bilhões":1e9,bilhao:1e9,bilhoes:1e9,bi:1e9};
+const RE_REAIS=/R\$\s*(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d{1,2}))?(?:\s*(mil|milhão|milhões|milhao|milhoes|mi|bilhão|bilhões|bilhao|bilhoes|bi)(?![\p{L}]))?/gu;
+const valoresFalados=t=>String(t).replace(RE_REAIS,(m,i,d,mu)=>{const int=parseInt(i.replace(/\./g,""),10);
+  if(mu){const v=Math.round(parseFloat(int+"."+(d||"0"))*MULT[mu]);return falaReais(v,0)}
+  return falaReais(int,d?parseInt(d.padEnd(2,"0"),10):0)});
+const limpa=t=>valoresFalados(t).replace(/\bBest\s*Homes\b/gi,"Best Rômes").replace(/\bMinha\s+Casa,?\s+Minha\s+Vida\b|\bMCMV\b/gi,"Minha Casa Minha Vida").replace(/≈\s*/g,"cerca de ").replace(/\+\s*TR/g,"mais TR").replace(/(\d)\s*bi\b/g,"$1 bilhões").replace(/(\d)\s*mi\b/g,"$1 milhões")
+  .replace(/(\d)\s*m²/g,"$1 metros quadrados").replace(/\bm²/g,"metro quadrado").replace(/\s·\s/g,", ").replace(/\s*[–—]\s*/g,", ").replace(/\s*\(([^)]*)\)/g,", $1,").replace(/[‹›↗▶■"“”]/g,"").replace(/,\s*([.,])/g,"$1").replace(/\s{2,}/g," ");
+const MAXC=230;
+const pedacos=t=>{const fr=[];limpa(t).replace(/([.!?])\s+/g,"$1\u0001").split("\u0001").forEach(f=>{f=f.trim();if(!f)return;
+  while(f.length>MAXC){let k=f.lastIndexOf(", ",MAXC);if(k<100)k=f.lastIndexOf(" ",MAXC);fr.push(f.slice(0,k+1));f=f.slice(k+1).trim()}if(f)fr.push(f)});
+  const out=[];let cur="";fr.forEach(f=>{if(cur&&(cur+" "+f).length>MAXC){out.push(cur);cur=f}else cur=cur?cur+" "+f:f});if(cur)out.push(cur);return out};
+let btnAtual=null,falaId=0;
+function marca(b,on){if(!b)return;b.setAttribute("aria-pressed",on);const l=b.querySelector(".lb");if(l)l.textContent=on?(b.dataset.on||"Parar"):(b.dataset.off||"Ouvir")}
+let aud=null;
+function parar(){falaId++;if(aud){try{aud.pause()}catch(_){}aud=null}if(TTS)try{speechSynthesis.cancel()}catch(_){}marca(btnAtual,false);btnAtual=null}
+/* Toca a locução pronta (MP3); se o arquivo falhar, cai para a voz do aparelho */
+function tocaArq(src,btn,titulo,reserva){parar();const a=new Audio(src);a.preload="auto";aud=a;btnAtual=btn;marca(btn,true);
+  try{if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:titulo,artist:"Redação Best Homes",album:"Notícias do mercado imobiliário"})}catch(_){}
+  const falha=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null;if(reserva)falar(reserva,btn)};
+  a.onended=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null};a.onerror=falha;
+  const p=a.play();if(p&&p.catch)p.catch(falha)}
+const temAud=typeof AUDIOS!=="undefined"&&AUDIOS&&AUDIOS.n;
+/* Locução em ritmo de rádio: blocos de fala, pausas (ms) e vinheta suave entre as notícias */
+let actx=null;
+function vinheta(){return new Promise(r=>{try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume();
+  const t0=actx.currentTime+0.05;[[659.25,0],[880,0.18],[1046.5,0.36]].forEach(([f,d])=>{const o=actx.createOscillator(),g=actx.createGain();
+    o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(0,t0+d);g.gain.linearRampToValueAtTime(0.07,t0+d+0.03);g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.9);
+    o.connect(g).connect(actx.destination);o.start(t0+d);o.stop(t0+d+1)});setTimeout(r,1100)}catch(_){r()}})}
+const espera=ms=>new Promise(r=>setTimeout(r,ms));
+function bloco(texto,id){return new Promise(res=>{const ps=pedacos(texto);if(!ps.length){res(true);return}
+  const v=vozBR();let feitos=0,ok=true,fim=false;const done=r=>{if(!fim){fim=true;clearTimeout(vig);res(r)}};
+  const vig=setTimeout(()=>done(true),ps.join(" ").length*95+4000);
+  ps.forEach(p=>{const u=new SpeechSynthesisUtterance(p);u.lang=v?v.lang:"pt-BR";if(v)u.voice=v;u.rate=0.95;u.pitch=1;
+    u.onend=()=>{if(++feitos>=ps.length)done(ok)};
+    u.onerror=e=>{if(e.error==="interrupted"||e.error==="canceled"){ok=false;done(false);return}if(++feitos>=ps.length)done(ok)};
+    if(id===falaId)speechSynthesis.speak(u)})})}
+async function falar(seq,btn){if(!TTS)return false;
+  parar();const id=falaId;btnAtual=btn||null;marca(btnAtual,true);try{speechSynthesis.resume()}catch(_){}
+  try{const u0=new SpeechSynthesisUtterance(" ");u0.volume=0;u0.lang="pt-BR";speechSynthesis.speak(u0)}catch(_){}
+  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume()}catch(_){}
+  for(const it of (Array.isArray(seq)?seq:[seq])){if(id!==falaId)return false;
+    if(typeof it==="number")await espera(it);else if(it==="#vinheta")await vinheta();else if(!(await bloco(it,id))&&id!==falaId)return false}
+  if(id!==falaId)return false;marca(btnAtual,false);btnAtual=null;return true}
+const botaoOuvir=(id,off,on)=>`<button type="button" class="ouvir" id="${id}" aria-pressed="false" data-off="${off}" data-on="${on}"><span class="ic" aria-hidden="true"></span><span class="lb">${off}</span></button>`;
+const alterna=(b,texto)=>{if(b.getAttribute("aria-pressed")==="true"){parar();return}falar(typeof texto==="function"?texto():texto,b)};
+/* Pausas, como num boletim de rádio: entre frases a própria voz respira; entre partes e entre notícias, silêncio maior */
+const P={titulo:900,paragrafo:650,noticia:1400,aposVinheta:500};
+
+/* 1. Ouvir notícias */
+const ordN=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("");return p(b.d).localeCompare(p(a.d))});
+const dataFalada=d=>{const [dd,mm]=d.split("/").map(Number);return `${dd} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][mm-1]}`};
+if(TTS||temAud){
+  document.querySelector(".news .dl").insertAdjacentHTML("beforeend",botaoOuvir("ouvirTudo","Ouvir as notícias","Parar"));
+  const seqBoletim=()=>{const seq=["Olá! Estas são as notícias do mercado imobiliário, pela Redação Best Homes.",P.noticia];
+    ordN.forEach((n,k)=>{if(k)seq.push(P.noticia,"#vinheta",P.aposVinheta);
+      seq.push(`${k===0?"A primeira é de":k===ordN.length-1?"Para fechar, uma notícia de":["Agora, uma notícia de","Na sequência, também de","Seguindo, de"][k%3]} ${dataFalada(n.d)}.`,450,n.h+".",P.titulo,n.l)});
+    seq.push(P.noticia,"#vinheta",P.aposVinheta,"Para ouvir uma matéria completa, é só abrir a notícia e tocar em ouvir. Até a próxima!");return seq};
+  $("ouvirTudo").onclick=e=>{const b=e.currentTarget;if(b.getAttribute("aria-pressed")==="true"){parar();return}
+    const ok=temAud&&AUDIOS.boletim&&JSON.stringify(AUDIOS.boletimIds)===JSON.stringify(ordN.map(n=>n.id));
+    ok?tocaArq(AUDIOS.boletim,b,"Boletim de notícias Best Homes",seqBoletim()):falar(seqBoletim(),b)};
+  const top=document.querySelector("#reader .top");const x=$("rdX");
+  const acts=document.createElement("div");acts.className="acts";x.before(acts);
+  acts.insertAdjacentHTML("beforeend",botaoOuvir("rdOuvir","Ouvir","Parar"));acts.append(x);
+  $("rdOuvir").onclick=e=>{const h=$("rdH").textContent;const n=ARTIGOS().find(z=>z.h===h);if(!n)return;
+    const seq=[n.h+".",P.titulo,n.l,P.titulo];n.b.forEach(p=>seq.push(p,P.paragrafo));seq.push(`Esta matéria teve como fontes ${lista(n.f.map(f=>f[0]))}.`);
+    const b=e.currentTarget;if(b.getAttribute("aria-pressed")==="true"){parar();return}
+    temAud&&AUDIOS.n[n.id]?tocaArq(AUDIOS.n[n.id],b,n.h,seq):falar(seq,b)};
+  $("reader").addEventListener("close",parar);
+  addEventListener("hashchange",parar);
+}
+
+/* Reconhecimento de voz */
+function ouvirUmaVez(){return new Promise((res,rej)=>{if(!SR){rej("sem-suporte");return}
+  const r=new SR();r.lang="pt-BR";r.interimResults=false;r.maxAlternatives=3;r.continuous=false;let ok=false;
+  r.onresult=e=>{ok=true;res(e.results[0][0].transcript||"")};
+  r.onerror=e=>{ok=true;e.error==="no-speech"?res(""):rej(e.error)};
+  r.onend=()=>{if(!ok)res("")};
+  ouvirUmaVez.atual=r;try{r.start()}catch(err){rej("ocupado")}})}
+const msgErro=c=>c==="not-allowed"||c==="service-not-allowed"?"O microfone não foi liberado nesta página. Libere o microfone nas permissões do navegador ou use o microfone do teclado do celular em cada campo."
+  :c==="sem-suporte"?"Este navegador não faz ditado aqui. Use o microfone do teclado do celular em cada campo (no iPhone e no Android ele aparece ao lado da barra de espaço)."
+  :c==="audio-capture"?"Não encontramos um microfone ligado a este aparelho."
+  :c==="network"?"O ditado precisa de internet. Confira a conexão e tente de novo.":"Não foi possível usar o microfone agora. Tente de novo.";
+
+/* Números falados em português */
+const NUMW={zero:0,um:1,uma:1,dois:2,duas:2,tres:3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9,dez:10,onze:11,doze:12,treze:13,quatorze:14,catorze:14,quinze:15,dezesseis:16,dezessete:17,dezoito:18,dezenove:19,vinte:20,trinta:30,quarenta:40,cinquenta:50,sessenta:60,setenta:70,oitenta:80,noventa:90,cem:100,cento:100,duzentos:200,duzentas:200,trezentos:300,trezentas:300,quatrocentos:400,quinhentos:500,seiscentos:600,setecentos:700,oitocentos:800,novecentos:900};
+function numFalado(t){const s=N(t);const d=s.match(/\d[\d.]*(,\d+)?/);
+  if(d){let v=parseFloat(d[0].replace(/\./g,"").replace(",","."));if(/\bmil\b/.test(s.slice(s.indexOf(d[0])+d[0].length,s.indexOf(d[0])+d[0].length+5)))v*=1000;return Math.round(v)}
+  let tot=0,cur=0,achou=false;s.split(/[\s-]+/).forEach(w=>{if(w in NUMW){cur+=NUMW[w];achou=true}else if(w==="mil"){tot+=(cur||1)*1000;cur=0;achou=true}});
+  return achou?tot+cur:null}
+const digitos=t=>{const s=N(t);let d=s.replace(/\D/g,"");if(d.length>=5)return d;
+  const map={zero:"0",um:"1",uma:"1",dois:"2",duas:"2",tres:"3",quatro:"4",cinco:"5",seis:"6",meia:"6",sete:"7",oito:"8",nove:"9"};
+  return s.split(/[\s-]+/).map(w=>/^\d+$/.test(w)?w:(map[w]||"")).join("")};
+const dispara=el=>{el.dispatchEvent(new Event("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}))};
+
+/* 2. Preencher a avaliação por voz */
+const form=$("avForm");
+form.querySelector("h2").insertAdjacentHTML("afterend",`<div class="vozbar" id="vozbar">
+  <button type="button" class="btn" id="vozIni"><span class="mic" aria-hidden="true"></span><span>Preencher por voz</span></button>
+  <span class="st" id="vozSt" role="status" aria-live="polite">Responda em voz alta: a página pergunta e preenche os campos para você.<small>Funciona no celular e no computador. Com o celular ligado ao carro, a voz sai no som do carro.</small></span></div>`);
+const st=(t,sub)=>{$("vozSt").innerHTML=esc(t)+(sub?`<small>${esc(sub)}</small>`:"")};
+const PASSOS=[
+  {id:"avNome",q:"Qual é o seu nome?",set:t=>t.replace(/^(meu nome e|meu nome é|eu sou|sou o|sou a|e o|é o|e a|é a)\s+/i,"").replace(/\b\p{L}/gu,c=>c.toUpperCase())},
+  {id:"avCep",q:"Qual é o CEP do imóvel? Se não souber, diga pular.",set:t=>{const d=digitos(t);return d.length===8?d:null},erro:"Não entendi o CEP. Fale os oito números."},
+  {id:"avBairro",q:"Qual é o bairro?",so:()=>!$("avBairro").value.trim(),set:t=>t.trim()},
+  {id:"avNum",q:"Qual é o número do imóvel?",set:t=>{const n=numFalado(t);return n==null?null:String(n)}},
+  {id:"avCond",q:"Qual é o nome do condomínio? Se não for em condomínio, diga não tem.",set:t=>{
+    if(/\b(nao tem|nenhum|nao e|sem condominio|nao)\b/.test(N(t)))return "";
+    const alvo=N(t).replace(/^(condominio|residencial|o|no|cond)\s+/,"");
+    const ops=[...$("avCondList").options].map(o=>o.value);
+    return ops.find(o=>N(o)===alvo)||ops.find(o=>N(o).includes(alvo)&&alvo.length>3)||ops.find(o=>alvo.includes(N(o))&&N(o).length>3)||t.trim()}},
+  {id:"avTipo",q:"É casa em condomínio, casa de rua ou apartamento?",set:t=>{const s=N(t);
+    return /apart|apto/.test(s)?"apto":/condomin/.test(s)?"casa_cond":/rua|casa/.test(s)?"casa":null},erro:"Diga casa em condomínio, casa de rua ou apartamento."},
+  {id:"avArea",q:"Qual é a área construída, em metros quadrados?",set:t=>{const n=numFalado(t);return n&&n>=20&&n<=5000?String(n):null},erro:"Fale só o número de metros quadrados construídos."},
+  {id:"avQ",q:"Quantos quartos?",set:t=>{const n=numFalado(t);return n&&n<=10?String(n):null}},
+  {id:"avV",q:"Quantas vagas de garagem?",set:t=>{const n=numFalado(t);return n!=null&&n<=20?String(n):null}}];
+let vozOn=false;
+function vozPara(msg){vozOn=false;try{ouvirUmaVez.atual&&ouvirUmaVez.atual.abort()}catch(_){}parar();
+  document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
+  const b=$("vozIni");b.classList.remove("rec");b.lastElementChild.textContent="Preencher por voz";if(msg)st(msg)}
+async function pergunta(texto){st(texto,"Fale depois da pergunta. Comandos: pular, voltar, parar.");if(TTS)await falar(texto);if(!vozOn)throw"parou";
+  st(texto,"Ouvindo…");return ouvirUmaVez()}
+async function vozGuia(){
+  if(!SR){st(msgErro("sem-suporte"));return}
+  vozOn=true;const b=$("vozIni");b.classList.add("rec");b.lastElementChild.textContent="Parar";
+  try{
+    let i=0;while(i<PASSOS.length&&vozOn){const p=PASSOS[i];if(p.so&&!p.so()){i++;continue}
+      const el=$(p.id);const fld=el.closest(".field");document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
+      fld.classList.add("ativo");fld.scrollIntoView({block:"center",behavior:RM?"auto":"smooth"});
+      let t=await pergunta(p.q);const s=N(t);
+      if(!t){t=await pergunta("Não ouvi. "+p.q);if(!t){vozPara("Não ouvi nada. Toque em Preencher por voz para continuar.");return}}
+      if(/^(parar|parar tudo|cancelar|sair)$/.test(N(t))){vozPara("Ditado encerrado. Os campos preenchidos continuam na tela.");return}
+      if(/^(voltar|volta|anterior)$/.test(N(t))){i=Math.max(0,i-1);continue}
+      if(/^(pular|pula|proximo|nao sei)$/.test(N(t))){i++;continue}
+      const v=p.set(t);
+      if(v==null){if(TTS)await falar(p.erro||"Não entendi.");continue}
+      el.value=v;dispara(el);i++}
+    if(!vozOn)return;
+    document.querySelectorAll(".field.ativo").forEach(f=>f.classList.remove("ativo"));
+    const tipo=$("avTipo").selectedOptions[0].textContent.toLowerCase();
+    const r=await pergunta(`Pronto. ${tipo}, ${$("avArea").value} metros quadrados, ${$("avQ").value} quartos e ${$("avV").value} vagas. Diga avaliar para ver o resultado, ou parar para conferir na tela.`);
+    if(/avali|sim|pode|ok|confirm/.test(N(r))){vozPara("Avaliando…");form.requestSubmit?form.requestSubmit():form.querySelector("[type=submit]").click();
+      setTimeout(()=>{const o=$("avOut");o.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
+        const h=o.querySelector(".av-cen .on b");if(h&&TTS)falar("O valor estimado é de "+h.textContent+". Os detalhes estão na tela.")},400)}
+    else vozPara("Confira os campos e toque em Avaliar imóvel.")
+  }catch(e){if(e!=="parou")vozPara(msgErro(e));}
+}
+$("vozIni").onclick=()=>vozOn?vozPara("Ditado encerrado. Os campos preenchidos continuam na tela."):vozGuia();
+if(!SR)st("Preencher por voz",msgErro("sem-suporte"));
+addEventListener("hashchange",()=>{if(vozOn)vozPara("Ditado encerrado.")});
+
+/* 3. Guia do mercado (respostas automáticas com os dados do dia) */
+const fmtP=x=>x.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%";
+const ind=l=>INDICADORES.find(x=>N(x.l).includes(N(l)));
+const bancos=()=>BANKS.filter(b=>b.t).sort((a,b)=>a.t-b.t);
+const lista=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" e "+a[a.length-1];
+const noticiaLi=n=>`<li><a href="#" data-n="${n.id}">${esc(n.h)}</a> <small>(${n.d})</small></li>`;
+const mediana=a=>{const s=[...a].sort((x,y)=>x-y);const m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
+const R={
+ taxa:{q:"Qual banco tem a menor taxa hoje?",a:()=>{const b=bancos();if(!b.length)return null;
+   return {t:`Pelas taxas mínimas de balcão atualizadas em ${ATUALIZADO}, a menor é da ${b[0].n}: ${fmtP(b[0].t)} ao ano mais TR. Em seguida: ${lista(b.slice(1).map(x=>`${x.n}, ${fmtP(x.t)}`))}.`,
+     extra:"A taxa mínima costuma exigir relacionamento com o banco, como conta-salário e débito automático. Para comparar de verdade, veja o CET de cada banco no simulador.",link:["#simulador","Comparar no simulador"]}}},
+ selic:{q:"Quanto está a Selic?",a:()=>{const s=ind("selic"),c=ind("copom");if(!s)return null;
+   return {t:`A Selic está em ${s.v} ${s.s}.`+(c?` A próxima reunião do Copom é em ${c.v}, com ${c.s}.`:""),extra:"A Selic é a taxa básica de juros. Ela influencia o custo do dinheiro para os bancos, mas o financiamento imobiliário também depende da poupança e dos juros de longo prazo."}}},
+ copom:{q:"Quando é a próxima reunião do Copom?",a:()=>{const c=ind("copom"),s=ind("selic");if(!c)return null;
+   return {t:`A próxima reunião do Copom é em ${c.v}, com ${c.s}.`+(s?` Hoje a Selic está em ${s.v}.`:""),extra:"O resultado sai no fim da tarde do segundo dia de reunião. Esta página atualiza o indicador no dia seguinte."}}},
+ sobe:{q:"Os juros do financiamento vão subir?",a:()=>{const ns=ordN.filter(n=>/juros|bancos|credito/i.test(N(n.k))).slice(0,3);
+   return {t:"Ninguém consegue prever com certeza. O que já aconteceu nos últimos dias está nestas notícias:",ul:ns.map(noticiaLi),
+     extra:`As taxas desta página são conferidas todos os dias. Última atualização: ${ATUALIZADO}.`}}},
+ noticias:{q:"Quais são as últimas notícias?",a:()=>({t:"As notícias mais recentes da Redação Best Homes:",ul:ordN.slice(0,4).map(noticiaLi)})},
+ entrada:{q:"Quanto preciso de entrada?",a:()=>({t:"Pelo SBPE, os bancos financiam em geral até 80% do valor do imóvel. Então a entrada mínima costuma ser de 20%, e pode incluir o FGTS, se você tiver direito.",
+   extra:"Além da entrada, separe cerca de 4% a 5% do valor do imóvel para ITBI, cartório e avaliação do banco.",link:["#simulador","Simular com a minha entrada"]})},
+ tr:{q:"O que é a TR?",a:()=>{const t=ind("tr");return {t:"A TR (Taxa Referencial) corrige o saldo devedor do financiamento todo mês. Por isso as taxas aparecem como um percentual ao ano mais TR."+(t?` Hoje ela está em ${t.v} ${t.s}.`:"")}}},
+ cet:{q:"O que é o CET?",a:()=>({t:"CET é o Custo Efetivo Total. Ele soma os juros, os seguros obrigatórios (MIP e DFI) e as tarifas do banco. É o número certo para comparar propostas, porque a menor taxa nem sempre é o menor custo.",link:["#simulador","Ver o CET no simulador"]})},
+ sac:{q:"SAC ou Price: qual a diferença?",a:()=>({t:"No SAC, as parcelas começam maiores e diminuem todo mês, e o total de juros pago é menor. Na Price, as parcelas começam menores e ficam parecidas ao longo do prazo, mas o total de juros é maior.",
+   extra:"A primeira parcela da Price exige menos renda. O simulador mostra as duas lado a lado.",link:["#simulador","Comparar SAC e Price"]})},
+ m2:{q:"Quanto vale o metro quadrado em Jundiaí?",a:()=>{const ok=ativos().filter(c=>N(c.cid)==="jundiai");
+   const lin=[["casa_cond","casas em condomínio"],["casa","casas de rua"],["apto","apartamentos"]].map(([t,nm])=>{const v=ok.filter(c=>c.t===t).map(c=>c.p/c.a);
+     return v.length>=5?`<li>${nm}: ${brl(Math.round(mediana(v)/10)*10)} por m² <small>(mediana de ${v.length} anúncios)</small></li>`:null}).filter(Boolean);
+   if(!lin.length)return null;
+   return {t:"Pelos anúncios de venda da nossa base, coletados nos últimos 18 meses em Jundiaí:",ul:lin,
+     extra:"O valor muda muito de um bairro e de um condomínio para outro. Para o seu imóvel, use a avaliação por comparação.",link:["#avaliar","Avaliar o meu imóvel"]}}},
+ mcmv:{q:"Como está o Minha Casa Minha Vida?",a:()=>{const ns=ordN.filter(n=>/minha casa|mcmv/i.test(n.h+" "+n.l)).slice(0,3);
+   return ns.length?{t:"Notícias recentes sobre o programa:",ul:ns.map(noticiaLi),extra:"Um corretor pode verificar se a sua renda e o imóvel se enquadram."}
+     :{t:"Não há notícia recente sobre o programa nesta página. As regras de renda e de valor do imóvel mudam com frequência; um corretor confere se o seu caso se enquadra hoje."}}}
+};
+const ORDEM=["taxa","selic","copom","sobe","noticias","entrada","m2","tr","cet","sac","mcmv"];
+const CHAVES=[[/parcela|prestac|quanto fica|financiar .*(mil|r\$|\d)/,"parcela"],[/menor taxa|melhor banco|qual banco|taxa.*banco|banco.*taxa|caixa|bradesco|itau|santander|banco do brasil/,"taxa"],
+  [/copom|reuniao/,"copom"],[/selic|juros basic/,"selic"],[/subir|aumentar|alta dos juros|cair|baixar|vai mudar/,"sobe"],[/noticia|novidade|aconteceu/,"noticias"],
+  [/entrada|fgts|quanto preciso/,"entrada"],[/\btr\b|taxa referencial/,"tr"],[/\bcet\b|custo efetivo|custo total/,"cet"],[/\bsac\b|price|amortiza/,"sac"],
+  [/metro quadrado|m2|m²|quanto vale|preco do imovel|valoriza/,"m2"],[/minha casa|mcmv|programa/,"mcmv"],[/taxa|juros/,"taxa"]];
+function parcelaRapida(txt){const s=N(txt);let v=null;const m=s.match(/(\d[\d.,]*)\s*(mil|milhao|milhoes|mi)?/);
+  if(m){v=parseFloat(m[1].replace(/\./g,"").replace(",","."));if(m[2]==="mil")v*=1e3;else if(m[2])v*=1e6}else{const n=numFalado(s);if(n)v=n}
+  if(!v||v<50000)return {t:"Me diga o valor do imóvel na pergunta, por exemplo: quanto fica a parcela de um imóvel de 800 mil?",link:["#simulador","Abrir o simulador"]};
+  const b=bancos()[0];const P=v*0.8,i=Math.pow(1+b.t/100,1/12)-1,p1=P/360+P*i;
+  return {t:`Para um imóvel de ${brl(v)}, com 20% de entrada (${brl(v*0.2)}) e 30 anos no SAC, a primeira parcela fica perto de ${brl(p1)} na menor taxa de hoje (${b.n}, ${fmtP(b.t)} ao ano mais TR), sem contar seguros e tarifa.`,
+    extra:"Com seguros, tarifa e a sua idade, o valor muda. O simulador faz a conta completa em todos os bancos.",link:["#simulador","Fazer a conta completa"]}}
+const guia=document.createElement("section");guia.className="panel guia";guia.setAttribute("aria-labelledby","gH");
+guia.innerHTML=`<h2 id="gH">Pergunte sobre o mercado</h2>
+  <p class="av-sub">Respostas automáticas montadas com as taxas, os indicadores e as notícias do dia. Toque numa pergunta, escreva ou fale.</p>
+  <div class="gchips" id="gChips">${ORDEM.map(k=>`<button type="button" data-k="${k}">${esc(R[k].q)}</button>`).join("")}</div>
+  <form class="gask" id="gForm"><input type="text" id="gIn" placeholder="ex.: quanto fica a parcela de um imóvel de 800 mil?" aria-label="Sua pergunta" autocomplete="off">
+  ${SR?`<button type="button" class="btn ghost" id="gMic" aria-label="Perguntar por voz"><span class="mic" aria-hidden="true"></span><span>Falar</span></button>`:""}
+  <button type="submit" class="btn">Perguntar</button></form>
+  <div class="glog" id="gLog" aria-live="polite"></div>
+  <p class="gnote">Não é inteligência artificial nem recomendação financeira: são respostas prontas, atualizadas com os dados publicados nesta página. Para o seu caso, fale com um corretor.</p>`;
+document.querySelector(".news .ngrid").after(guia);
+let gN=0;
+function responde(pergunta,chave,falado){const log=$("gLog");
+  let r=chave==="parcela"?parcelaRapida(pergunta):(R[chave]&&R[chave].a());
+  if(!r)r={t:"Não tenho essa resposta pronta. Um corretor da Best Homes pode responder pelo WhatsApp.",wa:true};
+  const id="gA"+(++gN);
+  const txt=[r.t,...(r.ul||[]).map(h=>h.replace(/<[^>]+>/g,"")),r.extra||""].join(" ");
+  const wa="https://wa.me/5511963527212?text="+encodeURIComponent(`Olá! Vim pelo portal da Best Homes e tenho uma dúvida: ${pergunta}`);
+  log.insertAdjacentHTML("beforeend",`<div class="gq">${esc(pergunta)}</div><div class="ga">
+    <p>${esc(r.t)}</p>${r.ul?`<ul>${r.ul.join("")}</ul>`:""}${r.extra?`<p>${esc(r.extra)}</p>`:""}
+    <div class="row">${TTS?botaoOuvir(id,"Ouvir","Parar"):""}${r.link?`<a class="btn ghost" href="${r.link[0]}">${esc(r.link[1])}</a>`:""}
+    ${r.wa||chave==="sobe"||chave==="mcmv"?`<a class="btn ghost" href="${wa}" target="_blank" rel="noopener">Perguntar a um corretor</a>`:""}</div></div>`);
+  const b=$(id);if(b)b.onclick=e=>alterna(e.currentTarget,txt);
+  log.lastElementChild.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"});
+  if(falado&&b)falar(txt,b)}
+function chaveDe(t){const s=N(t);for(const [re,k] of CHAVES)if(re.test(s))return k;return null}
+$("gChips").onclick=e=>{const b=e.target.closest("button[data-k]");if(b)responde(R[b.dataset.k].q,b.dataset.k,false)};
+$("gForm").onsubmit=e=>{e.preventDefault();const t=$("gIn").value.trim();if(!t)return;responde(t,chaveDe(t),false);$("gIn").value=""};
+$("gLog").addEventListener("click",e=>{const a=e.target.closest("a[data-n]");if(a){e.preventDefault();parar();abrir(a.dataset.n)}});
+if(SR)$("gMic").onclick=async()=>{const b=$("gMic");if(b.classList.contains("rec")){try{ouvirUmaVez.atual.abort()}catch(_){}return}
+  parar();b.classList.add("rec");b.lastElementChild.textContent="Ouvindo…";
+  try{const t=await ouvirUmaVez();if(t){$("gIn").value=t;responde(t,chaveDe(t),true);$("gIn").value=""}}
+  catch(err){$("gLog").insertAdjacentHTML("beforeend",`<div class="ga"><p>${esc(msgErro(err))}</p></div>`)}
+  finally{b.classList.remove("rec");b.lastElementChild.textContent="Falar"}};
+/* 4. Aba Semana: notícias guardadas, de segunda a domingo, para ler ou ouvir de novo */
+{
+const dt=d=>{const [dd,mm,aa]=d.split("/").map(Number);return new Date(aa,mm-1,dd)};
+const hoje=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Sao_Paulo"}));hoje.setHours(0,0,0,0);
+const seg=d=>{const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
+const fmt=d=>d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
+const DIAS=["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
+const semAtual=seg(hoje);const maisAntiga=ordN.length?seg(dt(ordN[ordN.length-1].d)):semAtual;
+let ini=new Date(semAtual);
+if(!ordN.some(n=>dt(n.d)>=semAtual)&&ordN.length)ini=seg(dt(ordN[0].d)); /* semana sem notícias ainda: mostra a última com notícias */
+function desenha(){parar();const fim=new Date(ini);fim.setDate(fim.getDate()+6);
+  const atual=+ini===+semAtual,passada=+ini===+semAtual-7*864e5;
+  $("semTit").textContent=atual?"Esta semana":passada?"Semana passada":`${fmt(ini)} a ${fmt(fim)}`;
+  $("semAnt").disabled=+ini<=+maisAntiga;$("semProx").disabled=+ini>=+semAtual;
+  let h="";for(let i=6;i>=0;i--){const d=new Date(ini);d.setDate(d.getDate()+i);if(d>hoje)continue;
+    const ns=ordN.filter(n=>+dt(n.d)===+d);
+    h+=`<section class="sdia"><h3 class="${+d===+hoje?"hoje":""}">${+d===+hoje?"Hoje":DIAS[i]}<small>${d.toLocaleDateString("pt-BR",{day:"numeric",month:"long"})}</small></h3><div class="slist">${
+      ns.length?ns.map(n=>`<article class="sitem"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span>
+        <div class="row">${botaoOuvir("so-"+n.id,"Ouvir","Parar")}<button type="button" class="ler" data-ler="${n.id}">Ler</button></div></article>`).join("")
+      :`<p class="svazio">Sem notícias publicadas neste dia.</p>`}</div></section>`}
+  $("semDias").innerHTML=h||`<p class="svazio">Ainda não há notícias nesta semana.</p>`}
+$("semAnt").onclick=()=>{ini.setDate(ini.getDate()-7);desenha()};
+$("semProx").onclick=()=>{ini.setDate(ini.getDate()+7);desenha()};
+$("semDias").addEventListener("click",e=>{const l=e.target.closest("[data-ler]");if(l){parar();abrir(l.dataset.ler);return}
+  const b=e.target.closest(".ouvir");if(!b)return;const n=NOTICIAS.find(z=>"so-"+z.id===b.id);if(!n)return;
+  if(b.getAttribute("aria-pressed")==="true"){parar();return}
+  const seq=[n.h+".",P.titulo,n.l,P.titulo];n.b.forEach(p=>seq.push(p,P.paragrafo));seq.push(`Esta matéria teve como fontes ${lista(n.f.map(f=>f[0]))}.`);
+  temAud&&AUDIOS.n[n.id]?tocaArq(AUDIOS.n[n.id],b,n.h,seq):falar(seq,b)});
+HEAD.semana=['Notícias da <em>semana</em>','Perdeu alguma notícia? Volte a qualquer dia da semana para ler ou ouvir de novo.'];
+desenha();rota();
+}
+
+})();
+/* ÁUDIO-FIM */
 </script>
 </body></html>
