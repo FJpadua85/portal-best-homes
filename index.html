@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Simulador de financiamento imobiliário da Best Homes com as taxas dos principais bancos, avaliação de imóveis, notícias do mercado e contato direto com nossos corretores em Jundiaí/SP."><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Portal Best Homes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
@@ -1358,7 +1358,7 @@ $("hoje").textContent=new Date().toLocaleDateString("pt-BR",{weekday:"long",day:
 
 /* Letreiro de últimas */
 const tk=document.createElement("div");tk.className="ticker";
-tk.innerHTML=`<div class="wrap"><span class="lab">Últimas</span><div class="vp"><div class="track">${[0,1].map(r=>NOTICIAS.map(n=>`<button type="button" data-id="${n.id}" ${r?'aria-hidden="true" tabindex="-1"':''}><b>${n.d.slice(0,5)}</b><span>${esc(n.h)}</span></button>`).join("")).join("")}</div></div></div>`;
+tk.innerHTML=`<div class="wrap"><span class="lab">Últimas notícias</span><div class="vp"><div class="track">${[0,1].map(r=>NOTICIAS.map(n=>`<button type="button" data-id="${n.id}" ${r?'aria-hidden="true" tabindex="-1"':''}><b>${n.d.slice(0,5)}</b><span>${esc(n.h)}</span></button>`).join("")).join("")}</div></div></div>`;
 document.querySelector("header").after(tk);
 tk.addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)});
 
