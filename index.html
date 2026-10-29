@@ -1321,7 +1321,7 @@ rd.addEventListener("click",e=>{if(e.target===rd)rd.close()});
 rd.addEventListener("close",()=>cRun());
 
 /* Corretores e WhatsApp */
-let csel=-1;try{const r=localStorage.getItem("bh-corretor");if(r!==null&&CORRETORES[+r])csel=+r}catch(e){}
+let csel=-1;
 /* simulou = o cliente mexeu em algum campo do simulador ou escolheu um banco */
 let simulou=false;
 ["input","change"].forEach(ev=>$("tab-simulador").addEventListener(ev,()=>{simulou=true}));
@@ -1342,32 +1342,29 @@ function drawCorr(){$("ccards").innerHTML=CORRETORES.map((c,k)=>`<div class="cc"
   <a class="btn" data-k="${k}" href="https://wa.me/${c.w}" target="_blank" rel="noopener">Chamar ${esc(c.n.split(" ")[0])} no WhatsApp</a>
   <a class="pf" href="${c.p}" target="_blank" rel="noopener">Ver perfil no site da Best Homes</a></div>`).join("")}
 $("ccards").addEventListener("click",e=>{const a=e.target.closest("a[data-k]");if(!a)return;csel=+a.dataset.k;
-  try{localStorage.setItem("bh-corretor",csel)}catch(_){}a.href=waLink(CORRETORES[csel]);
+  a.href=waLink(CORRETORES[csel]);
   document.querySelectorAll(".cc").forEach((c,k)=>c.dataset.sel=k===csel)});
 drawCorr();
 const wa=$("wa");wa.textContent="Falar com um corretor";
-/* Rodízio em sequência: a vez passa a cada 15 minutos, na ordem da lista abaixo, sem parar:
-   Fábio, Rodrigo, Fernanda, Rafael, Fábio de novo... Quem tem rodizio:false fica fora.
-   O mesmo cliente volta sempre para o corretor que o atendeu na primeira vez. */
-const ORDEM_RODIZIO=["Fábio Pádua","Rodrigo Gallo","Fernanda","Rafael Negrão Job"], MIN_VEZ=15;
-function daVez(){const R=ORDEM_RODIZIO.map(n=>CORRETORES.findIndex(c=>c.n===n)).filter(k=>k>=0&&CORRETORES[k].rodizio!==false);
-  let k=-1;try{const r=localStorage.getItem("bh-rodizio");if(r!==null&&R.includes(+r))k=+r}catch(e){}
-  if(k<0){const slot=Math.floor(Date.now()/(MIN_VEZ*60000));k=R[slot%R.length];try{localStorage.setItem("bh-rodizio",k)}catch(e){}}
-  return k}
-/* Vez por clique: no portal (página aberta direto no navegador) um contador público compartilhado
-   passa a vez a cada novo cliente que clica. Dentro do claude.ai (página em moldura) o contador não é
-   alcançável, então vale a vez por horário acima. */
-const CONTADOR="https://abacus.jasoncameron.dev/hit/besthomes-jundiai/rodizio-corretores";
+/* Rodízio por clique: cada clique em "Falar com um corretor" passa a vez para o próximo da lista abaixo,
+   sem guardar quem atendeu o cliente antes: Fábio, Rodrigo, Fernanda, Rafael, Fábio de novo...
+   Quem tem rodizio:false fica fora. */
+const ORDEM_RODIZIO=["Fábio Pádua","Rodrigo Gallo","Fernanda","Rafael Negrão Job"];
 const R_ORD=()=>ORDEM_RODIZIO.map(n=>CORRETORES.findIndex(c=>c.n===n)).filter(k=>k>=0&&CORRETORES[k].rodizio!==false);
-function guardado(){try{const r=localStorage.getItem("bh-rodizio");if(r!==null&&R_ORD().includes(+r))return +r}catch(e){}return -1}
+/* Vez local: usada dentro do claude.ai e quando o contador falha. Começa num corretor sorteado e avança a cada clique. */
+function daVez(){const R=R_ORD();let n;try{n=parseInt(localStorage.getItem("bh-vez"),10)}catch(e){}
+  if(!(n>=0))n=Math.floor(Math.random()*R.length);try{localStorage.setItem("bh-vez",n+1)}catch(e){}
+  return R[n%R.length]}
+/* Vez compartilhada: no portal (página aberta direto no navegador) um contador público soma cada clique
+   de todos os clientes, então a vez segue a ordem entre todos. Dentro do claude.ai o contador não é alcançável. */
+const CONTADOR="https://abacus.jasoncameron.dev/hit/besthomes-jundiai/rodizio-corretores";
 wa.addEventListener("click",e=>{
   if(csel>=0){wa.href=waLink(CORRETORES[csel]);return}
-  const g=guardado();
-  if(g>=0||window.self!==window.top){wa.href=waLink(CORRETORES[g>=0?g:daVez()]);return}
+  if(window.self!==window.top){wa.href=waLink(CORRETORES[daVez()]);return}
   e.preventDefault();
   const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),2500);
   fetch(CONTADOR,{signal:ctl.signal,cache:"no-store"}).then(r=>r.json()).then(j=>{const R=R_ORD();const n=parseInt(j.value,10);
-      if(!(n>0))throw 0;const k=R[(n-1)%R.length];try{localStorage.setItem("bh-rodizio",k)}catch(_){}return k})
+      if(!(n>0))throw 0;return R[(n-1)%R.length]})
     .catch(()=>daVez()).then(k=>{clearTimeout(t);location.href=waLink(CORRETORES[k])})});
 
 
@@ -1602,8 +1599,7 @@ function capta(){return `<section class="av-capta"><div><span class="av-eyebrow"
   <p>Um corretor confirma o valor com uma visita, prepara fotos e vídeo profissionais e divulga o imóvel nos principais portais e no nosso canal.</p></div>
   <a class="btn av-cbtn" id="avWa" href="#" target="_blank" rel="noopener">Quero vender meu imóvel</a></section>`}
 function ligarWa(){const a=$("avWa");if(!a)return;a.addEventListener("click",e=>{const a2=e.currentTarget;
-  const g=(()=>{try{const r=localStorage.getItem("bh-rodizio");return r===null?-1:+r}catch(_){return -1}})();
-  const k=csel>=0?csel:(g>=0&&CORRETORES[g]?g:daVez());const c=CORRETORES[k],x=ultimoAval,f=x.f;
+  const k=csel>=0?csel:daVez();const c=CORRETORES[k],x=ultimoAval,f=x.f;
   const end=[f.rua&&(f.rua+(f.num?", "+f.num:"")),f.compl,f.cond&&("Condomínio "+f.cond.replace(/^(Condom[ií]nio)\s+/i,"")),f.bairro,`${f.cid}/${f.uf}`,f.cep&&("CEP "+f.cep)].filter(Boolean).join(" · ");
   let t=`Olá, ${c.n.split(" ")[0]}! ${f.nome?"Sou "+f.nome+". ":""}Vim pelo Avaliador do Portal Best Homes e quero colocar meu imóvel à venda.\n\n• Tipo: ${TIPO[f.t]}\n• Endereço: ${end}\n• Área: ${f.area} m² · ${f.q} quartos · ${f.v} vagas\n`;
   if(!x.sem)t+=`• Estudo do site (ACM, ${x.n} amostras): valor de venda ${mi(x.venda)} · negociado ${mi(x.neg)} · venda rápida ${mi(x.rap)} (${m2(x.vM2)}/m²)\n`;
