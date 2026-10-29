@@ -367,6 +367,27 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   .rd .top{position:sticky;top:0;background:var(--surface);z-index:1;padding-top:6px}
 }
 
+/* Calculadoras */
+.calc-wrap{padding-block:32px 56px;display:flex;flex-direction:column;gap:22px}
+.calc-sw{display:inline-flex;align-self:flex-start;flex-wrap:wrap;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--surface);max-width:100%}
+.calc-sw button{font:600 15px var(--body);border:0;background:none;color:var(--mute);padding:10px 18px;border-radius:999px;cursor:pointer}
+.calc-sw button[aria-selected=true]{background:var(--head);color:var(--head-fg)}
+.calc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start}
+@media (max-width:860px){.calc-grid{grid-template-columns:minmax(0,1fr)}}
+.calc-res{display:flex;flex-direction:column;gap:14px}
+.calc-res .lbl{font-size:13px;color:var(--mute);letter-spacing:.04em}
+.calc-res .big{font:600 clamp(32px,4.2vw,44px)/1.1 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.calc-res .facts div{padding:10px 0}
+.calc-res details{border-top:1px solid var(--line);padding-top:10px}
+.calc-res summary{cursor:pointer;font-weight:500;font-size:15px}
+.calc-res .tablewrap{max-height:340px;overflow:auto;margin-top:8px}
+.calc-res .vazio{color:var(--mute);margin:0}
+.calc-aviso{font-size:13px;color:var(--warn);margin:0}
+.calc-tab td:first-child small{display:block;color:var(--mute);font-size:12px}
+.calc-note{margin-top:0}
+.calc-wrap input[type=month],.calc-wrap input[type=date]{width:100%;min-width:0;font:500 17px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:11px 12px;min-height:48px;-webkit-appearance:none;appearance:none}
+.calc-note a{color:var(--fg)}
+@media (max-width:520px){.calc-sw{border-radius:12px}.calc-sw button{flex:1 1 auto;border-radius:9px;padding:9px 12px;font-size:14px}}
 /* Aba Instalar no celular */
 .app-wrap{padding-block:32px 56px;display:flex;flex-direction:column;gap:24px}
 .app-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:center}
@@ -530,7 +551,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   <a class="site-btn" href="https://www.besthomesimoveis.com.br/" target="_blank" rel="noopener">Acesse nosso site <span aria-hidden="true">↗</span></a></div>
   <div class="intro-h"><h1 id="hH">Quanto fica a <em>sua parcela?</em></h1>
   <p id="hP">Simule o financiamento do seu imóvel com as taxas de referência dos principais bancos. É uma estimativa: a simulação oficial é feita pelo nosso correspondente bancário.</p></div>
-  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#avaliar">Avaliar imóvel</a><a href="#app">Instalar no celular</a><a href="#corretores">Escolha seu corretor</a><a href="#noticias">Notícias</a><a href="#semana">Notícias da semana</a><a href="#videos">Vídeos</a><a href="#construcao">Arquitetura e Construção</a><a href="#academia">Para corretores</a></nav>
+  <nav class="tabs" aria-label="Seções"><a href="#simulador" aria-current="page">Simulador</a><a href="#avaliar">Avaliar imóvel</a><a href="#calc">Calculadoras</a><a href="#app">Instalar no celular</a><a href="#corretores">Escolha seu corretor</a><a href="#noticias">Notícias</a><a href="#semana">Notícias da semana</a><a href="#videos">Vídeos</a><a href="#construcao">Arquitetura e Construção</a><a href="#academia">Para corretores</a></nav>
 </div></header>
 
 <main id="tab-simulador"><div class="wrap">
@@ -756,6 +777,48 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
   <ol class="app-steps" id="appIos" role="tabpanel" aria-labelledby="soIos"></ol>
   <ol class="app-steps" id="appAnd" role="tabpanel" aria-labelledby="soAnd" hidden></ol>
   <div class="app-dicas panel"><h3 class="av-h3">Não encontrou a opção?</h3><ul id="appDicas"></ul></div>
+</div></section>
+<section id="tab-calc" hidden aria-label="Calculadoras"><div class="wrap calc-wrap">
+  <div class="calc-sw" role="tablist" aria-label="Escolha a calculadora">
+    <button type="button" role="tab" aria-selected="true" data-c="corr">Corrigir um valor</button>
+    <button type="button" role="tab" aria-selected="false" data-c="alug">Reajuste de aluguel</button>
+    <button type="button" role="tab" aria-selected="false" data-c="tab">Índices do mês</button>
+  </div>
+  <div class="calc-grid" id="c-corr">
+    <form class="panel" id="fCorr" novalidate>
+      <h2>Correção de valores</h2>
+      <p class="intro">Atualize um valor do passado por um índice oficial ou pela poupança, como na Calculadora do Cidadão do Banco Central.</p>
+      <div class="field"><label for="cIdx">Corrigir pelo</label><select id="cIdx"></select></div>
+      <div class="field"><label for="cVal">Valor a corrigir</label><div class="money"><span>R$</span><input id="cVal" type="text" inputmode="decimal" value="100.000,00" autocomplete="off"></div></div>
+      <div class="row2">
+        <div class="field"><label for="cIni" id="lIni">Mês inicial</label><input id="cIni" type="month"></div>
+        <div class="field"><label for="cFim" id="lFim">Mês final</label><input id="cFim" type="month"></div>
+      </div>
+      <p class="err" id="cErr" role="alert"></p>
+      <div class="cta" style="margin-top:4px"><button class="btn" type="submit">Calcular</button></div>
+    </form>
+    <div class="panel calc-res" id="rCorr" aria-live="polite"></div>
+  </div>
+  <div class="calc-grid" id="c-alug" hidden>
+    <form class="panel" id="fAlug" novalidate>
+      <h2>Reajuste de aluguel</h2>
+      <p class="intro">Calcula o novo aluguel pelo índice do contrato, usando a variação acumulada nos 12 meses anteriores ao aniversário.</p>
+      <div class="field"><label for="aVal">Aluguel atual</label><div class="money"><span>R$</span><input id="aVal" type="text" inputmode="decimal" value="3.000,00" autocomplete="off"></div></div>
+      <div class="row2">
+        <div class="field"><label for="aIdx">Índice do contrato</label><select id="aIdx"></select></div>
+        <div class="field"><label for="aMes">Mês do reajuste</label><input id="aMes" type="month"></div>
+      </div>
+      <p class="err" id="aErr" role="alert"></p>
+      <div class="cta" style="margin-top:4px"><button class="btn" type="submit">Calcular</button></div>
+    </form>
+    <div class="panel calc-res" id="rAlug" aria-live="polite"></div>
+  </div>
+  <div class="panel" id="c-tab" hidden>
+    <h2>Índices oficiais</h2>
+    <p class="intro" id="tIntro">Variação de cada índice no último mês divulgado, no ano e em 12 meses.</p>
+    <div class="tablewrap"><table class="banks calc-tab"><thead><tr><th>Índice</th><th>Último mês</th><th>No ano</th><th>12 meses</th></tr></thead><tbody id="tIdx"></tbody></table></div>
+  </div>
+  <p class="note calc-note" id="cFonte">Carregando os índices do Banco Central…</p>
 </div></section>
 <section id="tab-noticias" hidden aria-label="Notícias do mercado imobiliário"><div class="wrap news">
   <div class="dl"><span class="ed">Mercado imobiliário · Crédito e juros</span><span class="dt" id="hoje"></span></div>
@@ -2151,6 +2214,92 @@ $("appCopia").onclick=async()=>{let ok=false;try{await navigator.clipboard.write
 HEAD.app=['Instale o portal no <em>seu celular</em>','Passo a passo ilustrado para deixar a Best Homes na tela inicial do iPhone ou do Android, com ícone próprio, como um aplicativo.'];
 }
 HEAD.academia=['Para <em>corretores</em>','Conhecimento para crescer na profissão: legislação, avaliação, mercado e argumentos para o atendimento.'];
+/* CALCULADORAS: índices oficiais do Banco Central (data/indices.json, atualizado por robô 2x ao dia; se faltar, consulta a API do BC na hora) */
+const CALC_IDX={ipca:["IPCA","inflação oficial (IBGE)",433],igpm:["IGP-M","FGV, mais usado em aluguel",189],inpc:["INPC","IBGE",188],igpdi:["IGP-DI","FGV",190],incc:["INCC","custo da construção (FGV)",192],selic:["Selic","taxa básica de juros",4390],cdi:["CDI","renda fixa",4391]};
+let IDXD=null;
+const cNum=s=>{s=String(s||"").replace(/[^\d,.-]/g,"");if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");const v=parseFloat(s);return isFinite(v)?v:NaN};
+const cMes=k=>{const [y,m]=k.split("-");return ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][+m-1]+"/"+y};
+const cData=k=>k.split("-").reverse().join("/");
+const cPct=v=>(v>=0?"":"−")+Math.abs(v).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%";
+const mAdd=(k,n)=>{let [y,m]=k.split("-").map(Number);m+=n;y+=Math.floor((m-1)/12);m=((m-1)%12+12)%12+1;return y+"-"+String(m).padStart(2,"0")};
+async function bcSGS(cod,ini,fim){const f=d=>d.toLocaleDateString("pt-BR");const r=await fetch(`https://api.bcb.gov.br/dados/serie/bcdata.sgs.${cod}/dados?formato=json&dataInicial=${f(ini)}&dataFinal=${f(fim)}`);if(!r.ok)throw r.status;return r.json()}
+async function carregaIdx(){
+  try{const r=await fetch("data/indices.json",{cache:"no-cache"});if(r.ok){IDXD=await r.json();if(IDXD&&IDXD.m&&Object.keys(IDXD.m).length)return}}catch(_){}
+  const hoje=new Date(),d={atualizado:hoje.toISOString().slice(0,10),fonte:"Banco Central do Brasil, SGS (consulta ao vivo)",m:{},poup:{}};
+  const win=[[new Date(hoje.getFullYear()-9,0,1),hoje],[new Date(2007,0,1),new Date(hoje.getFullYear()-10,11,31)]];
+  await Promise.all(Object.entries(CALC_IDX).map(async([k,v])=>{d.m[k]={};for(const [a,b] of win){try{(await bcSGS(v[2],a,b)).forEach(x=>{const [dd,mm,yy]=x.data.split("/");d.m[k][yy+"-"+mm]=+x.valor})}catch(_){}}
+    d.m[k]=Object.fromEntries(Object.entries(d.m[k]).sort())}));
+  for(const [a,b] of [[new Date(hoje.getFullYear()-9,0,1),hoje],[new Date(2012,4,4),new Date(hoje.getFullYear()-10,11,31)]]){try{(await bcSGS(195,a,b)).forEach(x=>{const [dd,mm,yy]=x.data.split("/");d.poup[yy+"-"+mm+"-"+dd]=+x.valor})}catch(_){}}
+  if(Object.values(d.m).some(s=>Object.keys(s).length))IDXD=d}
+const ultimo=k=>{const s=IDXD.m[k]||{};const ks=Object.keys(s);return ks[ks.length-1]};
+function corrigeMensal(k,v,ini,fim){const s=IDXD.m[k]||{};const ult=ultimo(k);if(!ult)return {erro:"Índice indisponível no momento."};
+  let aviso="";if(fim>ult){aviso=`O índice de ${cMes(fim)} ainda não foi divulgado. Cálculo feito até ${cMes(ult)}.`;fim=ult}
+  const pri=Object.keys(s)[0];if(ini<pri)return {erro:`A série disponível começa em ${cMes(pri)}.`};
+  if(ini>fim)return {erro:"O mês inicial precisa ser anterior ao final."};
+  let f=1,lin=[];for(let m=ini;m<=fim;m=mAdd(m,1)){if(!(m in s))return {erro:`Falta o índice de ${cMes(m)}.`};f*=1+s[m]/100;lin.push([cMes(m),s[m],f])}
+  return {f,lin,meses:lin.length,ini,fim,aviso,per:`${cMes(ini)} a ${cMes(fim)}`}}
+function corrigePoup(v,ini,fim){const p=IDXD.poup||{};const ks=Object.keys(p);if(!ks.length)return {erro:"Rendimento da poupança indisponível no momento."};
+  if(ini<"2012-05-04")return {erro:"Para datas antes de 04/05/2012 vale a regra antiga da poupança. Use a calculadora do Banco Central."};
+  if(fim<=ini)return {erro:"A data final precisa ser posterior à inicial."};
+  let [y,m,d]=ini.split("-").map(Number);if(d>28){d=1;m++;if(m>12){m=1;y++}}
+  const dk=(y,m)=>`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  let f=1,lin=[],cur=dk(y,m),aviso="";
+  for(;;){let ny=y,nm=m+1;if(nm>12){nm=1;ny++}const nx=dk(ny,nm);if(nx>fim)break;
+    if(!(cur in p)){aviso=`O rendimento de ${cData(cur)} ainda não foi divulgado. Cálculo feito até essa data.`;break}
+    f*=1+p[cur]/100;lin.push([cData(cur),p[cur],f]);y=ny;m=nm;cur=nx}
+  if(!lin.length)return {erro:aviso||"O período precisa ter pelo menos um aniversário completo (1 mês)."};
+  return {f,lin,meses:lin.length,aviso,per:`${cData(ini)} a ${cData(cur)}`}}
+function resCorr(){const k=$("cIdx").value,v=cNum($("cVal").value),ini=$("cIni").value,fim=$("cFim").value;$("cErr").textContent="";
+  if(!IDXD){$("rCorr").innerHTML='<p class="vazio">Os índices ainda estão carregando. Tente de novo em instantes.</p>';return}
+  if(!(v>0)){$("cErr").textContent="Informe o valor.";return}if(!ini||!fim){$("cErr").textContent="Informe as duas datas.";return}
+  const r=k==="poup"?corrigePoup(v,ini,fim):corrigeMensal(k,v,ini,fim);
+  if(r.erro){$("rCorr").innerHTML=`<p class="vazio">${r.erro}</p>`;return}
+  const nome=k==="poup"?"Poupança":CALC_IDX[k][0];
+  $("rCorr").innerHTML=`<span class="lbl">VALOR CORRIGIDO ${k==="poup"?"PELA POUPANÇA":"PELO "+nome}</span><div class="big">${brl2(v*r.f)}</div>
+    ${r.aviso?`<p class="calc-aviso">${r.aviso}</p>`:""}
+    <div class="facts"><div><span>Valor original</span><b>${brl2(v)}</b></div><div><span>Período</span><b>${r.per}</b></div>
+    <div><span>Variação no período</span><b>${cPct((r.f-1)*100)}</b></div><div><span>Fator acumulado</span><b>${r.f.toLocaleString("pt-BR",{minimumFractionDigits:7,maximumFractionDigits:7})}</b></div>
+    <div><span>${k==="poup"?"Aniversários":"Meses"}</span><b>${r.meses}</b></div><div><span>Diferença</span><b>${brl2(v*r.f-v)}</b></div></div>
+    <details><summary>Ver ${k==="poup"?"aniversário a aniversário":"mês a mês"}</summary><div class="tablewrap"><table class="banks"><thead><tr><th>${k==="poup"?"Aniversário":"Mês"}</th><th>Taxa</th><th>Valor</th></tr></thead><tbody>
+    ${r.lin.map(x=>`<tr><td>${x[0]}</td><td>${cPct(x[1])}</td><td>${brl2(v*x[2])}</td></tr>`).join("")}</tbody></table></div></details>`}
+function resAlug(){const k=$("aIdx").value,v=cNum($("aVal").value),mes=$("aMes").value;$("aErr").textContent="";
+  if(!IDXD){$("rAlug").innerHTML='<p class="vazio">Os índices ainda estão carregando. Tente de novo em instantes.</p>';return}
+  if(!(v>0)){$("aErr").textContent="Informe o aluguel atual.";return}if(!mes){$("aErr").textContent="Informe o mês do reajuste.";return}
+  let fim=mAdd(mes,-1),aviso="";const ult=ultimo(k);
+  if(fim>ult){aviso=`O ${CALC_IDX[k][0]} de ${cMes(fim)} ainda não saiu. Usamos os 12 meses até ${cMes(ult)}, como muitos contratos preveem; confira a cláusula do seu.`;fim=ult}
+  const r=corrigeMensal(k,v,mAdd(fim,-11),fim);if(r.erro){$("rAlug").innerHTML=`<p class="vazio">${r.erro}</p>`;return}
+  const pc=(r.f-1)*100,nv=pc<0?v:v*r.f;
+  $("rAlug").innerHTML=`<span class="lbl">NOVO ALUGUEL A PARTIR DE ${cMes(mes).toUpperCase()}</span><div class="big">${brl2(nv)}</div>
+    ${aviso?`<p class="calc-aviso">${aviso}</p>`:""}
+    ${pc<0?`<p class="calc-aviso">O ${CALC_IDX[k][0]} ficou negativo em 12 meses (${cPct(pc)}). Em geral o aluguel é mantido; a redução depende do contrato e de acordo entre as partes.</p>`:""}
+    <div class="facts"><div><span>Aluguel atual</span><b>${brl2(v)}</b></div><div><span>${CALC_IDX[k][0]} em 12 meses</span><b>${cPct(pc)}</b></div>
+    <div><span>Período do índice</span><b>${r.per}</b></div><div><span>Aumento mensal</span><b>${brl2(nv-v)}</b></div></div>
+    <details><summary>Ver mês a mês</summary><div class="tablewrap"><table class="banks"><thead><tr><th>Mês</th><th>Variação</th><th>Acumulado</th></tr></thead><tbody>
+    ${r.lin.map(x=>`<tr><td>${x[0]}</td><td>${cPct(x[1])}</td><td>${cPct((x[2]-1)*100)}</td></tr>`).join("")}</tbody></table></div></details>`}
+function tabIdx(){if(!IDXD)return;const acum=(s,ks)=>(ks.reduce((f,m)=>f*(1+s[m]/100),1)-1)*100;
+  $("tIdx").innerHTML=Object.entries(CALC_IDX).map(([k,v])=>{const s=IDXD.m[k]||{},u=ultimo(k);if(!u)return"";const ks=Object.keys(s);const i=ks.indexOf(u);
+    const ano=ks.filter(m=>m.slice(0,4)===u.slice(0,4)&&m<=u),d12=ks.slice(Math.max(0,i-11),i+1);
+    return `<tr><td><b>${v[0]}</b><small>${v[1]} · ${cMes(u)}</small></td><td>${cPct(s[u])}</td><td>${cPct(acum(s,ano))}</td><td>${cPct(acum(s,d12))}</td></tr>`}).join("")}
+(function(){const opts=Object.entries(CALC_IDX).map(([k,v])=>`<option value="${k}">${v[0]} · ${v[1]}</option>`).join("");
+  $("cIdx").innerHTML=opts+'<option value="poup">Poupança · rendimento por aniversário</option>';
+  $("aIdx").innerHTML=["igpm","ipca","inpc","igpdi"].map(k=>`<option value="${k}">${CALC_IDX[k][0]}</option>`).join("");
+  const h=new Date(),mk=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+  $("cIni").value=mk(new Date(h.getFullYear()-5,h.getMonth(),1));$("cFim").value=mk(new Date(h.getFullYear(),h.getMonth()-1,1));$("aMes").value=mk(new Date(h.getFullYear(),h.getMonth()+1,1));
+  const tipo=()=>{const p=$("cIdx").value==="poup",t=p?"date":"month";if($("cIni").type!==t){const a=$("cIni").value,b=$("cFim").value;$("cIni").type=t;$("cFim").type=t;
+      if(p){$("cIni").value=(a.length===7?a:a.slice(0,7))+"-10";$("cFim").value=(b.length===7?b:b.slice(0,7))+"-10"}else{$("cIni").value=a.slice(0,7);$("cFim").value=b.slice(0,7)}}
+    $("lIni").textContent=p?"Data do depósito":"Mês inicial";$("lFim").textContent=p?"Data final":"Mês final"};
+  $("cIdx").addEventListener("change",()=>{tipo();resCorr()});
+  $("fCorr").addEventListener("submit",e=>{e.preventDefault();resCorr()});$("fAlug").addEventListener("submit",e=>{e.preventDefault();resAlug()});
+  ["cIni","cFim"].forEach(id=>$(id).addEventListener("change",resCorr));["aIdx","aMes"].forEach(id=>$(id).addEventListener("change",resAlug));
+  [["cVal",resCorr],["aVal",resAlug]].forEach(([id,fn])=>$(id).addEventListener("blur",()=>{const v=cNum($(id).value);if(v>0)$(id).value=v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});fn()}));
+  document.querySelectorAll(".calc-sw button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".calc-sw button").forEach(x=>x.setAttribute("aria-selected",x===b));
+    ["corr","alug","tab"].forEach(c=>$("c-"+c).hidden=c!==b.dataset.c)}));
+  let ok=false;const vai=()=>{if(ok)return;ok=true;carregaIdx().then(()=>{
+    $("cFonte").innerHTML=IDXD?`Índices oficiais: ${esc(IDXD.fonte)}, conferidos em ${cData(IDXD.atualizado)}. Correção mensal com os meses inicial e final incluídos, como na Calculadora do Cidadão. Selic e CDI usam a taxa acumulada de cada mês. Os resultados são estimativas; para contratos e processos, confira também na <a href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormCorrecaoValores.do?method=exibirFormCorrecaoValores" target="_blank" rel="noopener">Calculadora do Cidadão</a> do Banco Central.`
+      :`Não foi possível carregar os índices agora. Use a <a href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormCorrecaoValores.do?method=exibirFormCorrecaoValores" target="_blank" rel="noopener">Calculadora do Cidadão</a> do Banco Central ou tente mais tarde.`;
+    resCorr();resAlug();tabIdx()})};
+  addEventListener("hashchange",()=>{if(location.hash==="#calc")vai()});if(location.hash==="#calc")vai();})();
+HEAD.calc=['Calculadoras <em>do mercado</em>','Corrija valores pelo IPCA, IGP-M, INCC, Selic, CDI ou poupança e calcule o reajuste do aluguel com os índices oficiais do Banco Central.'];
 function rota(){let h=location.hash.slice(1);if(!HEAD[h])h="simulador";
   Object.keys(HEAD).forEach(k=>$("tab-"+k).hidden=k!==h);
   document.querySelectorAll(".tabs a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+h?"page":"false"));

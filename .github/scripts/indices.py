@@ -44,6 +44,8 @@ def main():
                 for x in baixa(cod, a, b):
                     d, m, y = x["data"].split("/")
                     serie[f"{y}-{m}"] = round(float(x["valor"]), 4)
+            if nome in ("selic", "cdi"):  # o mês em andamento vem parcial
+                serie = {k: v for k, v in serie.items() if k < f"{hoje:%Y-%m}"}
             out["m"][nome] = dict(sorted(serie.items()))
         except Exception as e:
             print("falhou", nome, e)
