@@ -1,0 +1,31 @@
+name: Índices do Banco Central
+
+on:
+  schedule:
+    - cron: "15 9 * * *"   # 6h15 em Brasília, antes da atualização das 6h30
+    - cron: "40 18 * * *"  # 15h40 em Brasília, antes da atualização das 16h
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/scripts/indices.py"
+      - ".github/workflows/indices.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  indices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python .github/scripts/indices.py
+      - name: Grava se mudou
+        run: |
+          git add data/indices.json
+          if git diff --cached --quiet; then echo "sem mudanças"; exit 0; fi
+          git -c user.name="Best Homes" -c user.email="portal@besthomesimoveis.com.br" commit -m "Índices do Banco Central atualizados"
+          git pull --rebase origin main
+          git push origin HEAD:main
