@@ -385,6 +385,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 .calc-aviso{font-size:13px;color:var(--warn);margin:0}
 .calc-tab td:first-child small{display:block;color:var(--mute);font-size:12px}
 .calc-note{margin-top:0}
+.mais-sem{margin:22px 0 0}.mais-sem .btn{display:inline-block}
 .calc-wrap input[type=month],.calc-wrap input[type=date]{width:100%;min-width:0;font:500 17px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:11px 12px;min-height:48px;-webkit-appearance:none;appearance:none}
 .calc-note a{color:var(--fg)}
 @media (max-width:520px){.calc-sw{border-radius:12px}.calc-sw button{flex:1 1 auto;border-radius:9px;padding:9px 12px;font-size:14px}}
@@ -1720,12 +1721,16 @@ const hojeBR=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Sao_P
 const quando=d=>{const [dd,mm,aa]=d.split("/").map(Number);const n=Math.round((hojeBR-new Date(aa,mm-1,dd))/864e5);
   return n<=0?"Hoje":n===1?"Ontem":n<7?`Há ${n} dias`:d};
 const ord=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("");return p(b.d).localeCompare(p(a.d))});
-$("lista").innerHTML=ord.map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
+/* Aba Notícias: só as do dia (a data mais recente publicada); os dias anteriores ficam na aba Notícias da semana */
+const NDIA=ord.length?ord[0].d:"";const ordDia=ord.filter(n=>n.d===NDIA);
+$("ultH").textContent=quando(NDIA)==="Hoje"?"Notícias de hoje":quando(NDIA)==="Ontem"?"Notícias de ontem":"Notícias de "+NDIA.slice(0,5);
+$("lista").insertAdjacentHTML("afterend",`<p class="mais-sem"><a class="btn ghost" href="#semana">Ver as notícias dos dias anteriores</a></p>`);
+$("lista").innerHTML=ordDia.map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
   <span class="th" aria-hidden="true"><b>${esc(n.num)}</b><span>${esc(n.cap)}</span></span>
   <span class="tx"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span><span class="d">${quando(n.d)===n.d?n.d:quando(n.d)+" · "+n.d}</span></span></button></li>`).join("");
 $("lista").addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)});
 /* Carrossel de destaques (as 4 mais recentes) */
-const DEST=ord.slice(0,4);let ci=0,cOn=!RM,cT=null,cStart=0;const DUR=6500;
+const DEST=ordDia.slice(0,6);let ci=0,cOn=!RM,cT=null,cStart=0;const DUR=6500;
 $("ctrack").innerHTML=DEST.map((n,k)=>`<button type="button" class="cs" data-id="${n.id}" aria-roledescription="destaque" aria-label="${k+1} de ${DEST.length}: ${esc(n.h)}" ${k?'tabindex="-1"':''}>
   <span class="cf"><b>${esc(n.num)}</b><span>${esc(n.cap)}</span></span>
   <span class="ct"><span class="ck">${esc(n.k)}</span><span class="ch">${esc(n.h)}</span><span class="cl">${esc(n.l)}</span><span class="cd">Redação Best Homes · ${quando(n.d)}</span></span></button>`).join("");
@@ -2341,7 +2346,7 @@ rota();
 </script>
 <script>
 /* AUDIOS-INICIO (locução pronta, voz Dora/Kokoro; boletimIds = notícias cobertas pelo boletim, na ordem) */
-const AUDIOS={"voz": "Dora", "boletim": "audio/boletim-2e0e654b7b.mp3", "boletimIds": ["itau-fim-cortes-selic", "caixa-silencio-taxas", "itau-santander-sobem", "igpm-out", "secovi-jundiai-encontro", "mcmv-faixa4", "balancos-3t26", "outros-bancos", "copom-nov", "incc-out", "eleicao-juros", "bradesco-15", "ipca15-out", "mcmv-renda-21mil", "fipezap-set", "ipca-set", "poupanca-set", "abecip-ago", "leilao-caixa-out", "focus-selic-1350"], "n": {"itau-fim-cortes-selic": "audio/itau-fim-cortes-selic-6a8859e655.mp3", "caixa-silencio-taxas": "audio/caixa-silencio-taxas-16f6a44f34.mp3", "itau-santander-sobem": "audio/itau-santander-sobem-c18b927361.mp3", "ipca15-out": "audio/ipca15-out-3b85b33113.mp3", "mcmv-renda-21mil": "audio/mcmv-renda-21mil-76f6381c0a.mp3", "ipca-set": "audio/ipca-set-655a3368d5.mp3", "leilao-caixa-out": "audio/leilao-caixa-out-48439579de.mp3", "focus-selic-1350": "audio/focus-selic-1350-536ba77fe5.mp3", "igpm-out": "audio/igpm-out-0acd9f39c9.mp3", "secovi-jundiai-encontro": "audio/secovi-jundiai-encontro-e740bbfdee.mp3", "eleicao-juros": "audio/eleicao-juros-625405457c.mp3", "incc-out": "audio/incc-out-f107d4ea27.mp3", "fipezap-set": "audio/fipezap-set-0ee0f886af.mp3", "mcmv-faixa4": "audio/mcmv-faixa4-648d16c564.mp3", "balancos-3t26": "audio/balancos-3t26-ed89221ff4.mp3", "bradesco-15": "audio/bradesco-15-954da730a5.mp3", "outros-bancos": "audio/outros-bancos-92d38e266e.mp3", "copom-nov": "audio/copom-nov-685708c50b.mp3", "poupanca-set": "audio/poupanca-set-97c009220f.mp3", "abecip-ago": "audio/abecip-ago-a8626b41f5.mp3", "varanda-churrasqueira-compacta": "audio/varanda-churrasqueira-compacta-972c8d05e9.mp3", "casa-resiliente": "audio/casa-resiliente-d7b2c14f45.mp3", "planta-semiaberta": "audio/planta-semiaberta-ed466a1648.mp3", "cozinha-menos-aereos": "audio/cozinha-menos-aereos-52ced57ad1.mp3", "pantone-cloud-dancer": "audio/pantone-cloud-dancer-b8bb70a2af.mp3", "casacor-sp-2026": "audio/casacor-sp-2026-4474c2f8d3.mp3", "bienal-arquitetura-brasileira": "audio/bienal-arquitetura-brasileira-0dc652f749.mp3", "casa-impressa-3d": "audio/casa-impressa-3d-b78f7f2513.mp3", "madeira-clt": "audio/madeira-clt-f63a21a585.mp3", "carregador-eletrico-condominio": "audio/carregador-eletrico-condominio-0a76fe7f4b.mp3", "retrofit-centro-sp": "audio/retrofit-centro-sp-d4eeb6fe63.mp3", "casa-inteligente": "audio/casa-inteligente-afc5a9c0fe.mp3", "norma-desempenho-acustica": "audio/norma-desempenho-acustica-73a59ae631.mp3", "condominios-horizontais-interior": "audio/condominios-horizontais-interior-8bba07cdb9.mp3", "agua-de-chuva": "audio/agua-de-chuva-d127b78cd4.mp3", "piscinas-2026": "audio/piscinas-2026-bc0b632b3f.mp3", "porcelanato-grande-formato": "audio/porcelanato-grande-formato-cbef27ff6d.mp3", "telhado-verde-iptu": "audio/telhado-verde-iptu-c4dae91f91.mp3", "arq-tendencias-2026": "audio/arq-tendencias-2026-c021c90b70.mp3", "paisagismo-areas-externas": "audio/paisagismo-areas-externas-7080e3dd69.mp3", "steel-frame-custo": "audio/steel-frame-custo-85fee7f528.mp3", "solar-residencial-2026": "audio/solar-residencial-2026-5249e26b17.mp3", "calendario-captacao": "audio/calendario-captacao-3e37d5203b.mp3", "captacao-qualidade": "audio/captacao-qualidade-a50ffbbd8a.mp3", "credito-411-bi-atendimento": "audio/credito-411-bi-atendimento-35f21d971e.mp3", "lei-6530-modernizacao": "audio/lei-6530-modernizacao-70563c5a5c.mp3", "comissao-corretagem-stj": "audio/comissao-corretagem-stj-1ca16e465c.mp3", "concentracao-matricula": "audio/concentracao-matricula-67fdbbf310.mp3", "golpe-falso-corretor": "audio/golpe-falso-corretor-923875ea45.mp3", "airbnb-condominio-stj": "audio/airbnb-condominio-stj-8dd5e3414e.mp3", "itbi-base-calculo": "audio/itbi-base-calculo-d2bdcef377.mp3", "portabilidade-credito": "audio/portabilidade-credito-e594847b9c.mp3", "usucapiao-extrajudicial": "audio/usucapiao-extrajudicial-659d1dcfb5.mp3", "escritura-digital": "audio/escritura-digital-9b10a1538f.mp3", "lgpd-corretores": "audio/lgpd-corretores-a99c62ab3f.mp3", "fgts-compra-imovel": "audio/fgts-compra-imovel-325e4ed6a7.mp3", "consorcio-imobiliario": "audio/consorcio-imobiliario-5c655c4d8c.mp3", "garantias-locaticias": "audio/garantias-locaticias-d5799db404.mp3", "leilao-caixa-cuidados": "audio/leilao-caixa-cuidados-71c92cb3b8.mp3", "contrato-exclusividade": "audio/contrato-exclusividade-f0d5d9aa61.mp3", "resposta-rapida-leads": "audio/resposta-rapida-leads-cc351d1f3a.mp3", "video-tour-virtual": "audio/video-tour-virtual-68cde9c8bd.mp3", "reforma-tributaria-imoveis": "audio/reforma-tributaria-imoveis-d94105b6cf.mp3", "ptam-avaliacao": "audio/ptam-avaliacao-0e254970ad.mp3", "cofeci-mapeamento": "audio/cofeci-mapeamento-bf9fb4ff42.mp3", "argumento-aluguel-parcela": "audio/argumento-aluguel-parcela-b97a7d8415.mp3"}, "extra": {"construcao": {"arq": "audio/boletim-construcao-4c55d889d8.mp3", "ids": ["varanda-churrasqueira-compacta", "casa-resiliente", "planta-semiaberta", "cozinha-menos-aereos", "pantone-cloud-dancer", "casacor-sp-2026", "bienal-arquitetura-brasileira", "casa-impressa-3d", "madeira-clt", "carregador-eletrico-condominio", "retrofit-centro-sp", "casa-inteligente", "norma-desempenho-acustica", "condominios-horizontais-interior", "agua-de-chuva", "piscinas-2026", "porcelanato-grande-formato", "telhado-verde-iptu", "arq-tendencias-2026", "paisagismo-areas-externas", "steel-frame-custo", "solar-residencial-2026"]}, "academia": {"arq": "audio/boletim-academia-330a786289.mp3", "ids": ["calendario-captacao", "captacao-qualidade", "credito-411-bi-atendimento", "lei-6530-modernizacao", "comissao-corretagem-stj", "concentracao-matricula", "golpe-falso-corretor", "airbnb-condominio-stj", "itbi-base-calculo", "portabilidade-credito", "usucapiao-extrajudicial", "escritura-digital", "lgpd-corretores", "fgts-compra-imovel", "consorcio-imobiliario", "garantias-locaticias", "leilao-caixa-cuidados", "contrato-exclusividade", "resposta-rapida-leads", "video-tour-virtual", "reforma-tributaria-imoveis", "ptam-avaliacao", "cofeci-mapeamento", "argumento-aluguel-parcela"]}}};
+const AUDIOS={"voz": "Dora", "boletim": "audio/boletim-e5c785b8bb.mp3", "boletimIds": ["itau-fim-cortes-selic", "caixa-silencio-taxas"], "n": {"itau-fim-cortes-selic": "audio/itau-fim-cortes-selic-6a8859e655.mp3", "caixa-silencio-taxas": "audio/caixa-silencio-taxas-16f6a44f34.mp3", "itau-santander-sobem": "audio/itau-santander-sobem-c18b927361.mp3", "ipca15-out": "audio/ipca15-out-3b85b33113.mp3", "mcmv-renda-21mil": "audio/mcmv-renda-21mil-76f6381c0a.mp3", "ipca-set": "audio/ipca-set-655a3368d5.mp3", "leilao-caixa-out": "audio/leilao-caixa-out-48439579de.mp3", "focus-selic-1350": "audio/focus-selic-1350-536ba77fe5.mp3", "igpm-out": "audio/igpm-out-0acd9f39c9.mp3", "secovi-jundiai-encontro": "audio/secovi-jundiai-encontro-e740bbfdee.mp3", "eleicao-juros": "audio/eleicao-juros-625405457c.mp3", "incc-out": "audio/incc-out-f107d4ea27.mp3", "fipezap-set": "audio/fipezap-set-0ee0f886af.mp3", "mcmv-faixa4": "audio/mcmv-faixa4-648d16c564.mp3", "balancos-3t26": "audio/balancos-3t26-ed89221ff4.mp3", "bradesco-15": "audio/bradesco-15-954da730a5.mp3", "outros-bancos": "audio/outros-bancos-92d38e266e.mp3", "copom-nov": "audio/copom-nov-685708c50b.mp3", "poupanca-set": "audio/poupanca-set-97c009220f.mp3", "abecip-ago": "audio/abecip-ago-a8626b41f5.mp3", "varanda-churrasqueira-compacta": "audio/varanda-churrasqueira-compacta-972c8d05e9.mp3", "casa-resiliente": "audio/casa-resiliente-d7b2c14f45.mp3", "planta-semiaberta": "audio/planta-semiaberta-ed466a1648.mp3", "cozinha-menos-aereos": "audio/cozinha-menos-aereos-52ced57ad1.mp3", "pantone-cloud-dancer": "audio/pantone-cloud-dancer-b8bb70a2af.mp3", "casacor-sp-2026": "audio/casacor-sp-2026-4474c2f8d3.mp3", "bienal-arquitetura-brasileira": "audio/bienal-arquitetura-brasileira-0dc652f749.mp3", "casa-impressa-3d": "audio/casa-impressa-3d-b78f7f2513.mp3", "madeira-clt": "audio/madeira-clt-f63a21a585.mp3", "carregador-eletrico-condominio": "audio/carregador-eletrico-condominio-0a76fe7f4b.mp3", "retrofit-centro-sp": "audio/retrofit-centro-sp-d4eeb6fe63.mp3", "casa-inteligente": "audio/casa-inteligente-afc5a9c0fe.mp3", "norma-desempenho-acustica": "audio/norma-desempenho-acustica-73a59ae631.mp3", "condominios-horizontais-interior": "audio/condominios-horizontais-interior-8bba07cdb9.mp3", "agua-de-chuva": "audio/agua-de-chuva-d127b78cd4.mp3", "piscinas-2026": "audio/piscinas-2026-bc0b632b3f.mp3", "porcelanato-grande-formato": "audio/porcelanato-grande-formato-cbef27ff6d.mp3", "telhado-verde-iptu": "audio/telhado-verde-iptu-c4dae91f91.mp3", "arq-tendencias-2026": "audio/arq-tendencias-2026-c021c90b70.mp3", "paisagismo-areas-externas": "audio/paisagismo-areas-externas-7080e3dd69.mp3", "steel-frame-custo": "audio/steel-frame-custo-85fee7f528.mp3", "solar-residencial-2026": "audio/solar-residencial-2026-5249e26b17.mp3", "calendario-captacao": "audio/calendario-captacao-3e37d5203b.mp3", "captacao-qualidade": "audio/captacao-qualidade-a50ffbbd8a.mp3", "credito-411-bi-atendimento": "audio/credito-411-bi-atendimento-35f21d971e.mp3", "lei-6530-modernizacao": "audio/lei-6530-modernizacao-70563c5a5c.mp3", "comissao-corretagem-stj": "audio/comissao-corretagem-stj-1ca16e465c.mp3", "concentracao-matricula": "audio/concentracao-matricula-67fdbbf310.mp3", "golpe-falso-corretor": "audio/golpe-falso-corretor-923875ea45.mp3", "airbnb-condominio-stj": "audio/airbnb-condominio-stj-8dd5e3414e.mp3", "itbi-base-calculo": "audio/itbi-base-calculo-d2bdcef377.mp3", "portabilidade-credito": "audio/portabilidade-credito-e594847b9c.mp3", "usucapiao-extrajudicial": "audio/usucapiao-extrajudicial-659d1dcfb5.mp3", "escritura-digital": "audio/escritura-digital-9b10a1538f.mp3", "lgpd-corretores": "audio/lgpd-corretores-a99c62ab3f.mp3", "fgts-compra-imovel": "audio/fgts-compra-imovel-325e4ed6a7.mp3", "consorcio-imobiliario": "audio/consorcio-imobiliario-5c655c4d8c.mp3", "garantias-locaticias": "audio/garantias-locaticias-d5799db404.mp3", "leilao-caixa-cuidados": "audio/leilao-caixa-cuidados-71c92cb3b8.mp3", "contrato-exclusividade": "audio/contrato-exclusividade-f0d5d9aa61.mp3", "resposta-rapida-leads": "audio/resposta-rapida-leads-cc351d1f3a.mp3", "video-tour-virtual": "audio/video-tour-virtual-68cde9c8bd.mp3", "reforma-tributaria-imoveis": "audio/reforma-tributaria-imoveis-d94105b6cf.mp3", "ptam-avaliacao": "audio/ptam-avaliacao-0e254970ad.mp3", "cofeci-mapeamento": "audio/cofeci-mapeamento-bf9fb4ff42.mp3", "argumento-aluguel-parcela": "audio/argumento-aluguel-parcela-b97a7d8415.mp3"}, "extra": {"construcao": {"arq": "audio/boletim-construcao-4c55d889d8.mp3", "ids": ["varanda-churrasqueira-compacta", "casa-resiliente", "planta-semiaberta", "cozinha-menos-aereos", "pantone-cloud-dancer", "casacor-sp-2026", "bienal-arquitetura-brasileira", "casa-impressa-3d", "madeira-clt", "carregador-eletrico-condominio", "retrofit-centro-sp", "casa-inteligente", "norma-desempenho-acustica", "condominios-horizontais-interior", "agua-de-chuva", "piscinas-2026", "porcelanato-grande-formato", "telhado-verde-iptu", "arq-tendencias-2026", "paisagismo-areas-externas", "steel-frame-custo", "solar-residencial-2026"]}, "academia": {"arq": "audio/boletim-academia-330a786289.mp3", "ids": ["calendario-captacao", "captacao-qualidade", "credito-411-bi-atendimento", "lei-6530-modernizacao", "comissao-corretagem-stj", "concentracao-matricula", "golpe-falso-corretor", "airbnb-condominio-stj", "itbi-base-calculo", "portabilidade-credito", "usucapiao-extrajudicial", "escritura-digital", "lgpd-corretores", "fgts-compra-imovel", "consorcio-imobiliario", "garantias-locaticias", "leilao-caixa-cuidados", "contrato-exclusividade", "resposta-rapida-leads", "video-tour-virtual", "reforma-tributaria-imoveis", "ptam-avaliacao", "cofeci-mapeamento", "argumento-aluguel-parcela"]}}};
 /* AUDIOS-FIM */
 /* ÁUDIO-INICIO: ouvir notícias, preencher a avaliação por voz e guia do mercado (sem IA, montado com os dados do dia) */
 (()=>{
@@ -2384,12 +2389,13 @@ const MAXC=230;
 const pedacos=t=>{const fr=[];limpa(t).replace(/([.!?])\s+/g,"$1\u0001").split("\u0001").forEach(f=>{f=f.trim();if(!f)return;
   while(f.length>MAXC){let k=f.lastIndexOf(", ",MAXC);if(k<100)k=f.lastIndexOf(" ",MAXC);fr.push(f.slice(0,k+1));f=f.slice(k+1).trim()}if(f)fr.push(f)});
   const out=[];let cur="";fr.forEach(f=>{if(cur&&(cur+" "+f).length>MAXC){out.push(cur);cur=f}else cur=cur?cur+" "+f:f});if(cur)out.push(cur);return out};
-let btnAtual=null,falaId=0;
+let btnAtual=null,falaId=0,falaSeq=null,falaPos=0;
 function marca(b,on){if(!b)return;b.setAttribute("aria-pressed",on);const l=b.querySelector(".lb");if(l)l.textContent=on?(b.dataset.on||"Parar"):(b.dataset.off||"Ouvir")}
 let aud=null;
 function parar(){falaId++;if(aud){try{aud.pause()}catch(_){}aud=null}if(TTS)try{speechSynthesis.cancel()}catch(_){}marca(btnAtual,false);btnAtual=null}
 /* Toca a locução pronta (MP3); se o arquivo falhar, cai para a voz do aparelho */
-function tocaArq(src,btn,titulo,reserva){parar();const a=new Audio(src);a.preload="auto";aud=a;btnAtual=btn;marca(btn,true);
+function tocaArq(src,btn,titulo,reserva,inicio){parar();const a=new Audio(src);a.preload="auto";aud=a;btnAtual=btn;marca(btn,true);
+  if(inicio>0)a.addEventListener("loadedmetadata",()=>{try{a.currentTime=inicio}catch(_){}},{once:true});
   try{if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:titulo,artist:"Redação Best Homes",album:"Notícias do mercado imobiliário"})}catch(_){}
   const falha=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null;if(reserva)falar(reserva,btn)};
   a.onended=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null};a.onerror=falha;
@@ -2413,7 +2419,8 @@ async function falar(seq,btn){if(!TTS)return false;
   parar();const id=falaId;btnAtual=btn||null;marca(btnAtual,true);try{speechSynthesis.resume()}catch(_){}
   try{const u0=new SpeechSynthesisUtterance(" ");u0.volume=0;u0.lang="pt-BR";speechSynthesis.speak(u0)}catch(_){}
   try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume()}catch(_){}
-  for(const it of (Array.isArray(seq)?seq:[seq])){if(id!==falaId)return false;
+  const lst=Array.isArray(seq)?seq:[seq];falaSeq=lst;
+  for(let i=0;i<lst.length;i++){const it=lst[i];if(id!==falaId)return false;falaPos=i;
     if(typeof it==="number")await espera(it);else if(it==="#vinheta")await vinheta();else if(!(await bloco(it,id))&&id!==falaId)return false}
   if(id!==falaId)return false;marca(btnAtual,false);btnAtual=null;return true}
 const botaoOuvir=(id,off,on)=>`<button type="button" class="ouvir" id="${id}" aria-pressed="false" data-off="${off}" data-on="${on}"><span class="ic" aria-hidden="true"></span><span class="lb">${off}</span></button>`;
@@ -2423,15 +2430,17 @@ const P={titulo:900,paragrafo:650,noticia:1400,aposVinheta:500};
 
 /* 1. Ouvir notícias */
 const ordN=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("");return p(b.d).localeCompare(p(a.d))});
+const ordD=ordN.filter(n=>n.d===NDIA),ordP=ordN.filter(n=>n.d!==NDIA); /* do dia (boletim) e dos dias anteriores (aba Semana) */
 const dataFalada=d=>{const [dd,mm]=d.split("/").map(Number);return `${dd} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][mm-1]}`};
 if(TTS||temAud){
   document.querySelector(".news .dl").insertAdjacentHTML("beforeend",botaoOuvir("ouvirTudo","Ouvir as notícias","Parar"));
   const seqBoletim=()=>{const seq=["Olá! Estas são as notícias do mercado imobiliário, pela Redação Best Homes.",P.noticia];
-    ordN.forEach((n,k)=>{if(k)seq.push(P.noticia,"#vinheta",P.aposVinheta);
-      seq.push(`${k===0?"A primeira é de":k===ordN.length-1?"Para fechar, uma notícia de":["Agora, uma notícia de","Na sequência, também de","Seguindo, de"][k%3]} ${dataFalada(n.d)}.`,450,n.h+".",P.titulo,n.l)});
+    ordD.forEach((n,k)=>{if(k)seq.push(P.noticia,"#vinheta",P.aposVinheta);
+      seq.push(`${k===0?"A primeira é de":k===ordD.length-1?"Para fechar, uma notícia de":["Agora, uma notícia de","Na sequência, também de","Seguindo, de"][k%3]} ${dataFalada(n.d)}.`,450,n.h+".",P.titulo,n.l)});
     seq.push(P.noticia,"#vinheta",P.aposVinheta,"Para ouvir uma matéria completa, é só abrir a notícia e tocar em ouvir. Até a próxima!");return seq};
   $("ouvirTudo").onclick=e=>{const b=e.currentTarget;if(b.getAttribute("aria-pressed")==="true"){parar();return}
-    const ok=temAud&&AUDIOS.boletim&&JSON.stringify(AUDIOS.boletimIds)===JSON.stringify(ordN.map(n=>n.id));
+    const ok=temAud&&AUDIOS.boletim&&JSON.stringify(AUDIOS.boletimIds)===JSON.stringify(ordD.map(n=>n.id));
+    BOL(b,ok?AUDIOS.boletim:null,"Boletim de notícias Best Homes",seqBoletim());
     ok?tocaArq(AUDIOS.boletim,b,"Boletim de notícias Best Homes",seqBoletim()):falar(seqBoletim(),b)};
   /* 1b. Ouvir as matérias de Arquitetura e Construção e de Para corretores (boletim da aba, na ordem da lista) */
   const ABRE={construcao:"Olá! Estas são as matérias de arquitetura e construção, pela Redação Best Homes.",academia:"Olá, corretor! Estas são as matérias para quem atua no mercado imobiliário, pela Redação Best Homes."};
@@ -2442,7 +2451,8 @@ if(TTS||temAud){
       s.push(P.noticia,"#vinheta",P.aposVinheta,"Para ouvir uma matéria completa, é só abrir e tocar em ouvir. Até a próxima!");return s};
     $("ouvir-"+k).onclick=e=>{const b=e.currentTarget;if(b.getAttribute("aria-pressed")==="true"){parar();return}
       const x=temAud&&AUDIOS.extra&&AUDIOS.extra[k];const ok=x&&JSON.stringify(x.ids)===JSON.stringify(o.map(n=>n.id));
-      ok?tocaArq(x.arq,b,k==="construcao"?"Arquitetura e Construção · Best Homes":"Para corretores · Best Homes",seq()):falar(seq(),b)}});
+      const tit=k==="construcao"?"Arquitetura e Construção · Best Homes":"Para corretores · Best Homes";BOL(b,ok?x.arq:null,tit,seq());
+      ok?tocaArq(x.arq,b,tit,seq()):falar(seq(),b)}});
   const top=document.querySelector("#reader .top");const x=$("rdX");
   const acts=document.createElement("div");acts.className="acts";x.before(acts);
   acts.insertAdjacentHTML("beforeend",botaoOuvir("rdOuvir","Ouvir","Parar"));acts.append(x);
@@ -2450,7 +2460,16 @@ if(TTS||temAud){
     const seq=[n.h+".",P.titulo,n.l,P.titulo];n.b.forEach(p=>seq.push(p,P.paragrafo));seq.push(`Esta matéria teve como fontes ${lista(n.f.map(f=>f[0]))}.`);
     const b=e.currentTarget;if(b.getAttribute("aria-pressed")==="true"){parar();return}
     temAud&&AUDIOS.n[n.id]?tocaArq(AUDIOS.n[n.id],b,n.h,seq):falar(seq,b)};
-  $("reader").addEventListener("close",parar);
+  /* Ouvindo um boletim e abrindo uma matéria: o boletim pausa, a matéria completa toca e, ao fechar, o boletim continua de onde parou */
+  let bolAtual=null,pausado=null,abriu=false;
+  const BOL=(btn,src,titulo,seq)=>{bolAtual={btn,src,titulo,seq}};
+  document.addEventListener("click",e=>{abriu=false;
+    if(!$("reader").open&&bolAtual&&btnAtual===bolAtual.btn&&!e.target.closest(".ouvir")){
+      pausado={...bolAtual,t:aud?Math.max(0,aud.currentTime-1.5):0,pos:aud?0:falaPos,mp3:!!aud};abriu=true}},true);
+  document.addEventListener("click",()=>{if(!abriu)return;abriu=false;
+    if($("reader").open){const b=$("rdOuvir");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()}else pausado=null});
+  $("reader").addEventListener("close",()=>{parar();const c=pausado;pausado=null;if(!c)return;
+    if(c.mp3&&c.src)tocaArq(c.src,c.btn,c.titulo,c.seq,c.t);else falar(c.seq.slice(c.pos),c.btn)});
   addEventListener("hashchange",parar);
 }
 
@@ -2593,15 +2612,16 @@ const hoje=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Sao_Pau
 const seg=d=>{const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
 const fmt=d=>d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
 const DIAS=["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
-const semAtual=seg(hoje);const maisAntiga=ordN.length?seg(dt(ordN[ordN.length-1].d)):semAtual;
+const semAtual=seg(hoje);const maisAntiga=ordP.length?seg(dt(ordP[ordP.length-1].d)):semAtual;
 let ini=new Date(semAtual);
-if(!ordN.some(n=>dt(n.d)>=semAtual)&&ordN.length)ini=seg(dt(ordN[0].d)); /* semana sem notícias ainda: mostra a última com notícias */
+if(!ordP.some(n=>dt(n.d)>=semAtual)&&ordP.length)ini=seg(dt(ordP[0].d)); /* semana sem notícias ainda: mostra a última com notícias */
 function desenha(){parar();const fim=new Date(ini);fim.setDate(fim.getDate()+6);
   const atual=+ini===+semAtual,passada=+ini===+semAtual-7*864e5;
   $("semTit").textContent=atual?"Esta semana":passada?"Semana passada":`${fmt(ini)} a ${fmt(fim)}`;
   $("semAnt").disabled=+ini<=+maisAntiga;$("semProx").disabled=+ini>=+semAtual;
   let h="";for(let i=6;i>=0;i--){const d=new Date(ini);d.setDate(d.getDate()+i);if(d>hoje)continue;
-    const ns=ordN.filter(n=>+dt(n.d)===+d);
+    if(NDIA&&+d>=+dt(NDIA))continue; /* o dia mais recente fica na aba Notícias */
+    const ns=ordP.filter(n=>+dt(n.d)===+d);
     h+=`<section class="sdia"><h3 class="${+d===+hoje?"hoje":""}">${+d===+hoje?"Hoje":DIAS[i]}<small>${d.toLocaleDateString("pt-BR",{day:"numeric",month:"long"})}</small></h3><div class="slist">${
       ns.length?ns.map(n=>`<article class="sitem"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span>
         <div class="row">${botaoOuvir("so-"+n.id,"Ouvir","Parar")}<button type="button" class="ler" data-ler="${n.id}">Ler</button></div></article>`).join("")
