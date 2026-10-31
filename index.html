@@ -385,7 +385,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
 .calc-aviso{font-size:13px;color:var(--warn);margin:0}
 .calc-tab td:first-child small{display:block;color:var(--mute);font-size:12px}
 .calc-note{margin-top:0}
-.mais-sem{margin:22px 0 0}.mais-sem .btn{display:inline-block}
+.mais-sem{margin:22px 0 0}.sem-hoje{margin:0 0 6px;padding:16px 18px;border-radius:10px;background:var(--gold-soft);color:var(--fg)}.mais-sem .btn{display:inline-block}
 .calc-wrap input[type=month],.calc-wrap input[type=date]{width:100%;min-width:0;font:500 17px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:11px 12px;min-height:48px;-webkit-appearance:none;appearance:none}
 .calc-note a{color:var(--fg)}
 @media (max-width:520px){.calc-sw{border-radius:12px}.calc-sw button{flex:1 1 auto;border-radius:9px;padding:9px 12px;font-size:14px}}
@@ -1721,13 +1721,13 @@ const hojeBR=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Sao_P
 const quando=d=>{const [dd,mm,aa]=d.split("/").map(Number);const n=Math.round((hojeBR-new Date(aa,mm-1,dd))/864e5);
   return n<=0?"Hoje":n===1?"Ontem":n<7?`Há ${n} dias`:d};
 const ord=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("");return p(b.d).localeCompare(p(a.d))});
-/* Aba Notícias: só as do dia (a data mais recente publicada); os dias anteriores ficam na aba Notícias da semana */
-const NDIA=ord.length?ord[0].d:"";const ordDia=ord.filter(n=>n.d===NDIA);
-$("ultH").textContent=quando(NDIA)==="Hoje"?"Notícias de hoje":quando(NDIA)==="Ontem"?"Notícias de ontem":"Notícias de "+NDIA.slice(0,5);
+const NDIA=hojeBR.toLocaleDateString("pt-BR");const ordDia=ord.filter(n=>n.d===NDIA); /* só as de hoje; as dos dias anteriores ficam na aba Notícias da semana */
+$("ultH").textContent="Notícias de hoje";
 $("lista").insertAdjacentHTML("afterend",`<p class="mais-sem"><a class="btn ghost" href="#semana">Ver as notícias dos dias anteriores</a></p>`);
 $("lista").innerHTML=ordDia.map(n=>`<li><button type="button" class="it" data-id="${n.id}" data-k="${esc(n.k)}">
   <span class="th" aria-hidden="true"><b>${esc(n.num)}</b><span>${esc(n.cap)}</span></span>
   <span class="tx"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span><span class="d">${quando(n.d)===n.d?n.d:quando(n.d)+" · "+n.d}</span></span></button></li>`).join("");
+if(!ordDia.length)$("lista").insertAdjacentHTML("beforebegin",`<p class="sem-hoje">As notícias de hoje entram a partir das 6h30. Enquanto isso, as dos dias anteriores estão na aba Notícias da semana.</p>`);
 $("lista").addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)abrir(b.dataset.id)});
 /* Carrossel de destaques (as 4 mais recentes) */
 const DEST=ordDia.slice(0,6);let ci=0,cOn=!RM,cT=null,cStart=0;const DUR=6500;
@@ -1750,7 +1750,7 @@ car.addEventListener("focusin",cPause);car.addEventListener("focusout",cRun);
 let x0=null,dx=0;$("ctrack").addEventListener("pointerdown",e=>{x0=e.clientX;dx=0});
 addEventListener("pointerup",e=>{if(x0===null)return;dx=e.clientX-x0;x0=null;if(dx<-40)cGo(ci+1);else if(dx>40)cGo(ci-1);setTimeout(()=>dx=0,0)});
 document.addEventListener("visibilitychange",()=>document.hidden?cPause():cRun());
-cGo(0);
+if(DEST.length)cGo(0);else $("car").hidden=true;
 function restart(){cRun()}
 
 
@@ -2433,7 +2433,7 @@ const ordN=[...NOTICIAS].sort((a,b)=>{const p=d=>d.split("/").reverse().join("")
 const ordD=ordN.filter(n=>n.d===NDIA),ordP=ordN.filter(n=>n.d!==NDIA); /* do dia (boletim) e dos dias anteriores (aba Semana) */
 const dataFalada=d=>{const [dd,mm]=d.split("/").map(Number);return `${dd} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][mm-1]}`};
 if(TTS||temAud){
-  document.querySelector(".news .dl").insertAdjacentHTML("beforeend",botaoOuvir("ouvirTudo","Ouvir as notícias","Parar"));
+  document.querySelector(".news .dl").insertAdjacentHTML("beforeend",botaoOuvir("ouvirTudo","Ouvir as notícias","Parar"));if(!ordD.length)$("ouvirTudo").style.display="none";
   const seqBoletim=()=>{const seq=["Olá! Estas são as notícias do mercado imobiliário, pela Redação Best Homes.",P.noticia];
     ordD.forEach((n,k)=>{if(k)seq.push(P.noticia,"#vinheta",P.aposVinheta);
       seq.push(`${k===0?"A primeira é de":k===ordD.length-1?"Para fechar, uma notícia de":["Agora, uma notícia de","Na sequência, também de","Seguindo, de"][k%3]} ${dataFalada(n.d)}.`,450,n.h+".",P.titulo,n.l)});
@@ -2620,7 +2620,7 @@ function desenha(){parar();const fim=new Date(ini);fim.setDate(fim.getDate()+6);
   $("semTit").textContent=atual?"Esta semana":passada?"Semana passada":`${fmt(ini)} a ${fmt(fim)}`;
   $("semAnt").disabled=+ini<=+maisAntiga;$("semProx").disabled=+ini>=+semAtual;
   let h="";for(let i=6;i>=0;i--){const d=new Date(ini);d.setDate(d.getDate()+i);if(d>hoje)continue;
-    if(NDIA&&+d>=+dt(NDIA))continue; /* o dia mais recente fica na aba Notícias */
+    if(+d>=+dt(NDIA))continue; /* as de hoje ficam na aba Notícias */
     const ns=ordP.filter(n=>+dt(n.d)===+d);
     h+=`<section class="sdia"><h3 class="${+d===+hoje?"hoje":""}">${+d===+hoje?"Hoje":DIAS[i]}<small>${d.toLocaleDateString("pt-BR",{day:"numeric",month:"long"})}</small></h3><div class="slist">${
       ns.length?ns.map(n=>`<article class="sitem"><span class="k">${esc(n.k)}</span><span class="h">${esc(n.h)}</span><span class="l">${esc(n.l)}</span>
