@@ -767,7 +767,7 @@ img.av{object-fit:cover;width:64px;height:64px;padding:0}
       <h2 class="app-h">Deixe o portal Best Homes na tela do seu celular</h2>
       <p class="av-sub">Fica com ícone próprio, igual a um aplicativo. Um toque e você abre o simulador, o avaliador e as notícias. Não ocupa espaço e não precisa baixar nada da loja.</p></div>
     <div class="app-link"><span class="hint">Abra este link no celular:</span>
-      <code id="appUrl">https://claude.ai/artifact/6PYoAPFLnn2b2mT2M9s6Jd</code>
+      <code id="appUrl">https://portal.besthomesimoveis.com.br/</code>
       <div class="row"><button type="button" class="btn" id="appCopia">Copiar link</button><a class="btn ghost" id="appWa" target="_blank" rel="noopener">Enviar pelo WhatsApp</a></div>
       <span class="hint" id="appMsg" role="status" aria-live="polite"></span></div>
   </div>
@@ -2210,9 +2210,9 @@ const toque=(x,y)=>`<circle class="tap" cx="${x}" cy="${y}" r="13" fill="none" s
 const site=`<rect x="10" y="30" width="130" height="34" fill="${D}"/><text x="22" y="52" font-family="Manrope,sans-serif" font-size="11" font-weight="700" fill="${G}">BEST HOMES</text>
   <rect x="20" y="76" width="96" height="10" rx="3" fill="${D}"/><rect x="20" y="92" width="74" height="10" rx="3" fill="${D}"/><rect x="20" y="112" width="110" height="5" rx="2" fill="${L}"/><rect x="20" y="122" width="96" height="5" rx="2" fill="${L}"/>
   <rect x="20" y="140" width="110" height="64" rx="8" fill="#fff" stroke="${L}"/><rect x="30" y="152" width="50" height="6" rx="3" fill="${M}"/><rect x="30" y="166" width="80" height="12" rx="3" fill="${D}"/><rect x="30" y="186" width="60" height="6" rx="3" fill="${L}"/>`;
-const barraSafari=(dest)=>`<rect x="10" y="246" width="130" height="42" fill="#fff"/><rect x="20" y="252" width="110" height="14" rx="7" fill="${L}"/><text x="75" y="262" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">claude.ai</text>
+const barraSafari=(dest)=>`<rect x="10" y="246" width="130" height="42" fill="#fff"/><rect x="20" y="252" width="110" height="14" rx="7" fill="${L}"/><text x="75" y="262" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">besthomes</text>
   <g stroke="${D}" stroke-width="2" fill="none" stroke-linecap="round"><path d="M28 277 l-4 4 4 4"/><path d="M46 277 l4 4 -4 4"/><path d="M70 284 h10 v-7 M75 272 v9 M71 276 l4 -4 4 4"/><rect x="96" y="275" width="10" height="9" rx="2"/><path d="M119 280 h10"/></g>${dest?toque(75,279):""}`;
-const barraChrome=(dest)=>`<rect x="10" y="30" width="130" height="24" fill="#fff"/><rect x="18" y="35" width="98" height="14" rx="7" fill="${L}"/><text x="60" y="45" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">claude.ai</text>
+const barraChrome=(dest)=>`<rect x="10" y="30" width="130" height="24" fill="#fff"/><rect x="18" y="35" width="98" height="14" rx="7" fill="${L}"/><text x="60" y="45" text-anchor="middle" font-family="sans-serif" font-size="7" fill="${M}">besthomes</text>
   <g fill="${D}"><circle cx="129" cy="37" r="1.8"/><circle cx="129" cy="42" r="1.8"/><circle cx="129" cy="47" r="1.8"/></g>${dest?toque(129,42):""}`;
 const siteC=site.replace(/y="30" width="130" height="34"/,'y="54" width="130" height="30"').replace('y="52" font-family','y="73" font-family');
 const folha=(itens,i)=>`<rect x="10" y="12" width="130" height="276" rx="17" fill="#000" opacity=".28"/><rect x="10" y="120" width="130" height="168" rx="14" fill="#fff"/>
@@ -2249,12 +2249,14 @@ const PASSOS_APP={
     [cel(home),"Pronto!","O ícone da Best Homes aparece na tela inicial. Toque nele para abrir o portal como um app."]]};
 const pinta=(id,l)=>{$(id).innerHTML=l.map(([svg,t,x])=>`<li><div class="ph">${svg}</div><h3>${t}</h3><p>${x}</p></li>`).join("")};
 pinta("appIos",PASSOS_APP.ios);pinta("appAnd",PASSOS_APP.and);
-const DICAS={ios:["No <b>Chrome do iPhone</b>: toque no botão de compartilhar, ao lado do endereço, e depois em <b>Adicionar à Tela de Início</b>.","Se a opção não estiver na lista, role até o fim e toque em <b>Editar Ações</b> para mostrá-la.","Se o link abriu dentro do WhatsApp ou do Instagram, toque em <b>⋯</b> e escolha <b>Abrir no Safari</b> antes de começar."],
-  and:["No <b>Samsung Internet</b>: toque no menu <b>☰</b> embaixo, depois em <b>Adicionar página a</b> › <b>Tela inicial</b>.","Se o link abriu dentro do WhatsApp ou do Instagram, toque nos <b>três pontinhos</b> e escolha <b>Abrir no Chrome</b> antes de começar.","Se o ícone não apareceu, procure na última página da tela inicial ou na lista de apps."]};
+const DICAS={ios:["No <b>Chrome do iPhone</b>: toque no botão de compartilhar, ao lado do endereço, e depois em <b>Adicionar à Tela de Início</b>.","Se a opção não estiver na lista, role até o fim e toque em <b>Editar Ações</b> para mostrá-la.","Se o link abriu dentro do WhatsApp ou do Instagram, toque em <b>⋯</b> e escolha <b>Abrir no Safari</b> antes de começar.","Se o ícone ficou sem o logo da Best Homes ou abre com a tela do claude.ai, ele foi criado pelo link antigo. Apague esse ícone e adicione de novo usando o link acima."],
+  and:["No <b>Samsung Internet</b>: toque no menu <b>☰</b> embaixo, depois em <b>Adicionar página a</b> › <b>Tela inicial</b>.","Se o link abriu dentro do WhatsApp ou do Instagram, toque nos <b>três pontinhos</b> e escolha <b>Abrir no Chrome</b> antes de começar.","Se o ícone não apareceu, procure na última página da tela inicial ou na lista de apps.","Se o ícone ficou sem o logo da Best Homes ou abre com a tela do claude.ai, ele foi criado pelo link antigo. Apague esse ícone e adicione de novo usando o link acima."]};
 const so=k=>{const ios=k==="ios";$("soIos").setAttribute("aria-selected",ios);$("soAnd").setAttribute("aria-selected",!ios);$("appIos").hidden=!ios;$("appAnd").hidden=ios;
   $("appDicas").innerHTML=DICAS[k].map(x=>`<li>${x}</li>`).join("")};
 $("soIos").onclick=()=>so("ios");$("soAnd").onclick=()=>so("and");
 so(/Android/i.test(navigator.userAgent)?"and":"ios");
+/* Link de instalação: sempre o endereço do portal (tem logo próprio e abre em tela cheia). O link do claude.ai instala com o ícone e a moldura do claude.ai. */
+if(/(^|\.)besthomesimoveis\.com\.br$|\.github\.io$/.test(location.hostname))$("appUrl").textContent=location.origin+location.pathname.replace(/index\.html$/,"");
 const url=$("appUrl").textContent.trim();
 $("appWa").href="https://wa.me/?text="+encodeURIComponent("Portal Best Homes: simulador de financiamento, avaliador de imóveis e notícias do mercado. Abra e adicione à tela inicial: "+url);
 $("appCopia").onclick=async()=>{let ok=false;try{await navigator.clipboard.writeText(url);ok=true}catch(_){}
