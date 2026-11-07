@@ -2425,11 +2425,13 @@ const valoresFalados=t=>String(t).replace(RE_REAIS,(m,i,d,mu)=>{const int=parseI
   return falaReais(int,d?parseInt(d.padEnd(2,"0"),10):0)});
 const limpa=t=>valoresFalados(t).replace(/\bBest\s*Homes\b/gi,"Best Rômes").replace(/\bMinha\s+Casa,?\s+Minha\s+Vida\b|\bMCMV\b/gi,"Minha Casa Minha Vida").replace(/≈\s*/g,"cerca de ").replace(/\+\s*TR/g,"mais TR").replace(/(\d)\s*bi\b/g,"$1 bilhões").replace(/(\d)\s*mi\b/g,"$1 milhões")
   .replace(/(\d)\s*m²/g,"$1 metros quadrados").replace(/\bm²/g,"metro quadrado").replace(/\s·\s/g,", ").replace(/\s*[–—]\s*/g,", ").replace(/\s*\(([^)]*)\)/g,", $1,").replace(/[‹›↗▶■"“”]/g,"").replace(/,\s*([.,])/g,"$1").replace(/\s{2,}/g," ");
-const MAXC=230;
+const MAXC=170;
 const pedacos=t=>{const fr=[];limpa(t).replace(/([.!?])\s+/g,"$1\u0001").split("\u0001").forEach(f=>{f=f.trim();if(!f)return;
   while(f.length>MAXC){let k=f.lastIndexOf(", ",MAXC);if(k<100)k=f.lastIndexOf(" ",MAXC);fr.push(f.slice(0,k+1));f=f.slice(k+1).trim()}if(f)fr.push(f)});
   const out=[];let cur="";fr.forEach(f=>{if(cur&&(cur+" "+f).length>MAXC){out.push(cur);cur=f}else cur=cur?cur+" "+f:f});if(cur)out.push(cur);return out};
 let btnAtual=null,falaId=0,falaSeq=null,falaPos=0;
+/* Chrome no computador corta a voz depois de ~15 s de fala contínua; pausar e retomar a cada 10 s evita o corte (não se aplica ao iPhone nem ao Android) */
+if(TTS&&/Chrome/.test(navigator.userAgent)&&!/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent))setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused){speechSynthesis.pause();speechSynthesis.resume()}}catch(_){}},10000);
 function marca(b,on){if(!b)return;b.setAttribute("aria-pressed",on);const l=b.querySelector(".lb");if(l)l.textContent=on?(b.dataset.on||"Parar"):(b.dataset.off||"Ouvir")}
 let aud=null;
 function parar(){falaId++;if(aud){try{aud.pause()}catch(_){}aud=null}if(TTS)try{speechSynthesis.cancel()}catch(_){}marca(btnAtual,false);btnAtual=null}
@@ -2439,8 +2441,13 @@ function tocaArq(src,btn,titulo,reserva,inicio){parar();const a=new Audio(src);a
   try{if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:titulo,artist:"Redação Best Homes",album:"Notícias do mercado imobiliário"})}catch(_){}
   const falha=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null;if(reserva)falar(reserva,btn)};
   a.onended=()=>{if(aud!==a)return;aud=null;marca(btn,false);btnAtual=null};a.onerror=falha;
+  a.onpause=()=>{if(aud!==a||a.ended)return;marca(btn,false);const l=btn&&btn.querySelector(".lb");if(l)l.textContent="Continuar"};
+  a.onplay=()=>{if(aud===a)marca(btn,true)};
   const p=a.play();if(p&&p.catch)p.catch(falha)}
 const temAud=typeof AUDIOS!=="undefined"&&AUDIOS&&AUDIOS.n;
+/* Toque em "Continuar": retoma o MP3 pausado de onde parou, em vez de começar de novo */
+document.addEventListener("click",e=>{const b=e.target.closest(".ouvir");if(!b||b!==btnAtual||!aud||!aud.paused||aud.ended)return;
+  e.stopImmediatePropagation();e.preventDefault();const p=aud.play();if(p&&p.catch)p.catch(()=>{})},true);
 /* Locução em ritmo de rádio: blocos de fala, pausas (ms) e vinheta suave entre as notícias */
 let actx=null;
 function vinheta(){return new Promise(r=>{try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume();
@@ -2450,7 +2457,7 @@ function vinheta(){return new Promise(r=>{try{actx=actx||new (window.AudioContex
 const espera=ms=>new Promise(r=>setTimeout(r,ms));
 function bloco(texto,id){return new Promise(res=>{const ps=pedacos(texto);if(!ps.length){res(true);return}
   const v=vozBR();let feitos=0,ok=true,fim=false;const done=r=>{if(!fim){fim=true;clearTimeout(vig);res(r)}};
-  const vig=setTimeout(()=>done(true),ps.join(" ").length*95+4000);
+  const vig=setTimeout(()=>done(true),ps.join(" ").length*150+8000);
   ps.forEach(p=>{const u=new SpeechSynthesisUtterance(p);u.lang=v?v.lang:"pt-BR";if(v)u.voice=v;u.rate=0.95;u.pitch=1;
     u.onend=()=>{if(++feitos>=ps.length)done(ok)};
     u.onerror=e=>{if(e.error==="interrupted"||e.error==="canceled"){ok=false;done(false);return}if(++feitos>=ps.length)done(ok)};
@@ -2510,7 +2517,7 @@ if(TTS||temAud){
     if($("reader").open){const b=$("rdOuvir");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()}else pausado=null});
   $("reader").addEventListener("close",()=>{parar();const c=pausado;pausado=null;if(!c)return;
     if(c.mp3&&c.src)tocaArq(c.src,c.btn,c.titulo,c.seq,c.t);else falar(c.seq.slice(c.pos),c.btn)});
-  addEventListener("hashchange",parar);
+  /* trocar de aba não interrompe a leitura: o áudio segue enquanto a pessoa navega pelo portal */
 }
 
 /* Reconhecimento de voz */
